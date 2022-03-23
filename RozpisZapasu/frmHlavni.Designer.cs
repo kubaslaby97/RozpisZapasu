@@ -60,6 +60,7 @@ namespace RozpisZapasu
             this.btnSpravaTymu.TabIndex = 1;
             this.btnSpravaTymu.Text = "Správa týmů";
             this.btnSpravaTymu.UseVisualStyleBackColor = true;
+            this.btnSpravaTymu.Click += new System.EventHandler(this.btnSpravaTymu_Click);
             // 
             // btnSpravaHrist
             // 

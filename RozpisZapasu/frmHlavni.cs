@@ -47,5 +47,11 @@ namespace RozpisZapasu
         {
 
         }
+
+        private void btnSpravaTymu_Click(object sender, EventArgs e)
+        {
+            frmSprava sprava = new frmSprava();
+            sprava.Show();
+        }
     }
 }

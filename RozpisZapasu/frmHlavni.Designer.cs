@@ -34,7 +34,7 @@ namespace RozpisZapasu
             this.btnSpravaHrist = new System.Windows.Forms.Button();
             this.btnSpravaSkupin = new System.Windows.Forms.Button();
             this.grpZapasy = new System.Windows.Forms.GroupBox();
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.lsvZapasy = new System.Windows.Forms.ListView();
             this.colDomaci = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colHoste = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colCas = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -70,6 +70,7 @@ namespace RozpisZapasu
             this.btnSpravaHrist.TabIndex = 2;
             this.btnSpravaHrist.Text = "Správa hřišť";
             this.btnSpravaHrist.UseVisualStyleBackColor = true;
+            this.btnSpravaHrist.Click += new System.EventHandler(this.btnSpravaHrist_Click);
             // 
             // btnSpravaSkupin
             // 
@@ -79,10 +80,11 @@ namespace RozpisZapasu
             this.btnSpravaSkupin.TabIndex = 3;
             this.btnSpravaSkupin.Text = "Správa skupin";
             this.btnSpravaSkupin.UseVisualStyleBackColor = true;
+            this.btnSpravaSkupin.Click += new System.EventHandler(this.btnSpravaSkupin_Click);
             // 
             // grpZapasy
             // 
-            this.grpZapasy.Controls.Add(this.listView1);
+            this.grpZapasy.Controls.Add(this.lsvZapasy);
             this.grpZapasy.Location = new System.Drawing.Point(12, 12);
             this.grpZapasy.Name = "grpZapasy";
             this.grpZapasy.Size = new System.Drawing.Size(439, 385);
@@ -90,20 +92,20 @@ namespace RozpisZapasu
             this.grpZapasy.TabStop = false;
             this.grpZapasy.Text = "Zápasy";
             // 
-            // listView1
+            // lsvZapasy
             // 
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.lsvZapasy.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.colDomaci,
             this.colHoste,
             this.colCas,
             this.colHriste});
-            this.listView1.HideSelection = false;
-            this.listView1.Location = new System.Drawing.Point(6, 19);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(427, 360);
-            this.listView1.TabIndex = 0;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Details;
+            this.lsvZapasy.HideSelection = false;
+            this.lsvZapasy.Location = new System.Drawing.Point(6, 19);
+            this.lsvZapasy.Name = "lsvZapasy";
+            this.lsvZapasy.Size = new System.Drawing.Size(427, 360);
+            this.lsvZapasy.TabIndex = 0;
+            this.lsvZapasy.UseCompatibleStateImageBehavior = false;
+            this.lsvZapasy.View = System.Windows.Forms.View.Details;
             // 
             // colDomaci
             // 
@@ -151,7 +153,7 @@ namespace RozpisZapasu
         private System.Windows.Forms.Button btnSpravaHrist;
         private System.Windows.Forms.Button btnSpravaSkupin;
         private System.Windows.Forms.GroupBox grpZapasy;
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView lsvZapasy;
         private System.Windows.Forms.ColumnHeader colDomaci;
         private System.Windows.Forms.ColumnHeader colHoste;
         private System.Windows.Forms.ColumnHeader colCas;

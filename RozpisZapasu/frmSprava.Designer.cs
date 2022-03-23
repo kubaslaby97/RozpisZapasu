@@ -84,6 +84,7 @@ namespace RozpisZapasu
             this.Name = "frmSprava";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Správa";
+            this.Load += new System.EventHandler(this.frmSprava_Load);
             this.ResumeLayout(false);
 
         }

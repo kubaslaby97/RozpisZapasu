@@ -50,7 +50,19 @@ namespace RozpisZapasu
 
         private void btnSpravaTymu_Click(object sender, EventArgs e)
         {
-            frmSprava sprava = new frmSprava();
+            frmSprava sprava = new frmSprava("Správa týmů", 1);
+            sprava.Show();
+        }
+
+        private void btnSpravaHrist_Click(object sender, EventArgs e)
+        {
+            frmSprava sprava = new frmSprava("Správa hřišť", 2);
+            sprava.Show();
+        }
+
+        private void btnSpravaSkupin_Click(object sender, EventArgs e)
+        {
+            frmSprava sprava = new frmSprava("Správa skupin", 3);
             sprava.Show();
         }
     }

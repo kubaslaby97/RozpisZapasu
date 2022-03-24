@@ -45,7 +45,7 @@ namespace RozpisZapasu
 
         private void frmHlavni_Load(object sender, EventArgs e)
         {
-
+            //automaticky se načtou zápasy
         }
 
         private void btnSpravaTymu_Click(object sender, EventArgs e)

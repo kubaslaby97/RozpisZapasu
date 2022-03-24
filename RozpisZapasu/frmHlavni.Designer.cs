@@ -119,7 +119,7 @@ namespace RozpisZapasu
             // colDomaci
             // 
             this.colDomaci.Text = "Domácí";
-            this.colDomaci.Width = 90;
+            this.colDomaci.Width = 100;
             // 
             // colHoste
             // 
@@ -133,8 +133,8 @@ namespace RozpisZapasu
             // 
             // colHriste
             // 
-            this.colHriste.Text = "Hřiště";
-            this.colHriste.Width = 90;
+            this.colHriste.Text = "Hřiště/Skupina";
+            this.colHriste.Width = 100;
             // 
             // btnRozradit
             // 

@@ -65,6 +65,8 @@ namespace RozpisZapasu
                 //Easter egg
                 MessageBox.Show("Klikej si na mě jak chceš a nic nezískáš :(", "Upozornění", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
+            
+            lstPolozky.Items.Add(polozka);
         }
 
         private void btnUpravit_Click(object sender, EventArgs e)
@@ -74,17 +76,17 @@ namespace RozpisZapasu
             //tým
             if (volba == 1)
             {
-                InputBox.Show("Přidat tým", "Zadejte název týmu, který chcete přidat.", ref polozka);
+                InputBox.Show("Upravit tým", "Zadejte název týmu, který chcete upravit.", ref polozka);
             }
             //hřiště
             else if (volba == 2)
             {
-                InputBox.Show("Přidat hřiště", "Zadejte název hřiště, které chcete přidat.", ref polozka);
+                InputBox.Show("Upravit hřiště", "Zadejte název hřiště, které chcete upravit.", ref polozka);
             }
             //skupina
             else if (volba == 3)
             {
-                InputBox.Show("Přidat skupinu", "Zadejte název skupiny, kterou chcete přidat.", ref polozka);
+                InputBox.Show("Upravit skupinu", "Zadejte název skupiny, kterou chcete upravit.", ref polozka);
             }
             else
             {
@@ -100,17 +102,38 @@ namespace RozpisZapasu
             //tým
             if (volba == 1)
             {
-                MessageBox.Show("Přejete si odebrat tým " + polozka + "?", "Upozornění", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+                if(MessageBox.Show("Přejete si odebrat tým " + polozka + "?", "Upozornění", 
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
+                {
+                    if (lstPolozky.Items.Contains(polozka))
+                    {
+                        lstPolozky.Items.Remove(polozka);
+                    }
+                }  
             }
             //hřiště
             else if (volba == 2)
             {
-                MessageBox.Show("Přejete si odebrat hřiště " + polozka + "?", "Upozornění", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+                if(MessageBox.Show("Přejete si odebrat hřiště " + polozka + "?", "Upozornění", 
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
+                {
+                    if (lstPolozky.Items.Contains(polozka))
+                    {
+                        lstPolozky.Items.Remove(polozka);
+                    }
+                }
             }
             //skupina
             else if (volba == 3)
             {
-                MessageBox.Show("Přejete si odebrat skupinu " + polozka + "?", "Upozornění", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+                if(MessageBox.Show("Přejete si odebrat skupinu " + polozka + "?", "Upozornění", 
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
+                {
+                    if (lstPolozky.Items.Contains(polozka))
+                    {
+                        lstPolozky.Items.Remove(polozka);
+                    }
+                }
             }
             else
             {

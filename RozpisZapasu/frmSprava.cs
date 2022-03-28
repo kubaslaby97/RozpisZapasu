@@ -22,17 +22,28 @@ namespace RozpisZapasu
 
         private void frmSprava_Load(object sender, EventArgs e)
         {
+            //týmy
             if (volba == 1)
             {
-                //týmy
+                //styl zobrazení
+                lsvPolozky.View = View.Details;
+                //přidání sloupců
+                lsvPolozky.Columns.Add("Název").Width=120;
+                lsvPolozky.Columns.Add("Hodnocení").Width = 60;
+                lsvPolozky.Columns.Add("První zápas?").Width = 80;
+                
             }
+            //hřiště
             else if (volba == 2)
             {
-                //hřiště
+                //styl zobrazení
+                lsvPolozky.View = View.List;
             }
+            //skupiny
             else if (volba == 3)
             {
-                //skupiny
+                //styl zobrazení
+                lsvPolozky.View = View.List;
             }
             else
             {
@@ -45,15 +56,32 @@ namespace RozpisZapasu
         private void btnPridat_Click(object sender, EventArgs e)
         {
             string polozka = "";
+            string[] polozky = new string[3];
+
             //tým
             if (volba == 1)
             {
-                InputBox.Show("Přidat tým", "Zadejte název týmu, který chcete přidat.", ref polozka);
+                bool prvniZapas = false;
+                int hodnoceni = 0;
+                if(InputBoxTym.Show("Přidat tým", "Zadejte název týmu, který chcete přidat.", ref polozka, "Hodnocení týmu (1-nejhorší až 4-nejlepší)",ref hodnoceni, ref prvniZapas) == DialogResult.OK)
+                {
+                    if (hodnoceni > 4 && hodnoceni == 0)
+                    {
+                        MessageBox.Show("Hodnocení nebylo zadáno správně", "Neplatná hodnota", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
+                }
+                
             }
             //hřiště
             else if (volba == 2)
             {
                 InputBox.Show("Přidat hřiště", "Zadejte název hřiště, které chcete přidat.", ref polozka);
+                //lsvPolozky.Items.Add(polozka);
+                //ListViewItem new_item = lsvPolozky.Items.Add(polozka);
+
+                // Make the sub-items.
+                /*for (int i = 1; i < items.Length; i++)
+                    new_item.SubItems.Add(items[i]);*/
             }
             //skupina
             else if (volba == 3)
@@ -66,17 +94,19 @@ namespace RozpisZapasu
                 MessageBox.Show("Klikej si na mě jak chceš a nic nezískáš :(", "Upozornění", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             
-            lstPolozky.Items.Add(polozka);
+            lsvPolozky.Items.Add(polozka);
         }
 
         private void btnUpravit_Click(object sender, EventArgs e)
         {
-            string polozka = lstPolozky.SelectedItem.ToString();
+            string polozka = lsvPolozky.Text;
+            int polozka2 = 0;
 
             //tým
             if (volba == 1)
             {
-                InputBox.Show("Upravit tým", "Zadejte název týmu, který chcete upravit.", ref polozka);
+                bool prvniZapas = true;
+                InputBoxTym.Show("Upravit tým", "Zadejte název týmu, který chcete upravit.", ref polozka, "Hodnocení týmu", ref polozka2, ref prvniZapas);
             }
             //hřiště
             else if (volba == 2)
@@ -97,7 +127,7 @@ namespace RozpisZapasu
 
         private void btnOdebrat_Click(object sender, EventArgs e)
         {
-            string polozka = lstPolozky.SelectedItem.ToString();
+            string polozka = lsvPolozky.Text;
 
             //tým
             if (volba == 1)
@@ -105,10 +135,7 @@ namespace RozpisZapasu
                 if(MessageBox.Show("Přejete si odebrat tým " + polozka + "?", "Upozornění", 
                     MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
                 {
-                    if (lstPolozky.Items.Contains(polozka))
-                    {
-                        lstPolozky.Items.Remove(polozka);
-                    }
+                    
                 }  
             }
             //hřiště
@@ -117,10 +144,7 @@ namespace RozpisZapasu
                 if(MessageBox.Show("Přejete si odebrat hřiště " + polozka + "?", "Upozornění", 
                     MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
                 {
-                    if (lstPolozky.Items.Contains(polozka))
-                    {
-                        lstPolozky.Items.Remove(polozka);
-                    }
+                    
                 }
             }
             //skupina
@@ -129,10 +153,7 @@ namespace RozpisZapasu
                 if(MessageBox.Show("Přejete si odebrat skupinu " + polozka + "?", "Upozornění", 
                     MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
                 {
-                    if (lstPolozky.Items.Contains(polozka))
-                    {
-                        lstPolozky.Items.Remove(polozka);
-                    }
+                    //lsvPolozky.Items.RemoveAt();
                 }
             }
             else

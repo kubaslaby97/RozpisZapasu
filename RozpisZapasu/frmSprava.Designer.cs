@@ -32,15 +32,14 @@ namespace RozpisZapasu
             this.btnPridat = new System.Windows.Forms.Button();
             this.btnUpravit = new System.Windows.Forms.Button();
             this.btnOdebrat = new System.Windows.Forms.Button();
-            this.lstPolozky = new System.Windows.Forms.ListBox();
+            this.lsvPolozky = new System.Windows.Forms.ListView();
             this.SuspendLayout();
             // 
             // btnPridat
             // 
-            this.btnPridat.Location = new System.Drawing.Point(116, 306);
-            this.btnPridat.Margin = new System.Windows.Forms.Padding(4);
+            this.btnPridat.Location = new System.Drawing.Point(87, 249);
             this.btnPridat.Name = "btnPridat";
-            this.btnPridat.Size = new System.Drawing.Size(85, 28);
+            this.btnPridat.Size = new System.Drawing.Size(64, 23);
             this.btnPridat.TabIndex = 0;
             this.btnPridat.Text = "Přidat";
             this.btnPridat.UseVisualStyleBackColor = true;
@@ -48,10 +47,9 @@ namespace RozpisZapasu
             // 
             // btnUpravit
             // 
-            this.btnUpravit.Location = new System.Drawing.Point(209, 306);
-            this.btnUpravit.Margin = new System.Windows.Forms.Padding(4);
+            this.btnUpravit.Location = new System.Drawing.Point(157, 249);
             this.btnUpravit.Name = "btnUpravit";
-            this.btnUpravit.Size = new System.Drawing.Size(85, 28);
+            this.btnUpravit.Size = new System.Drawing.Size(64, 23);
             this.btnUpravit.TabIndex = 1;
             this.btnUpravit.Text = "Upravit";
             this.btnUpravit.UseVisualStyleBackColor = true;
@@ -59,39 +57,34 @@ namespace RozpisZapasu
             // 
             // btnOdebrat
             // 
-            this.btnOdebrat.Location = new System.Drawing.Point(303, 306);
-            this.btnOdebrat.Margin = new System.Windows.Forms.Padding(4);
+            this.btnOdebrat.Location = new System.Drawing.Point(227, 249);
             this.btnOdebrat.Name = "btnOdebrat";
-            this.btnOdebrat.Size = new System.Drawing.Size(85, 28);
+            this.btnOdebrat.Size = new System.Drawing.Size(64, 23);
             this.btnOdebrat.TabIndex = 2;
             this.btnOdebrat.Text = "Odebrat";
             this.btnOdebrat.UseVisualStyleBackColor = true;
             this.btnOdebrat.Click += new System.EventHandler(this.btnOdebrat_Click);
             // 
-            // lstPolozky
+            // lsvPolozky
             // 
-            this.lstPolozky.FormattingEnabled = true;
-            this.lstPolozky.ItemHeight = 16;
-            this.lstPolozky.Items.AddRange(new object[] {
-            "Položka 1",
-            "Doložka 2"});
-            this.lstPolozky.Location = new System.Drawing.Point(16, 15);
-            this.lstPolozky.Margin = new System.Windows.Forms.Padding(4);
-            this.lstPolozky.Name = "lstPolozky";
-            this.lstPolozky.Size = new System.Drawing.Size(371, 276);
-            this.lstPolozky.TabIndex = 3;
+            this.lsvPolozky.HideSelection = false;
+            this.lsvPolozky.Location = new System.Drawing.Point(12, 12);
+            this.lsvPolozky.Name = "lsvPolozky";
+            this.lsvPolozky.Size = new System.Drawing.Size(279, 231);
+            this.lsvPolozky.TabIndex = 4;
+            this.lsvPolozky.UseCompatibleStateImageBehavior = false;
+            this.lsvPolozky.View = System.Windows.Forms.View.Details;
             // 
             // frmSprava
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(404, 350);
-            this.Controls.Add(this.lstPolozky);
+            this.ClientSize = new System.Drawing.Size(303, 284);
+            this.Controls.Add(this.lsvPolozky);
             this.Controls.Add(this.btnOdebrat);
             this.Controls.Add(this.btnUpravit);
             this.Controls.Add(this.btnPridat);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.Name = "frmSprava";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -106,6 +99,6 @@ namespace RozpisZapasu
         private System.Windows.Forms.Button btnPridat;
         private System.Windows.Forms.Button btnUpravit;
         private System.Windows.Forms.Button btnOdebrat;
-        private System.Windows.Forms.ListBox lstPolozky;
+        private System.Windows.Forms.ListView lsvPolozky;
     }
 }

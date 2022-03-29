@@ -20,16 +20,22 @@ namespace RozpisZapasu
             this.volba = volba;
         }
 
+        InputBoxValidation overeni = delegate (string val) {
+            if (val == "")
+                return "Hodnota nemůže být prázdná";
+            return "";
+        };
+
         private void frmSprava_Load(object sender, EventArgs e)
         {
-            //týmy
+            //tým
             if (volba == 1)
             {
                 //styl zobrazení
                 lsvPolozky.View = View.Details;
                 //přidání sloupců
-                lsvPolozky.Columns.Add("Název").Width=120;
-                lsvPolozky.Columns.Add("Hodnocení").Width = 60;
+                lsvPolozky.Columns.Add("Název").Width=110;
+                lsvPolozky.Columns.Add("Hodnocení").Width = 70;
                 lsvPolozky.Columns.Add("První zápas?").Width = 80;
                 
             }
@@ -39,7 +45,7 @@ namespace RozpisZapasu
                 //styl zobrazení
                 lsvPolozky.View = View.List;
             }
-            //skupiny
+            //skupina
             else if (volba == 3)
             {
                 //styl zobrazení
@@ -56,83 +62,90 @@ namespace RozpisZapasu
         private void btnPridat_Click(object sender, EventArgs e)
         {
             string polozka = "";
-            string[] polozky = new string[3];
 
             //tým
             if (volba == 1)
             {
                 bool prvniZapas = false;
                 int hodnoceni = 0;
-                if(InputBoxTym.Show("Přidat tým", "Zadejte název týmu, který chcete přidat.", ref polozka, "Hodnocení týmu (1-nejhorší až 4-nejlepší)",ref hodnoceni, ref prvniZapas) == DialogResult.OK)
+
+                if (InputBoxTym.Show("Přidat tým", "Zadejte název týmu, který chcete přidat.", ref polozka, "Hodnocení týmu (1-nejhorší až 4-nejlepší)",
+                    ref hodnoceni, ref prvniZapas, overeni) == DialogResult.OK)
                 {
-                    if (hodnoceni > 4 && hodnoceni == 0)
-                    {
-                        MessageBox.Show("Hodnocení nebylo zadáno správně", "Neplatná hodnota", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    }
-                }
-                
+                    string[] row = { polozka, hodnoceni.ToString(), prvniZapas.ToString() };
+                    var lvi = new ListViewItem(row);
+                    lsvPolozky.Items.Add(lvi);
+                }                
             }
             //hřiště
             else if (volba == 2)
             {
-                InputBox.Show("Přidat hřiště", "Zadejte název hřiště, které chcete přidat.", ref polozka);
-                //lsvPolozky.Items.Add(polozka);
-                //ListViewItem new_item = lsvPolozky.Items.Add(polozka);
-
-                // Make the sub-items.
-                /*for (int i = 1; i < items.Length; i++)
-                    new_item.SubItems.Add(items[i]);*/
+                if(InputBox.Show("Přidat hřiště", "Zadejte název hřiště, které chcete přidat.", ref polozka, overeni) == DialogResult.OK)
+                {
+                    lsvPolozky.Items.Add(polozka);
+                }
             }
             //skupina
             else if (volba == 3)
             {
-                InputBox.Show("Přidat skupinu", "Zadejte název skupiny, kterou chcete přidat.", ref polozka);
+                if (InputBox.Show("Přidat skupinu", "Zadejte název skupiny, kterou chcete přidat.", ref polozka, overeni) == DialogResult.OK)
+                {
+                    lsvPolozky.Items.Add(polozka);
+                }
             }
             else
             {
                 //Easter egg
-                MessageBox.Show("Klikej si na mě jak chceš a nic nezískáš :(", "Upozornění", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Klikej si na mě jak chceš a nic nezískáš :(", "Info", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
-            
-            lsvPolozky.Items.Add(polozka);
         }
 
         private void btnUpravit_Click(object sender, EventArgs e)
         {
-            string polozka = lsvPolozky.Text;
-            int polozka2 = 0;
+            string polozka = lsvPolozky.SelectedItems[0].SubItems[0].Text;
 
             //tým
             if (volba == 1)
             {
-                bool prvniZapas = true;
-                InputBoxTym.Show("Upravit tým", "Zadejte název týmu, který chcete upravit.", ref polozka, "Hodnocení týmu", ref polozka2, ref prvniZapas);
+                int hodnoceni = int.Parse(lsvPolozky.SelectedItems[0].SubItems[1].Text);
+                bool prvniZapas = bool.Parse(lsvPolozky.SelectedItems[0].SubItems[2].Text);
+                if (InputBoxTym.Show("Upravit tým", "Zadejte název týmu, který chcete upravit.", ref polozka, "Hodnocení týmu", 
+                    ref hodnoceni, ref prvniZapas, overeni) == DialogResult.OK)
+                {
+
+                }
             }
             //hřiště
             else if (volba == 2)
             {
-                InputBox.Show("Upravit hřiště", "Zadejte název hřiště, které chcete upravit.", ref polozka);
+                if (InputBox.Show("Upravit hřiště", "Zadejte název hřiště, které chcete upravit.", ref polozka, overeni) == DialogResult.OK)
+                {
+
+                }
             }
             //skupina
             else if (volba == 3)
             {
-                InputBox.Show("Upravit skupinu", "Zadejte název skupiny, kterou chcete upravit.", ref polozka);
+                if (InputBox.Show("Upravit skupinu", "Zadejte název skupiny, kterou chcete upravit.", ref polozka, overeni) == DialogResult.OK)
+                {
+
+                }
             }
             else
             {
                 //Easter egg
-                MessageBox.Show("Klikej si na mě jak chceš a nic tím nezískáš :(", "Upozornění", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Klikej si na mě jak chceš a nic tím nezískáš :(", "Info", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 
         private void btnOdebrat_Click(object sender, EventArgs e)
         {
-            string polozka = lsvPolozky.Text;
+            string polozka = lsvPolozky.SelectedItems[0].SubItems[0].Text; ;
 
             //tým
             if (volba == 1)
             {
-                if(MessageBox.Show("Přejete si odebrat tým " + polozka + "?", "Upozornění", 
+                if(MessageBox.Show("Přejete si odebrat tým '" + polozka + "'?", "Upozornění", 
                     MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
                 {
                     
@@ -141,7 +154,7 @@ namespace RozpisZapasu
             //hřiště
             else if (volba == 2)
             {
-                if(MessageBox.Show("Přejete si odebrat hřiště " + polozka + "?", "Upozornění", 
+                if(MessageBox.Show("Přejete si odebrat hřiště '" + polozka + "'?", "Upozornění", 
                     MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
                 {
                     
@@ -150,7 +163,7 @@ namespace RozpisZapasu
             //skupina
             else if (volba == 3)
             {
-                if(MessageBox.Show("Přejete si odebrat skupinu " + polozka + "?", "Upozornění", 
+                if(MessageBox.Show("Přejete si odebrat skupinu '" + polozka + "'?", "Upozornění", 
                     MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
                 {
                     //lsvPolozky.Items.RemoveAt();
@@ -159,7 +172,31 @@ namespace RozpisZapasu
             else
             {
                 //Easter egg
-                MessageBox.Show("Klikej si na mě jak chceš a nic tím nezískáš :(", "Upozornění", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Klikej si na mě jak chceš a nic tím nezískáš :(", "Info", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+
+        private void btnUlozit_Click(object sender, EventArgs e)
+        {
+            //tým
+            if (volba == 1)
+            {
+
+            }
+            //hřiště
+            else if (volba == 2)
+            {
+
+            }
+            //skupina
+            else if (volba == 3)
+            {
+
+            }
+            else
+            {
+                //Easter egg
+                MessageBox.Show("Nic tu není co bych ti uložil. Jedině zlatou cihlu ti mohu uložit. :D", "Info", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
     }

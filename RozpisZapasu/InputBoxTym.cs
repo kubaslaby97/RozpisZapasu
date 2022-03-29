@@ -26,6 +26,8 @@ public class InputBoxTym
         textBox.Text = hodnota1;
         label2.Text = textZpravy2;
         numericUp.Value = hodnota2;
+        numericUp.Minimum = 1;
+        numericUp.Maximum = 4;
         checkBox.Text = "První zápas?";
         checkBox.Checked = hodnota3;
 
@@ -74,6 +76,8 @@ public class InputBoxTym
         }
         DialogResult dialogResult = form.ShowDialog();
         hodnota1 = textBox.Text;
+        hodnota2 = (int)numericUp.Value;
+        hodnota3 = checkBox.Checked;
         return dialogResult;
     }
 }

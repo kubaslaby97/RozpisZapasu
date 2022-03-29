@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 using System.Xml.Linq;
 
 namespace RozpisZapasu
@@ -30,70 +31,33 @@ namespace RozpisZapasu
 
         private void frmSprava_Load(object sender, EventArgs e)
         {
-            try
+            //tým
+            if (volba == 1)
             {
-                XDocument dokument = XDocument.Load(Application.StartupPath + "\\sprava.xml");
-                //tým
-                if (volba == 1)
-                {
-                    //styl zobrazení
-                    lsvPolozky.View = View.Details;
-                    //přidání sloupců
-                    lsvPolozky.Columns.Add("Název").Width = 110;
-                    lsvPolozky.Columns.Add("Hodnocení").Width = 70;
-                    lsvPolozky.Columns.Add("První zápas?").Width = 80;
-
-                    //naplnění seznamu týmů
-                    foreach (var polozka in dokument.Descendants("Tym"))
-                    {
-                        ListViewItem lvi;
-
-                        lvi = new ListViewItem(polozka.Element("Nazev").Value);
-                        lvi.SubItems.Add(polozka.Element("Hodnoceni").Value);
-                        lvi.SubItems.Add(polozka.Element("HratPrvni").Value);
-
-                        lsvPolozky.Items.Add(lvi);
-                    }
-
-                }
-                //hřiště
-                else if (volba == 2)
-                {
-                    //styl zobrazení
-                    lsvPolozky.View = View.List;
-
-                    //naplnění seznamu hřišť
-                    foreach (var polozka in dokument.Descendants("Hriste"))
-                    {
-                        lsvPolozky.Items.Add(polozka.Element("Nazev").Value);
-                    }
-                }
-                //skupina
-                else if (volba == 3)
-                {
-                    //styl zobrazení
-                    lsvPolozky.View = View.List;
-
-                    //naplnění seznamu skupin
-                    foreach (var polozka in dokument.Descendants("Hriste"))
-                    {
-                        lsvPolozky.Items.Add(polozka.Element("Nazev").Value);
-                    }
-                }
-                else
-                {
-                    //Easter egg
-                    MessageBox.Show("Blbě sis vybral, končím s tebou", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    MessageBox.Show("Ještě jsem s tebou neskončil", "Informace", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+                //styl zobrazení
+                lsvPolozky.View = View.Details;
+                //přidání sloupců
+                lsvPolozky.Columns.Add("Název").Width = 110;
+                lsvPolozky.Columns.Add("Hodnocení").Width = 70;
+                lsvPolozky.Columns.Add("První zápas?").Width = 80;
             }
-            catch (FileNotFoundException)
+            //hřiště
+            else if (volba == 2)
             {
-                MessageBox.Show("Soubor neexistuje", "Neexistující soubor", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                //styl zobrazení
+                lsvPolozky.View = View.List;
             }
-            catch (NullReferenceException)
+            //skupina
+            else if (volba == 3)
             {
-                MessageBox.Show("Soubor není platný", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                //styl zobrazení
+                lsvPolozky.View = View.List;
+            }
+            else
+            {
+                //Easter egg
+                MessageBox.Show("Blbě sis vybral, končím s tebou", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Ještě jsem s tebou neskončil", "Informace", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -110,8 +74,12 @@ namespace RozpisZapasu
                 if (InputBoxTym.Show("Přidat tým", "Zadejte název týmu, který chcete přidat.", ref polozka, "Hodnocení týmu (1-nejhorší až 4-nejlepší)",
                     ref hodnoceni, ref prvniZapas, overeni) == DialogResult.OK)
                 {
-                    string[] row = { polozka, hodnoceni.ToString(), prvniZapas.ToString() };
-                    var lvi = new ListViewItem(row);
+                    ListViewItem lvi;
+
+                    lvi = new ListViewItem(polozka);
+                    lvi.SubItems.Add(hodnoceni.ToString());
+                    lvi.SubItems.Add(prvniZapas.ToString());
+
                     lsvPolozky.Items.Add(lvi);
                 }                
             }
@@ -218,26 +186,41 @@ namespace RozpisZapasu
 
         private void btnUlozit_Click(object sender, EventArgs e)
         {
+            XDocument dokument = new XDocument();
+            XElement koren = new XElement("Sprava");
+            
             //tým
             if (volba == 1)
             {
-                
+                XElement potomek = new XElement("Tym");
+                potomek.Add(new XElement("Nazev", 90));
+                potomek.Add(new XElement("Hodnoceni", 33));
+                potomek.Add(new XElement("HratPrvni", 3));
+                koren.Add(potomek);
             }
             //hřiště
             else if (volba == 2)
             {
-
+                XElement potomek2 = new XElement("Hriste");
+                potomek2.Add(new XElement("Nazev", 90));
+                koren.Add(potomek2);
             }
             //skupina
             else if (volba == 3)
             {
-
+                XElement potomek3 = new XElement("Tym");
+                potomek3.Add(new XElement("Nazev", 90));
+                koren.Add(potomek3);
             }
             else
             {
                 //Easter egg
                 MessageBox.Show("Nic tu není co bych ti uložil. Jedině zlatou cihlu ti mohu uložit. :D", "Info", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
+
+            dokument.Add(koren);
+            dokument.Save(Application.StartupPath + "\\sprava.xml");
+            MessageBox.Show("Soubor byl uložen");
         }
     }
 }

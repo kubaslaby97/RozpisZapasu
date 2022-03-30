@@ -33,18 +33,18 @@ namespace RozpisZapasu
             this.btnSpravaTymu = new System.Windows.Forms.Button();
             this.btnSpravaHrist = new System.Windows.Forms.Button();
             this.btnSpravaSkupin = new System.Windows.Forms.Button();
-            this.grpZobrazeni = new System.Windows.Forms.GroupBox();
-            this.optHriste = new System.Windows.Forms.RadioButton();
-            this.optSkupina = new System.Windows.Forms.RadioButton();
-            this.lsvZapasy = new System.Windows.Forms.ListView();
+            this.lsvZapasyHriste = new System.Windows.Forms.ListView();
             this.colDomaci = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colHoste = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colCas = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colHriste = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colKolo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnRozradit = new System.Windows.Forms.Button();
             this.btnUlozit = new System.Windows.Forms.Button();
-            this.colKolo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.grpZobrazeni.SuspendLayout();
+            this.lsvZapasySkupina = new System.Windows.Forms.ListView();
+            this.cmnDomaci = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.cmnHoste = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.cmnSkupina = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.cmnKolo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // btnExcel
@@ -87,55 +87,20 @@ namespace RozpisZapasu
             this.btnSpravaSkupin.UseVisualStyleBackColor = true;
             this.btnSpravaSkupin.Click += new System.EventHandler(this.btnSpravaSkupin_Click);
             // 
-            // grpZobrazeni
+            // lsvZapasyHriste
             // 
-            this.grpZobrazeni.Controls.Add(this.optHriste);
-            this.grpZobrazeni.Controls.Add(this.optSkupina);
-            this.grpZobrazeni.Location = new System.Drawing.Point(457, 108);
-            this.grpZobrazeni.Name = "grpZobrazeni";
-            this.grpZobrazeni.Size = new System.Drawing.Size(103, 88);
-            this.grpZobrazeni.TabIndex = 4;
-            this.grpZobrazeni.TabStop = false;
-            this.grpZobrazeni.Text = "Zobrazit zápasy";
-            // 
-            // optHriste
-            // 
-            this.optHriste.AutoSize = true;
-            this.optHriste.Location = new System.Drawing.Point(15, 53);
-            this.optHriste.Name = "optHriste";
-            this.optHriste.Size = new System.Drawing.Size(63, 17);
-            this.optHriste.TabIndex = 1;
-            this.optHriste.TabStop = true;
-            this.optHriste.Text = "dle hřišť";
-            this.optHriste.UseVisualStyleBackColor = true;
-            // 
-            // optSkupina
-            // 
-            this.optSkupina.AutoSize = true;
-            this.optSkupina.Checked = true;
-            this.optSkupina.Location = new System.Drawing.Point(15, 30);
-            this.optSkupina.Name = "optSkupina";
-            this.optSkupina.Size = new System.Drawing.Size(73, 17);
-            this.optSkupina.TabIndex = 0;
-            this.optSkupina.TabStop = true;
-            this.optSkupina.Text = "dle skupin";
-            this.optSkupina.UseVisualStyleBackColor = true;
-            // 
-            // lsvZapasy
-            // 
-            this.lsvZapasy.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.lsvZapasyHriste.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.colDomaci,
             this.colHoste,
-            this.colCas,
             this.colHriste,
             this.colKolo});
-            this.lsvZapasy.HideSelection = false;
-            this.lsvZapasy.Location = new System.Drawing.Point(12, 12);
-            this.lsvZapasy.Name = "lsvZapasy";
-            this.lsvZapasy.Size = new System.Drawing.Size(439, 385);
-            this.lsvZapasy.TabIndex = 0;
-            this.lsvZapasy.UseCompatibleStateImageBehavior = false;
-            this.lsvZapasy.View = System.Windows.Forms.View.Details;
+            this.lsvZapasyHriste.HideSelection = false;
+            this.lsvZapasyHriste.Location = new System.Drawing.Point(12, 12);
+            this.lsvZapasyHriste.Name = "lsvZapasyHriste";
+            this.lsvZapasyHriste.Size = new System.Drawing.Size(439, 184);
+            this.lsvZapasyHriste.TabIndex = 0;
+            this.lsvZapasyHriste.UseCompatibleStateImageBehavior = false;
+            this.lsvZapasyHriste.View = System.Windows.Forms.View.Details;
             // 
             // colDomaci
             // 
@@ -149,17 +114,17 @@ namespace RozpisZapasu
             this.colHoste.Text = "Hosté";
             this.colHoste.Width = 90;
             // 
-            // colCas
-            // 
-            this.colCas.DisplayIndex = 3;
-            this.colCas.Text = "Čas zápasu";
-            this.colCas.Width = 97;
-            // 
             // colHriste
             // 
-            this.colHriste.DisplayIndex = 4;
-            this.colHriste.Text = "Hřiště/Skupina";
+            this.colHriste.DisplayIndex = 3;
+            this.colHriste.Text = "Hřiště";
             this.colHriste.Width = 100;
+            // 
+            // colKolo
+            // 
+            this.colKolo.DisplayIndex = 0;
+            this.colKolo.Text = "Kolo";
+            this.colKolo.Width = 40;
             // 
             // btnRozradit
             // 
@@ -180,22 +145,55 @@ namespace RozpisZapasu
             this.btnUlozit.Text = "Uložit změny";
             this.btnUlozit.UseVisualStyleBackColor = true;
             // 
-            // colKolo
+            // lsvZapasySkupina
             // 
-            this.colKolo.DisplayIndex = 0;
-            this.colKolo.Text = "Kolo";
-            this.colKolo.Width = 40;
+            this.lsvZapasySkupina.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.cmnDomaci,
+            this.cmnHoste,
+            this.cmnSkupina,
+            this.cmnKolo});
+            this.lsvZapasySkupina.HideSelection = false;
+            this.lsvZapasySkupina.Location = new System.Drawing.Point(12, 202);
+            this.lsvZapasySkupina.Name = "lsvZapasySkupina";
+            this.lsvZapasySkupina.Size = new System.Drawing.Size(439, 195);
+            this.lsvZapasySkupina.TabIndex = 7;
+            this.lsvZapasySkupina.UseCompatibleStateImageBehavior = false;
+            this.lsvZapasySkupina.View = System.Windows.Forms.View.Details;
+            // 
+            // cmnDomaci
+            // 
+            this.cmnDomaci.DisplayIndex = 1;
+            this.cmnDomaci.Text = "Domácí";
+            this.cmnDomaci.Width = 100;
+            // 
+            // cmnHoste
+            // 
+            this.cmnHoste.DisplayIndex = 2;
+            this.cmnHoste.Text = "Hosté";
+            this.cmnHoste.Width = 90;
+            // 
+            // cmnSkupina
+            // 
+            this.cmnSkupina.DisplayIndex = 3;
+            this.cmnSkupina.Text = "Skupina";
+            this.cmnSkupina.Width = 100;
+            // 
+            // cmnKolo
+            // 
+            this.cmnKolo.DisplayIndex = 0;
+            this.cmnKolo.Text = "Kolo";
+            this.cmnKolo.Width = 40;
             // 
             // frmHlavni
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(572, 409);
-            this.Controls.Add(this.lsvZapasy);
+            this.Controls.Add(this.lsvZapasySkupina);
+            this.Controls.Add(this.lsvZapasyHriste);
             this.Controls.Add(this.btnUlozit);
             this.Controls.Add(this.btnExcel);
             this.Controls.Add(this.btnRozradit);
-            this.Controls.Add(this.grpZobrazeni);
             this.Controls.Add(this.btnSpravaSkupin);
             this.Controls.Add(this.btnSpravaHrist);
             this.Controls.Add(this.btnSpravaTymu);
@@ -203,8 +201,6 @@ namespace RozpisZapasu
             this.Name = "frmHlavni";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Rozpis volejbalových zápasů";
-            this.grpZobrazeni.ResumeLayout(false);
-            this.grpZobrazeni.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -215,17 +211,18 @@ namespace RozpisZapasu
         private System.Windows.Forms.Button btnSpravaTymu;
         private System.Windows.Forms.Button btnSpravaHrist;
         private System.Windows.Forms.Button btnSpravaSkupin;
-        private System.Windows.Forms.GroupBox grpZobrazeni;
-        private System.Windows.Forms.ListView lsvZapasy;
+        private System.Windows.Forms.ListView lsvZapasyHriste;
         private System.Windows.Forms.ColumnHeader colDomaci;
         private System.Windows.Forms.ColumnHeader colHoste;
-        private System.Windows.Forms.ColumnHeader colCas;
         private System.Windows.Forms.ColumnHeader colHriste;
         private System.Windows.Forms.Button btnRozradit;
         private System.Windows.Forms.Button btnUlozit;
-        private System.Windows.Forms.RadioButton optHriste;
-        private System.Windows.Forms.RadioButton optSkupina;
         private System.Windows.Forms.ColumnHeader colKolo;
+        private System.Windows.Forms.ListView lsvZapasySkupina;
+        private System.Windows.Forms.ColumnHeader cmnDomaci;
+        private System.Windows.Forms.ColumnHeader cmnHoste;
+        private System.Windows.Forms.ColumnHeader cmnSkupina;
+        private System.Windows.Forms.ColumnHeader cmnKolo;
     }
 }
 

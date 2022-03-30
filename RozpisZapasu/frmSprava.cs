@@ -193,40 +193,61 @@ namespace RozpisZapasu
         private void btnUlozit_Click(object sender, EventArgs e)
         {
             XDocument dokument = new XDocument();
-            XElement koren = new XElement("Sprava");
-            
+
             //tým
             if (volba == 1)
             {
-                XElement potomek = new XElement("Tym");
-                potomek.Add(new XElement("Nazev", 90));
-                potomek.Add(new XElement("Hodnoceni", 33));
-                potomek.Add(new XElement("HratPrvni", 3));
-                koren.Add(potomek);
+                XElement koren = new XElement("Sprava");
+                for (int i = 0; i < lsvPolozky.Items.Count; i++)
+                {
+                    XElement potomek = new XElement("Tym");
+                    potomek.Add(new XElement("Nazev", lsvPolozky.SelectedItems[0].SubItems[0].Text));
+                    potomek.Add(new XElement("Hodnoceni", lsvPolozky.SelectedItems[0].SubItems[1].Text));
+                    potomek.Add(new XElement("HratPrvni", lsvPolozky.SelectedItems[0].SubItems[2].Text));
+                    koren.Add(potomek);
+                }
+                dokument.Add(koren);
+                dokument.Save(Application.StartupPath + "\\tymy.xml");
+
+                MessageBox.Show("Soubor týmů byl uložen", "Informace", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             //hřiště
             else if (volba == 2)
             {
-                XElement potomek2 = new XElement("Hriste");
-                potomek2.Add(new XElement("Nazev", 90));
-                koren.Add(potomek2);
+                XElement koren = new XElement("Sprava");
+                 
+                for (int i = 0; i < lsvPolozky.Items.Count; i++)
+                {
+                    XElement potomek = new XElement("Hriste");
+                    potomek.Add(new XElement("Nazev", lsvPolozky.SelectedItems[0].SubItems[0].Text));
+                    koren.Add(potomek);
+                }
+
+                dokument.Add(koren);
+                dokument.Save(Application.StartupPath + "\\hriste.xml");
+                MessageBox.Show("Soubor hřišť byl uložen", "Informace", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             //skupina
             else if (volba == 3)
             {
-                XElement potomek3 = new XElement("Tym");
-                potomek3.Add(new XElement("Nazev", 90));
-                koren.Add(potomek3);
+                XElement koren = new XElement("Sprava");
+                
+                for (int i = 0; i < lsvPolozky.Items.Count; i++)
+                {
+                XElement potomek = new XElement("Tym");
+                potomek.Add(new XElement("Nazev", lsvPolozky.SelectedItems[0].SubItems[0].Text));
+                koren.Add(potomek);
+                }
+
+                dokument.Add(koren);
+                dokument.Save(Application.StartupPath + "\\skupiny.xml");
+                MessageBox.Show("Soubor skupin byl uložen", "Informace", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
                 //Easter egg
                 MessageBox.Show("Nic tu není co bych ti uložil. Jedině zlatou cihlu ti mohu uložit. :D", "Info", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
-
-            dokument.Add(koren);
-            dokument.Save(Application.StartupPath + "\\sprava.xml");
-            MessageBox.Show("Soubor byl uložen");
         }
     }
 }

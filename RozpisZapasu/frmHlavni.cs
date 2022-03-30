@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace RozpisZapasu
 {
@@ -27,7 +28,7 @@ namespace RozpisZapasu
         {
             InitializeComponent();
         }
-
+        //export do Excelu
         private void btnExcel_Click(object sender, EventArgs e)
         {
             SaveFileDialog sfd = new SaveFileDialog();
@@ -42,42 +43,43 @@ namespace RozpisZapasu
                 Process.Start(sfd.FileName);
             }
         }
-
+        //správa týmů
         private void btnSpravaTymu_Click(object sender, EventArgs e)
         {
             frmSprava sprava = new frmSprava("Správa týmů", 1);
             sprava.Show();
         }
-
+        //správa hřišť
         private void btnSpravaHrist_Click(object sender, EventArgs e)
         {
             frmSprava sprava = new frmSprava("Správa hřišť", 2);
             sprava.Show();
         }
-
+        //správa skupin
         private void btnSpravaSkupin_Click(object sender, EventArgs e)
         {
             frmSprava sprava = new frmSprava("Správa skupin", 3);
             sprava.Show();
         }
-
+        //tvorba zápasů a jejich zobrazení
         private void btnRozradit_Click(object sender, EventArgs e)
         {
-            //tvorba zápasů
-            if (optHriste.Checked == true)
-            {
-                ZobrazitZapasy(hristeZapasy);
-            }
-            else
-            {
-                ZobrazitZapasy(skupinyZapasy);
-            }
+            //TODO: Rozřazení týmů do zápasů
+
+            //Zobrazení zápasů v ListView
+            ZobrazitZapasy(hristeZapasy, lsvZapasyHriste);
+            ZobrazitZapasy(skupinyZapasy, lsvZapasySkupina);
         }
 
-        private void ZobrazitZapasy(List<(string, string, string)> list)
+        /// <summary>
+        /// Rozřazené zápasy vloží do ListView pro případnou kontrolu před exportem do Excelu
+        /// </summary>
+        /// <param name="list">vstupní seznam zápasů</param>
+        /// <param name="listView">zobrazení zápasů</param>
+        private void ZobrazitZapasy(List<(string, string, string)> list, ListView listView)
         {
             string polozka = "";
-            lsvZapasy.Items.Clear();
+            listView.Items.Clear();
 
             for(int i = 0; i < list.Count; i++)
             {
@@ -87,12 +89,29 @@ namespace RozpisZapasu
 
                 lvi = new ListViewItem(polozka.Split('-')); //domácí a hosté
 
-                lvi.SubItems.Add(DateTime.Now.ToString("g")); //čas zápasu
                 lvi.SubItems.Add(list[i].Item2); //hřiště nebo skupina
                 lvi.SubItems.Add(list[i].Item1); //kolo
 
-                lsvZapasy.Items.Add(lvi);
+                listView.Items.Add(lvi);
             }
+        }
+
+        /// <summary>
+        /// Načítá týmy ze souboru
+        /// </summary>
+        /// <returns>Vrátí seznam týmů</returns>
+        public List<string> NacteniTymu()
+        {
+            List<string> list = new List<string>();
+            XDocument dokument = XDocument.Load(Application.StartupPath + "\\tymy.xml");
+
+            //naplnění seznamu slov
+            foreach (var polozka in dokument.Descendants("Tym"))
+            {
+                list.Add(polozka.Element("Nazev").Value);
+            }
+
+            return list;
         }
     }
 }

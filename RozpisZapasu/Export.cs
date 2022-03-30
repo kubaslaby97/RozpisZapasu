@@ -122,7 +122,7 @@ namespace RozpisZapasu
                         {
                             cell.CellValue = new CellValue(tymy[sloupec - 1]);
                             cell.DataType = CellValues.String;
-                            cell.StyleIndex = 2;
+                            cell.StyleIndex = 4;
                         }
                         //týmy ve sloupci
                         else if (radek > 0 && sloupec == 0)
@@ -251,6 +251,7 @@ namespace RozpisZapasu
                         cell.CellValue = new CellValue(hlavicka[sloupec]);
                         cell.DataType = CellValues.String;
                         cell.StyleIndex = 2;
+                        
                     }
                     //vyplnění zbytku
                     else if (radek > 1)
@@ -386,8 +387,6 @@ namespace RozpisZapasu
                 })
                 { PatternType = PatternValues.Solid })); // Index 2 - výplň
 
-            Alignment deg90 = new Alignment { TextRotation = 90 };
-
             Borders borders = new Borders(
                     new Border(), // Index 0 - výchozí
                     new Border( // Index 1 - černé tenké ohraničení
@@ -403,6 +402,8 @@ namespace RozpisZapasu
                         new BottomBorder(new Color() { Auto = true }) { Style = BorderStyleValues.Thick },
                         new DiagonalBorder()));
 
+            Alignment alignment = new Alignment { TextRotation = (UInt32Value)90U };
+
             CellFormats cellFormats = new CellFormats(
                 new CellFormat(), // Index 0 - výchozí
                 new CellFormat
@@ -417,7 +418,7 @@ namespace RozpisZapasu
                     FontId = 1,
                     FillId = 2,
                     BorderId = 1,
-                    ApplyFill = true
+                    ApplyFill = true,
                 }, // Index 2 - tučné písmo, tenké ohraničení a výplň
                 new CellFormat
                 {
@@ -425,7 +426,23 @@ namespace RozpisZapasu
                     FillId = 0,
                     BorderId = 2,
                     ApplyFill = true
-                }); // Index 3 - normální písmo a tlusté ohraničení     
+                }, // Index 3 - normální písmo a tlusté ohraničení
+                new CellFormat
+                {
+                    FontId = 1,
+                    FillId = 2,
+                    BorderId = 1,
+                    ApplyFill = true,
+                    Alignment = alignment
+                }, // Index 4 - tučné písmo, tenké ohraničení, orientace textu 90st a výplň
+                new CellFormat
+                {
+                    FontId = 0,
+                    FillId = 0,
+                    BorderId = 1,
+                    ApplyBorder = true
+                } // Index 5 - normální písmo, orientace textu 90st a tenké ohraničení
+                );       
 
             styleSheet = new Stylesheet(fonts, fills, borders, cellFormats);
 

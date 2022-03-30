@@ -43,11 +43,6 @@ namespace RozpisZapasu
             }
         }
 
-        private void frmHlavni_Load(object sender, EventArgs e)
-        {
-            //automaticky se načtou zápasy
-        }
-
         private void btnSpravaTymu_Click(object sender, EventArgs e)
         {
             frmSprava sprava = new frmSprava("Správa týmů", 1);
@@ -64,6 +59,40 @@ namespace RozpisZapasu
         {
             frmSprava sprava = new frmSprava("Správa skupin", 3);
             sprava.Show();
+        }
+
+        private void btnRozradit_Click(object sender, EventArgs e)
+        {
+            //tvorba zápasů
+            if (optHriste.Checked == true)
+            {
+                ZobrazitZapasy(hristeZapasy);
+            }
+            else
+            {
+                ZobrazitZapasy(skupinyZapasy);
+            }
+        }
+
+        private void ZobrazitZapasy(List<(string, string, string)> list)
+        {
+            string polozka = "";
+            lsvZapasy.Items.Clear();
+
+            for(int i = 0; i < list.Count; i++)
+            {
+                polozka = list[i].Item3;
+
+                ListViewItem lvi;
+
+                lvi = new ListViewItem(polozka.Split('-')); //domácí a hosté
+
+                lvi.SubItems.Add(DateTime.Now.ToString("g")); //čas zápasu
+                lvi.SubItems.Add(list[i].Item2); //hřiště nebo skupina
+                lvi.SubItems.Add(list[i].Item1); //kolo
+
+                lsvZapasy.Items.Add(lvi);
+            }
         }
     }
 }

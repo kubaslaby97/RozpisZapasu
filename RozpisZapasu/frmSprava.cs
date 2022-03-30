@@ -149,38 +149,44 @@ namespace RozpisZapasu
         private void btnOdebrat_Click(object sender, EventArgs e)
         {
             string polozka = lsvPolozky.SelectedItems[0].SubItems[0].Text;
-
-            //tým
-            if (volba == 1)
+            if (polozka == "")
             {
-                if(MessageBox.Show("Přejete si odebrat tým '" + polozka + "'?", "Upozornění", 
-                    MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
-                {
-                    
-                }  
-            }
-            //hřiště
-            else if (volba == 2)
-            {
-                if(MessageBox.Show("Přejete si odebrat hřiště '" + polozka + "'?", "Upozornění", 
-                    MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
-                {
-                    
-                }
-            }
-            //skupina
-            else if (volba == 3)
-            {
-                if(MessageBox.Show("Přejete si odebrat skupinu '" + polozka + "'?", "Upozornění", 
-                    MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
-                {
-                    //lsvPolozky.Items.RemoveAt();
-                }
+                MessageBox.Show("Nebyla vybrána žádná položka", "Upozornění", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             else
             {
-                //Easter egg
-                MessageBox.Show("Klikej si na mě jak chceš a nic tím nezískáš :(", "Info", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                //tým
+                if (volba == 1)
+                {
+                    if (MessageBox.Show("Přejete si odebrat tým '" + polozka + "'?", "Upozornění",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
+                    {
+
+                    }
+                }
+                //hřiště
+                else if (volba == 2)
+                {
+                    if (MessageBox.Show("Přejete si odebrat hřiště '" + polozka + "'?", "Upozornění",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
+                    {
+
+                    }
+                }
+                //skupina
+                else if (volba == 3)
+                {
+                    if (MessageBox.Show("Přejete si odebrat skupinu '" + polozka + "'?", "Upozornění",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
+                    {
+                        //lsvPolozky.Items.RemoveAt();
+                    }
+                }
+                else
+                {
+                    //Easter egg
+                    MessageBox.Show("Klikej si na mě jak chceš a nic tím nezískáš :(", "Info", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
             }
         }
 

@@ -34,6 +34,8 @@ namespace RozpisZapasu
             this.btnSpravaHrist = new System.Windows.Forms.Button();
             this.btnSpravaSkupin = new System.Windows.Forms.Button();
             this.grpZobrazeni = new System.Windows.Forms.GroupBox();
+            this.optHriste = new System.Windows.Forms.RadioButton();
+            this.optSkupina = new System.Windows.Forms.RadioButton();
             this.lsvZapasy = new System.Windows.Forms.ListView();
             this.colDomaci = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colHoste = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -41,8 +43,7 @@ namespace RozpisZapasu
             this.colHriste = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnRozradit = new System.Windows.Forms.Button();
             this.btnUlozit = new System.Windows.Forms.Button();
-            this.optSkupina = new System.Windows.Forms.RadioButton();
-            this.optHriste = new System.Windows.Forms.RadioButton();
+            this.colKolo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.grpZobrazeni.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -97,58 +98,16 @@ namespace RozpisZapasu
             this.grpZobrazeni.TabStop = false;
             this.grpZobrazeni.Text = "Zobrazit zápasy";
             // 
-            // lsvZapasy
+            // optHriste
             // 
-            this.lsvZapasy.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.colDomaci,
-            this.colHoste,
-            this.colCas,
-            this.colHriste});
-            this.lsvZapasy.HideSelection = false;
-            this.lsvZapasy.Location = new System.Drawing.Point(12, 12);
-            this.lsvZapasy.Name = "lsvZapasy";
-            this.lsvZapasy.Size = new System.Drawing.Size(439, 385);
-            this.lsvZapasy.TabIndex = 0;
-            this.lsvZapasy.UseCompatibleStateImageBehavior = false;
-            this.lsvZapasy.View = System.Windows.Forms.View.Details;
-            // 
-            // colDomaci
-            // 
-            this.colDomaci.Text = "Domácí";
-            this.colDomaci.Width = 100;
-            // 
-            // colHoste
-            // 
-            this.colHoste.Text = "Hosté";
-            this.colHoste.Width = 90;
-            // 
-            // colCas
-            // 
-            this.colCas.Text = "Čas zápasu";
-            this.colCas.Width = 97;
-            // 
-            // colHriste
-            // 
-            this.colHriste.Text = "Hřiště/Skupina";
-            this.colHriste.Width = 100;
-            // 
-            // btnRozradit
-            // 
-            this.btnRozradit.Location = new System.Drawing.Point(457, 308);
-            this.btnRozradit.Name = "btnRozradit";
-            this.btnRozradit.Size = new System.Drawing.Size(103, 26);
-            this.btnRozradit.TabIndex = 5;
-            this.btnRozradit.Text = "Rozřadit týmy";
-            this.btnRozradit.UseVisualStyleBackColor = true;
-            // 
-            // btnUlozit
-            // 
-            this.btnUlozit.Location = new System.Drawing.Point(457, 372);
-            this.btnUlozit.Name = "btnUlozit";
-            this.btnUlozit.Size = new System.Drawing.Size(103, 26);
-            this.btnUlozit.TabIndex = 6;
-            this.btnUlozit.Text = "Uložit změny";
-            this.btnUlozit.UseVisualStyleBackColor = true;
+            this.optHriste.AutoSize = true;
+            this.optHriste.Location = new System.Drawing.Point(15, 53);
+            this.optHriste.Name = "optHriste";
+            this.optHriste.Size = new System.Drawing.Size(63, 17);
+            this.optHriste.TabIndex = 1;
+            this.optHriste.TabStop = true;
+            this.optHriste.Text = "dle hřišť";
+            this.optHriste.UseVisualStyleBackColor = true;
             // 
             // optSkupina
             // 
@@ -162,16 +121,70 @@ namespace RozpisZapasu
             this.optSkupina.Text = "dle skupin";
             this.optSkupina.UseVisualStyleBackColor = true;
             // 
-            // optHriste
+            // lsvZapasy
             // 
-            this.optHriste.AutoSize = true;
-            this.optHriste.Location = new System.Drawing.Point(15, 53);
-            this.optHriste.Name = "optHriste";
-            this.optHriste.Size = new System.Drawing.Size(63, 17);
-            this.optHriste.TabIndex = 1;
-            this.optHriste.TabStop = true;
-            this.optHriste.Text = "dle hřišť";
-            this.optHriste.UseVisualStyleBackColor = true;
+            this.lsvZapasy.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.colDomaci,
+            this.colHoste,
+            this.colCas,
+            this.colHriste,
+            this.colKolo});
+            this.lsvZapasy.HideSelection = false;
+            this.lsvZapasy.Location = new System.Drawing.Point(12, 12);
+            this.lsvZapasy.Name = "lsvZapasy";
+            this.lsvZapasy.Size = new System.Drawing.Size(439, 385);
+            this.lsvZapasy.TabIndex = 0;
+            this.lsvZapasy.UseCompatibleStateImageBehavior = false;
+            this.lsvZapasy.View = System.Windows.Forms.View.Details;
+            // 
+            // colDomaci
+            // 
+            this.colDomaci.DisplayIndex = 1;
+            this.colDomaci.Text = "Domácí";
+            this.colDomaci.Width = 100;
+            // 
+            // colHoste
+            // 
+            this.colHoste.DisplayIndex = 2;
+            this.colHoste.Text = "Hosté";
+            this.colHoste.Width = 90;
+            // 
+            // colCas
+            // 
+            this.colCas.DisplayIndex = 3;
+            this.colCas.Text = "Čas zápasu";
+            this.colCas.Width = 97;
+            // 
+            // colHriste
+            // 
+            this.colHriste.DisplayIndex = 4;
+            this.colHriste.Text = "Hřiště/Skupina";
+            this.colHriste.Width = 100;
+            // 
+            // btnRozradit
+            // 
+            this.btnRozradit.Location = new System.Drawing.Point(457, 308);
+            this.btnRozradit.Name = "btnRozradit";
+            this.btnRozradit.Size = new System.Drawing.Size(103, 26);
+            this.btnRozradit.TabIndex = 5;
+            this.btnRozradit.Text = "Rozřadit týmy";
+            this.btnRozradit.UseVisualStyleBackColor = true;
+            this.btnRozradit.Click += new System.EventHandler(this.btnRozradit_Click);
+            // 
+            // btnUlozit
+            // 
+            this.btnUlozit.Location = new System.Drawing.Point(457, 372);
+            this.btnUlozit.Name = "btnUlozit";
+            this.btnUlozit.Size = new System.Drawing.Size(103, 26);
+            this.btnUlozit.TabIndex = 6;
+            this.btnUlozit.Text = "Uložit změny";
+            this.btnUlozit.UseVisualStyleBackColor = true;
+            // 
+            // colKolo
+            // 
+            this.colKolo.DisplayIndex = 0;
+            this.colKolo.Text = "Kolo";
+            this.colKolo.Width = 40;
             // 
             // frmHlavni
             // 
@@ -186,10 +199,10 @@ namespace RozpisZapasu
             this.Controls.Add(this.btnSpravaSkupin);
             this.Controls.Add(this.btnSpravaHrist);
             this.Controls.Add(this.btnSpravaTymu);
+            this.MaximizeBox = false;
             this.Name = "frmHlavni";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Rozpis volejbalových zápasů";
-            this.Load += new System.EventHandler(this.frmHlavni_Load);
             this.grpZobrazeni.ResumeLayout(false);
             this.grpZobrazeni.PerformLayout();
             this.ResumeLayout(false);
@@ -212,6 +225,7 @@ namespace RozpisZapasu
         private System.Windows.Forms.Button btnUlozit;
         private System.Windows.Forms.RadioButton optHriste;
         private System.Windows.Forms.RadioButton optSkupina;
+        private System.Windows.Forms.ColumnHeader colKolo;
     }
 }
 

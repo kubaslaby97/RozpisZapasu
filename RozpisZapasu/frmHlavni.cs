@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,16 +32,23 @@ namespace RozpisZapasu
         //export do Excelu
         private void btnExcel_Click(object sender, EventArgs e)
         {
-            SaveFileDialog sfd = new SaveFileDialog();
-            sfd.Filter = "Sešit aplikace MS Excel (verze 2007 a vyšší)|*.xlsx";
-            sfd.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            sfd.Title = "Export do Excelu";
-            if (sfd.ShowDialog() == DialogResult.OK)
+            if (File.Exists(Application.StartupPath + "\\tymy.xml"))
             {
-                export.UlozitExcel(sfd.FileName, Color.LimeGreen, NacteniTymu(), hristeZapasy, skupinyZapasy);
+                SaveFileDialog sfd = new SaveFileDialog();
+                sfd.Filter = "Sešit aplikace MS Excel (verze 2007 a vyšší)|*.xlsx";
+                sfd.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                sfd.Title = "Export do Excelu";
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    export.UlozitExcel(sfd.FileName, Color.LimeGreen, NacteniTymu(), hristeZapasy, skupinyZapasy);
 
-                //otevření souboru
-                Process.Start(sfd.FileName);
+                    //otevření souboru
+                    Process.Start(sfd.FileName);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Soubor týmů nebyl nalezen", "Upozornění", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
         //správa týmů
@@ -103,10 +111,10 @@ namespace RozpisZapasu
         public List<string> NacteniTymu()
         {
             List<string> list = new List<string>();
-            XDocument dokument = XDocument.Load(Application.StartupPath + "\\tymy.xml");
+            XDocument xml = XDocument.Load(Application.StartupPath + "\\tymy.xml");
 
             //naplnění seznamu slov
-            foreach (var polozka in dokument.Descendants("Tym"))
+            foreach (var polozka in xml.Descendants("Tym"))
             {
                 list.Add(polozka.Element("Nazev").Value);
             }

@@ -41,7 +41,25 @@ namespace RozpisZapasu
                 lsvPolozky.Columns.Add("Hodnocení").Width = 70;
                 lsvPolozky.Columns.Add("První zápas?").Width = 80;
 
-                //TODO: načtení týmů z XML
+                if (File.Exists(Application.StartupPath + "\\tymy.xml"))
+                {
+                    XDocument xml = XDocument.Load(Application.StartupPath + "\\tymy.xml");
+
+                    foreach (var polozka in xml.Descendants("Tym"))
+                    {
+                        ListViewItem lvi;
+
+                        lvi = new ListViewItem(polozka.Element("Nazev").Value);
+                        lvi.SubItems.Add(polozka.Element("Hodnoceni").Value);
+                        lvi.SubItems.Add(polozka.Element("HratPrvni").Value);
+
+                        lsvPolozky.Items.Add(lvi);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Soubor týmů nenalezen", "Upozornění", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
             }
             //hřiště
             else if (volba == 2)
@@ -49,7 +67,18 @@ namespace RozpisZapasu
                 //styl zobrazení
                 lsvPolozky.View = View.List;
 
-                // TODO: načtení hřišť z XML
+                if (File.Exists(Application.StartupPath + "\\hriste.xml"))
+                {
+                    XDocument xml = XDocument.Load(Application.StartupPath + "\\hriste.xml");
+                    foreach (var polozka in xml.Descendants("Hriste"))
+                    {
+                        lsvPolozky.Items.Add(polozka.Element("Nazev").Value);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Soubor hřišť nenalezen", "Upozornění", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
             }
             //skupina
             else if (volba == 3)
@@ -57,7 +86,18 @@ namespace RozpisZapasu
                 //styl zobrazení
                 lsvPolozky.View = View.List;
 
-                //TODO: načtení skupin z XML
+                if (File.Exists(Application.StartupPath + "\\skupiny.xml"))
+                {
+                    XDocument xml = XDocument.Load(Application.StartupPath + "\\skupiny.xml");
+                    foreach (var polozka in xml.Descendants("Skupina"))
+                    {
+                        lsvPolozky.Items.Add(polozka.Element("Nazev").Value);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Soubor skupin nenalezen", "Upozornění", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
             }
             else
             {
@@ -198,7 +238,7 @@ namespace RozpisZapasu
 
         private void btnUlozit_Click(object sender, EventArgs e)
         {
-            XDocument dokument = new XDocument();
+            XDocument xml = new XDocument();
 
             //tým
             if (volba == 1)
@@ -212,8 +252,8 @@ namespace RozpisZapasu
                     potomek.Add(new XElement("HratPrvni", lsvPolozky.Items[i].SubItems[2].Text));
                     koren.Add(potomek);
                 }
-                dokument.Add(koren);
-                dokument.Save(Application.StartupPath + "\\tymy.xml");
+                xml.Add(koren);
+                xml.Save(Application.StartupPath + "\\tymy.xml");
 
                 MessageBox.Show("Soubor týmů byl uložen", "Informace", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -229,8 +269,8 @@ namespace RozpisZapasu
                     koren.Add(potomek);
                 }
 
-                dokument.Add(koren);
-                dokument.Save(Application.StartupPath + "\\hriste.xml");
+                xml.Add(koren);
+                xml.Save(Application.StartupPath + "\\hriste.xml");
                 MessageBox.Show("Soubor hřišť byl uložen", "Informace", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             //skupina
@@ -245,8 +285,8 @@ namespace RozpisZapasu
                 koren.Add(potomek);
                 }
 
-                dokument.Add(koren);
-                dokument.Save(Application.StartupPath + "\\skupiny.xml");
+                xml.Add(koren);
+                xml.Save(Application.StartupPath + "\\skupiny.xml");
                 MessageBox.Show("Soubor skupin byl uložen", "Informace", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else

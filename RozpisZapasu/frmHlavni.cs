@@ -16,9 +16,7 @@ namespace RozpisZapasu
     public partial class frmHlavni : Form
     {
         Export export = new Export();
-        List<string> tymy = new List<string> { "Ústí nad Labem", "Praha", "Karlovy Vary", "Teplice", "Děčín", "Hradec Králové", "Liberec", "Olomouc", "Plzeň",
-            "České Budějovice","Domažlice","Vyškov","Ivanovice na Hané", "Brno"};
-        //List<string> pole = new List<string> { "Ústí nad Labem", "Praha", "Karlovy Vary", "Teplice", "Děčín","Ivanovice na Hané" };
+        Zapasy zapasy = new Zapasy();
 
         List<(string, string, string)> hristeZapasy = new List<(string, string, string)> { ("1.","č.1","Domažlice - Brno"), ("1.", "č.2", "Karlovy Vary - Děčín"),
             ("2.", "č.1", "Ústí nad Labem - Teplice") };
@@ -40,7 +38,7 @@ namespace RozpisZapasu
                 sfd.Title = "Export do Excelu";
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
-                    export.UlozitExcel(sfd.FileName, Color.LimeGreen, NacteniTymu(), hristeZapasy, skupinyZapasy);
+                    export.UlozitExcel(sfd.FileName, Color.LimeGreen, NacteniTymuNazvy(), hristeZapasy, skupinyZapasy);
 
                     //otevření souboru
                     Process.Start(sfd.FileName);
@@ -49,6 +47,7 @@ namespace RozpisZapasu
             else
             {
                 MessageBox.Show("Soubor týmů nebyl nalezen", "Upozornění", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Export nebyl úspěšně dokončen", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         //správa týmů
@@ -73,10 +72,18 @@ namespace RozpisZapasu
         private void btnRozradit_Click(object sender, EventArgs e)
         {
             //TODO: Rozřazení týmů do zápasů
+            //Zapasy.Rozradit(tymy,skupiny,hriste)
+            //týmy z XML vrátit Tuple<string,bool>
+            //skupina z XML vrátit List<Tuple<string,bool>>
+            //hriste z XML vrátit string
 
             //Zobrazení zápasů v ListView
-            ZobrazitZapasy(hristeZapasy, lsvZapasyHriste);
-            ZobrazitZapasy(skupinyZapasy, lsvZapasySkupina);
+            //otázka vymazat rozřazení?
+            if (MessageBox.Show("Přejete si vymazat aktuální rozřazení týmů?", "Otázka", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                ZobrazitZapasy(hristeZapasy, lsvZapasyHriste);
+                ZobrazitZapasy(skupinyZapasy, lsvZapasySkupina);
+            }
         }
 
         /// <summary>
@@ -108,7 +115,7 @@ namespace RozpisZapasu
         /// Načítá týmy ze souboru
         /// </summary>
         /// <returns>Vrátí seznam týmů</returns>
-        public List<string> NacteniTymu()
+        public List<string> NacteniTymuNazvy()
         {
             List<string> list = new List<string>();
             XDocument xml = XDocument.Load(Application.StartupPath + "\\tymy.xml");

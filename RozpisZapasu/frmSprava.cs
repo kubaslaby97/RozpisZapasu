@@ -41,6 +41,7 @@ namespace RozpisZapasu
                 lsvPolozky.Columns.Add("Hodnocení").Width = 70;
                 lsvPolozky.Columns.Add("První zápas?").Width = 80;
 
+                //načtení souboru
                 if (File.Exists(Application.StartupPath + "\\tymy.xml"))
                 {
                     XDocument xml = XDocument.Load(Application.StartupPath + "\\tymy.xml");
@@ -67,6 +68,7 @@ namespace RozpisZapasu
                 //styl zobrazení
                 lsvPolozky.View = View.List;
 
+                //načtení souboru
                 if (File.Exists(Application.StartupPath + "\\hriste.xml"))
                 {
                     XDocument xml = XDocument.Load(Application.StartupPath + "\\hriste.xml");
@@ -86,6 +88,7 @@ namespace RozpisZapasu
                 //styl zobrazení
                 lsvPolozky.View = View.List;
 
+                //načtení souboru
                 if (File.Exists(Application.StartupPath + "\\skupiny.xml"))
                 {
                     XDocument xml = XDocument.Load(Application.StartupPath + "\\skupiny.xml");
@@ -280,7 +283,7 @@ namespace RozpisZapasu
                 
                 for (int i = 0; i < lsvPolozky.Items.Count; i++)
                 {
-                XElement potomek = new XElement("Tym");
+                XElement potomek = new XElement("Skupina");
                 potomek.Add(new XElement("Nazev", lsvPolozky.Items[i].Text));
                 koren.Add(potomek);
                 }

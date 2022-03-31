@@ -37,7 +37,7 @@ namespace RozpisZapasu
             sfd.Title = "Export do Excelu";
             if (sfd.ShowDialog() == DialogResult.OK)
             {
-                export.UlozitExcel(sfd.FileName, Color.LimeGreen, tymy, hristeZapasy, skupinyZapasy);
+                export.UlozitExcel(sfd.FileName, Color.LimeGreen, NacteniTymu(), hristeZapasy, skupinyZapasy);
 
                 //otevření souboru
                 Process.Start(sfd.FileName);

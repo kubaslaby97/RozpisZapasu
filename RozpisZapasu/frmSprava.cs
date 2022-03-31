@@ -40,18 +40,24 @@ namespace RozpisZapasu
                 lsvPolozky.Columns.Add("Název").Width = 110;
                 lsvPolozky.Columns.Add("Hodnocení").Width = 70;
                 lsvPolozky.Columns.Add("První zápas?").Width = 80;
+
+                //TODO: načtení týmů z XML
             }
             //hřiště
             else if (volba == 2)
             {
                 //styl zobrazení
                 lsvPolozky.View = View.List;
+
+                // TODO: načtení hřišť z XML
             }
             //skupina
             else if (volba == 3)
             {
                 //styl zobrazení
                 lsvPolozky.View = View.List;
+
+                //TODO: načtení skupin z XML
             }
             else
             {
@@ -201,9 +207,9 @@ namespace RozpisZapasu
                 for (int i = 0; i < lsvPolozky.Items.Count; i++)
                 {
                     XElement potomek = new XElement("Tym");
-                    potomek.Add(new XElement("Nazev", lsvPolozky.SelectedItems[0].Text));
-                    potomek.Add(new XElement("Hodnoceni", lsvPolozky.SelectedItems[0].SubItems[0].Text));
-                    potomek.Add(new XElement("HratPrvni", lsvPolozky.SelectedItems[0].SubItems[1].Text));
+                    potomek.Add(new XElement("Nazev", lsvPolozky.Items[i].Text));
+                    potomek.Add(new XElement("Hodnoceni", lsvPolozky.Items[i].SubItems[1].Text));
+                    potomek.Add(new XElement("HratPrvni", lsvPolozky.Items[i].SubItems[2].Text));
                     koren.Add(potomek);
                 }
                 dokument.Add(koren);
@@ -219,7 +225,7 @@ namespace RozpisZapasu
                 for (int i = 0; i < lsvPolozky.Items.Count; i++)
                 {
                     XElement potomek = new XElement("Hriste");
-                    potomek.Add(new XElement("Nazev", lsvPolozky.SelectedItems[0].SubItems[0].Text));
+                    potomek.Add(new XElement("Nazev", lsvPolozky.Items[i].Text));
                     koren.Add(potomek);
                 }
 
@@ -235,7 +241,7 @@ namespace RozpisZapasu
                 for (int i = 0; i < lsvPolozky.Items.Count; i++)
                 {
                 XElement potomek = new XElement("Tym");
-                potomek.Add(new XElement("Nazev", lsvPolozky.SelectedItems[0].SubItems[0].Text));
+                potomek.Add(new XElement("Nazev", lsvPolozky.Items[i].Text));
                 koren.Add(potomek);
                 }
 

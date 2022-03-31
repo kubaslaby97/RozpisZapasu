@@ -161,7 +161,7 @@ namespace RozpisZapasu
                     if (MessageBox.Show("Přejete si odebrat tým '" + polozka + "'?", "Upozornění",
                         MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
                     {
-
+                        lsvPolozky.SelectedItems[0].Remove();
                     }
                 }
                 //hřiště
@@ -170,7 +170,7 @@ namespace RozpisZapasu
                     if (MessageBox.Show("Přejete si odebrat hřiště '" + polozka + "'?", "Upozornění",
                         MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
                     {
-
+                        lsvPolozky.SelectedItems[0].Remove();
                     }
                 }
                 //skupina
@@ -179,7 +179,7 @@ namespace RozpisZapasu
                     if (MessageBox.Show("Přejete si odebrat skupinu '" + polozka + "'?", "Upozornění",
                         MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
                     {
-                        //lsvPolozky.Items.RemoveAt();
+                        lsvPolozky.SelectedItems[0].Remove();
                     }
                 }
                 else
@@ -201,9 +201,9 @@ namespace RozpisZapasu
                 for (int i = 0; i < lsvPolozky.Items.Count; i++)
                 {
                     XElement potomek = new XElement("Tym");
-                    potomek.Add(new XElement("Nazev", lsvPolozky.SelectedItems[0].SubItems[0].Text));
-                    potomek.Add(new XElement("Hodnoceni", lsvPolozky.SelectedItems[0].SubItems[1].Text));
-                    potomek.Add(new XElement("HratPrvni", lsvPolozky.SelectedItems[0].SubItems[2].Text));
+                    potomek.Add(new XElement("Nazev", lsvPolozky.SelectedItems[0].Text));
+                    potomek.Add(new XElement("Hodnoceni", lsvPolozky.SelectedItems[0].SubItems[0].Text));
+                    potomek.Add(new XElement("HratPrvni", lsvPolozky.SelectedItems[0].SubItems[1].Text));
                     koren.Add(potomek);
                 }
                 dokument.Add(koren);

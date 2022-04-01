@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace RozpisZapasu
 {
@@ -18,10 +19,23 @@ namespace RozpisZapasu
             //TODO: zde se vytvoří zápasy ve skupinách
             return null;
         }
-        List<Tuple<string,bool>> Skupina(Tuple<string,bool> tymy, List<string> skupiny)
+        public List<Tuple<string,bool>> TymyDoSkupin(List<string> skupiny)
         {
             //TODO: naplnění skupin týmů
             return null;
+        }
+
+        private List<Tuple<string, bool>> TymyDoTuple(List<(string, int, bool)> tymy)
+        {
+            List<Tuple<string, bool>> list = new List<Tuple<string, bool>>();
+
+            //tvorba Tuple složené z Názvu a hodnoty Hrát první
+            for (int i = 0; i < tymy.Count; i++)
+            {
+                list.Add(Tuple.Create(tymy[i].Item1, tymy[i].Item3));
+            }
+
+            return list;
         }
     }
 }

@@ -8,14 +8,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml;
-using System.Xml.Linq;
 
 namespace RozpisZapasu
 {
     public partial class frmSprava : Form
     {
         int volba = 0;
+        List<string> hriste = new List<string>();
+        List<string> skupiny = new List<string>();
+        List<(string, int, bool)> tymy = new List<(string, int, bool)>();
+        ZpracovaniXML zpracovani = new ZpracovaniXML();
         public frmSprava(string titulek,int volba)
         {
             InitializeComponent();
@@ -44,15 +46,15 @@ namespace RozpisZapasu
                 //načtení souboru
                 if (File.Exists(Application.StartupPath + "\\tymy.xml"))
                 {
-                    XDocument xml = XDocument.Load(Application.StartupPath + "\\tymy.xml");
-
-                    foreach (var polozka in xml.Descendants("Tym"))
+                    tymy = zpracovani.NacteniTymu(Application.StartupPath + "\\tymy.xml");
+                    
+                    foreach (var polozka in tymy)
                     {
                         ListViewItem lvi;
 
-                        lvi = new ListViewItem(polozka.Element("Nazev").Value);
-                        lvi.SubItems.Add(polozka.Element("Hodnoceni").Value);
-                        lvi.SubItems.Add(polozka.Element("HratPrvni").Value);
+                        lvi = new ListViewItem(polozka.Item1);
+                        lvi.SubItems.Add(polozka.Item2.ToString());
+                        lvi.SubItems.Add(polozka.Item3.ToString());
 
                         lsvPolozky.Items.Add(lvi);
                     }
@@ -71,10 +73,11 @@ namespace RozpisZapasu
                 //načtení souboru
                 if (File.Exists(Application.StartupPath + "\\hriste.xml"))
                 {
-                    XDocument xml = XDocument.Load(Application.StartupPath + "\\hriste.xml");
-                    foreach (var polozka in xml.Descendants("Hriste"))
+                    List<string> hriste = zpracovani.NacteniHrist(Application.StartupPath + "\\hriste.xml");
+
+                    foreach (var polozka in hriste)
                     {
-                        lsvPolozky.Items.Add(polozka.Element("Nazev").Value);
+                        lsvPolozky.Items.Add(polozka);
                     }
                 }
                 else
@@ -91,10 +94,11 @@ namespace RozpisZapasu
                 //načtení souboru
                 if (File.Exists(Application.StartupPath + "\\skupiny.xml"))
                 {
-                    XDocument xml = XDocument.Load(Application.StartupPath + "\\skupiny.xml");
-                    foreach (var polozka in xml.Descendants("Skupina"))
+                    List<string> skupiny = zpracovani.NacteniSkupin(Application.StartupPath + "\\skupiny.xml");
+
+                    foreach (var polozka in skupiny)
                     {
-                        lsvPolozky.Items.Add(polozka.Element("Nazev").Value);
+                        lsvPolozky.Items.Add(polozka);
                     }
                 }
                 else
@@ -257,56 +261,37 @@ namespace RozpisZapasu
 
         private void btnUlozit_Click(object sender, EventArgs e)
         {
-            XDocument xml = new XDocument();
-
             //tým
             if (volba == 1)
             {
-                XElement koren = new XElement("Sprava");
                 for (int i = 0; i < lsvPolozky.Items.Count; i++)
                 {
-                    XElement potomek = new XElement("Tym");
-                    potomek.Add(new XElement("Nazev", lsvPolozky.Items[i].Text));
-                    potomek.Add(new XElement("Hodnoceni", lsvPolozky.Items[i].SubItems[1].Text));
-                    potomek.Add(new XElement("HratPrvni", lsvPolozky.Items[i].SubItems[2].Text));
-                    koren.Add(potomek);
+                    tymy.Add((lsvPolozky.Items[i].Text, int.Parse(lsvPolozky.Items[i].SubItems[1].Text), bool.Parse(lsvPolozky.Items[i].SubItems[2].Text)));
                 }
-                xml.Add(koren);
-                xml.Save(Application.StartupPath + "\\tymy.xml");
 
+                zpracovani.UlozeniTymu(Application.StartupPath + "\\tymy.xml", tymy);
                 MessageBox.Show("Soubor týmů byl uložen", "Informace", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             //hřiště
             else if (volba == 2)
             {
-                XElement koren = new XElement("Sprava");
-                 
                 for (int i = 0; i < lsvPolozky.Items.Count; i++)
                 {
-                    XElement potomek = new XElement("Hriste");
-                    potomek.Add(new XElement("Nazev", lsvPolozky.Items[i].Text));
-                    koren.Add(potomek);
+                    hriste.Add(lsvPolozky.Items[i].Text);
                 }
 
-                xml.Add(koren);
-                xml.Save(Application.StartupPath + "\\hriste.xml");
+                zpracovani.UlozeniHrist(Application.StartupPath + "\\hriste.xml", hriste);
                 MessageBox.Show("Soubor hřišť byl uložen", "Informace", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             //skupina
             else if (volba == 3)
             {
-                XElement koren = new XElement("Sprava");
-                
                 for (int i = 0; i < lsvPolozky.Items.Count; i++)
                 {
-                XElement potomek = new XElement("Skupina");
-                potomek.Add(new XElement("Nazev", lsvPolozky.Items[i].Text));
-                koren.Add(potomek);
+                    hriste.Add(lsvPolozky.Items[i].Text);
                 }
 
-                xml.Add(koren);
-                xml.Save(Application.StartupPath + "\\skupiny.xml");
-                MessageBox.Show("Soubor skupin byl uložen", "Informace", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                zpracovani.UlozeniHrist(Application.StartupPath + "\\skupiny.xml", skupiny);
             }
             else
             {

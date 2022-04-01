@@ -9,7 +9,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml.Linq;
 
 namespace RozpisZapasu
 {
@@ -17,6 +16,7 @@ namespace RozpisZapasu
     {
         Export export = new Export();
         Zapasy zapasy = new Zapasy();
+        ZpracovaniXML zpracovani = new ZpracovaniXML();
 
         List<(string, string, string)> hristeZapasy = new List<(string, string, string)> { ("1.","č.1","Domažlice - Brno"), ("1.", "č.2", "Karlovy Vary - Děčín"),
             ("2.", "č.1", "Ústí nad Labem - Teplice") };
@@ -38,7 +38,7 @@ namespace RozpisZapasu
                 sfd.Title = "Export do Excelu";
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
-                    export.UlozitExcel(sfd.FileName, Color.LimeGreen, NacteniNazvuTymu(), hristeZapasy, skupinyZapasy);
+                    export.UlozitExcel(sfd.FileName, Color.LimeGreen, NazvyTymu(), hristeZapasy, skupinyZapasy);
 
                     //otevření souboru
                     Process.Start(sfd.FileName);
@@ -110,19 +110,14 @@ namespace RozpisZapasu
             }
         }
 
-        /// <summary>
-        /// Načítá názvy týmů ze souboru
-        /// </summary>
-        /// <returns>Vrátí seznam týmů</returns>
-        public List<string> NacteniNazvuTymu()
+        public List<string> NazvyTymu()
         {
             List<string> list = new List<string>();
-            XDocument xml = XDocument.Load(Application.StartupPath + "\\tymy.xml");
+            List<(string, int, bool)> tymy = zpracovani.NacteniTymu(Application.StartupPath + "\\tymy.xml");
 
-            //naplnění seznamu slov
-            foreach (var polozka in xml.Descendants("Tym"))
+            for (int i = 0; i < tymy.Count; i++)
             {
-                list.Add(polozka.Element("Nazev").Value);
+                list.Add(tymy[i].Item1);
             }
 
             return list;

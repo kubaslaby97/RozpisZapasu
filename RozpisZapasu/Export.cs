@@ -9,7 +9,7 @@ using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace RozpisZapasu
 {
-    public class Export
+    public static class Export
     {
         /// <summary>
         /// Export dokumentu ve formátu MS Excel
@@ -19,7 +19,7 @@ namespace RozpisZapasu
         /// <param name="tymy">vstupní seznam týmů</param>
         /// <param name="hristeZapasy">zápasy na hřištích</param>
         /// <param name="skupinyZapasy">zápasy ve skupinách</param>
-        public void UlozitExcel(string nazev, System.Drawing.Color barva, List<string> tymy, List<(string, string, string)> hristeZapasy, List<(string, string, string)> skupinyZapasy)
+        public static void UlozitExcel(string nazev, System.Drawing.Color barva, List<string> tymy, List<(string, string, string)> hristeZapasy, List<(string, string, string)> skupinyZapasy)
         {
             using (SpreadsheetDocument doc = SpreadsheetDocument.Create(nazev, SpreadsheetDocumentType.Workbook))
             {
@@ -34,7 +34,7 @@ namespace RozpisZapasu
         /// <param name="tymy">vstupní seznam týmů</param>
         /// <param name="hristeZapasy">zápasy na hřištích</param>
         /// <param name="skupinyZapasy">zápasy ve skupinách</param>
-        private void VytvoritObsah(SpreadsheetDocument doc, System.Drawing.Color barva, List<string> tymy, List<(string, string, string)> hristeZapasy, List<(string, string, string)> skupinyZapasy)
+        private static void VytvoritObsah(SpreadsheetDocument doc, System.Drawing.Color barva, List<string> tymy, List<(string, string, string)> hristeZapasy, List<(string, string, string)> skupinyZapasy)
         {
             //vytvoření listů
             WorkbookPart wbPart = doc.AddWorkbookPart();
@@ -62,7 +62,7 @@ namespace RozpisZapasu
         /// Definice listů v sešitu
         /// </summary>
         /// <param name="wbPart">část sešit</param>
-        private void Listy(WorkbookPart wbPart)
+        private static void Listy(WorkbookPart wbPart)
         {
             Workbook wb = new Workbook();
 
@@ -85,7 +85,7 @@ namespace RozpisZapasu
         /// </summary>
         /// <param name="wsPart">část list</param>
         /// <param name="tymy">vstupní seznam týmů</param>
-        private void KrizovaTabulka(WorksheetPart wsPart, List<string> tymy)
+        private static void KrizovaTabulka(WorksheetPart wsPart, List<string> tymy)
         {
             string[] hlavicka = new string[] { "Body", "Skóre", "Pořadí" };
             Worksheet ws = new Worksheet();
@@ -153,7 +153,7 @@ namespace RozpisZapasu
         /// </summary>
         /// <param name="wsPart">část list</param>
         /// <param name="tymy">vstupní seznam týmů</param>
-        private void KlasickaTabulka(WorksheetPart wsPart, List<string> tymy)
+        private static void KlasickaTabulka(WorksheetPart wsPart, List<string> tymy)
         {
             string[] hlavicka = new string[] { "Pořadí", "Tým", "Zápasy", "Výhry", "Remízy", "Prohry", "Skóre", "Body" };
             Worksheet ws = new Worksheet();
@@ -211,7 +211,7 @@ namespace RozpisZapasu
         /// </summary>
         /// <param name="wsPart">část list</param>
         /// <param name="hristeZapasy">zápasy na hřištích</param>
-        private void ZapasyHriste(WorksheetPart wsPart, List<(string, string, string)> hristeZapasy)
+        private static void ZapasyHriste(WorksheetPart wsPart, List<(string, string, string)> hristeZapasy)
         {
             string[] hlavicka = new string[] { "Kolo", "Hřiště", "Zápas", "Skóre" };
             Worksheet ws = new Worksheet();
@@ -288,7 +288,7 @@ namespace RozpisZapasu
         /// </summary>
         /// <param name="wsPart">část list</param>
         /// <param name="skupinyZapasy">zápasy ve skupinách</param>
-        private void ZapasySkupina(WorksheetPart wsPart, List<(string, string, string)> skupinyZapasy)
+        private static void ZapasySkupina(WorksheetPart wsPart, List<(string, string, string)> skupinyZapasy)
         {
             string[] hlavicka = new string[] { "Kolo", "Skupina", "Zápas", "Skóre" };
             Worksheet ws = new Worksheet();
@@ -363,7 +363,7 @@ namespace RozpisZapasu
         /// </summary>
         /// <param name="barva">definice barvy výplně</param>
         /// <returns>Vrátí styly</returns>
-        private Stylesheet GenerateStylesheet(System.Drawing.Color barva)
+        private static Stylesheet GenerateStylesheet(System.Drawing.Color barva)
         {
             Stylesheet styleSheet = null;
 
@@ -453,7 +453,7 @@ namespace RozpisZapasu
         /// </summary>
         /// <param name="sloupec">číslo sloupce</param>
         /// <returns>Vrátí znak sloupce (např. pro 1 vrátí A)</returns>
-        private string SloupecNaZnak(int sloupec)
+        private static string SloupecNaZnak(int sloupec)
         {
             int div = sloupec;
             string znakSloupce = String.Empty;
@@ -473,7 +473,7 @@ namespace RozpisZapasu
         /// <param name="kolekce">vstupní kolekce</param>
         /// <param name="volbaPoradi">volba pořadí položky v kolekci</param>
         /// <returns></returns>
-        private int NejdelsiRetezec(List<(string, string, string)> kolekce, int volbaPoradi)
+        private static int NejdelsiRetezec(List<(string, string, string)> kolekce, int volbaPoradi)
         {
             List<string> pole = new List<string>();
             for (int i = 0; i < kolekce.Count; i++)

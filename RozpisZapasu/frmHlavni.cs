@@ -14,9 +14,6 @@ namespace RozpisZapasu
 {
     public partial class frmHlavni : Form
     {
-        Export export = new Export();
-        Zapasy zapasy = new Zapasy();
-
         List<(string, int, bool)> tymy = ZpracovaniXML.NacteniTymu(Application.StartupPath + "\\tymy.xml");
         List<string> hriste = ZpracovaniXML.NacteniHrist(Application.StartupPath + "\\hriste.xml");
         List<string> skupina = ZpracovaniXML.NacteniHrist(Application.StartupPath + "\\skupiny.xml");
@@ -41,7 +38,7 @@ namespace RozpisZapasu
                 sfd.Title = "Export do Excelu";
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
-                    export.UlozitExcel(sfd.FileName, Color.LimeGreen, NazvyTymu(), hristeZapasy, skupinyZapasy);
+                    Export.UlozitExcel(sfd.FileName, Color.LimeGreen, NazvyTymu(), hristeZapasy, skupinyZapasy);
 
                     //otevření souboru
                     Process.Start(sfd.FileName);

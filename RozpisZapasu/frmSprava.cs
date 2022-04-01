@@ -73,7 +73,7 @@ namespace RozpisZapasu
                 //načtení souboru
                 if (File.Exists(Application.StartupPath + "\\hriste.xml"))
                 {
-                    List<string> hriste = zpracovani.NacteniHrist(Application.StartupPath + "\\hriste.xml");
+                    hriste = zpracovani.NacteniHrist(Application.StartupPath + "\\hriste.xml");
 
                     foreach (var polozka in hriste)
                     {
@@ -94,7 +94,7 @@ namespace RozpisZapasu
                 //načtení souboru
                 if (File.Exists(Application.StartupPath + "\\skupiny.xml"))
                 {
-                    List<string> skupiny = zpracovani.NacteniSkupin(Application.StartupPath + "\\skupiny.xml");
+                    skupiny = zpracovani.NacteniSkupin(Application.StartupPath + "\\skupiny.xml");
 
                     foreach (var polozka in skupiny)
                     {

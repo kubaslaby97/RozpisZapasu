@@ -144,6 +144,7 @@ namespace RozpisZapasu
             this.btnUlozit.TabIndex = 6;
             this.btnUlozit.Text = "Uložit změny";
             this.btnUlozit.UseVisualStyleBackColor = true;
+            this.btnUlozit.Click += new System.EventHandler(this.btnUlozit_Click);
             // 
             // lsvZapasySkupina
             // 

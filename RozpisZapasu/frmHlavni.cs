@@ -122,5 +122,10 @@ namespace RozpisZapasu
 
             return list;
         }
+
+        private void btnUlozit_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Neimplementováno");
+        }
     }
 }

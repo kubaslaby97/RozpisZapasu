@@ -67,7 +67,7 @@ namespace RozpisZapasu
         }
 
         /// <summary>
-        /// Uložení seznamu týmů do souboru
+        /// Ukládá seznam týmů do XML
         /// </summary>
         /// <param name="souborXML">výstupní XML soubor</param>
         /// <param name="list">vstupní seznam týmů</param>
@@ -88,7 +88,7 @@ namespace RozpisZapasu
         }
 
         /// <summary>
-        /// Uložení seznamu hřišť do souboru
+        /// Ukládá seznam hřišť do XML
         /// </summary>
         /// <param name="souborXML">výstupní XML soubor</param>
         /// <param name="list">vstupní seznam hřišť</param>
@@ -108,7 +108,7 @@ namespace RozpisZapasu
         }
 
         /// <summary>
-        /// Uložení seznamu skupin do souboru
+        /// Ukládá seznam skupin do XML
         /// </summary>
         /// <param name="souborXML">výstupní XML soubor</param>
         /// <param name="list">vstupní seznam skupin</param>

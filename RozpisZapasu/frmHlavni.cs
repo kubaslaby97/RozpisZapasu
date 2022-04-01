@@ -16,7 +16,10 @@ namespace RozpisZapasu
     {
         Export export = new Export();
         Zapasy zapasy = new Zapasy();
-        ZpracovaniXML zpracovani = new ZpracovaniXML();
+
+        List<(string, int, bool)> tymy = ZpracovaniXML.NacteniTymu(Application.StartupPath + "\\tymy.xml");
+        List<string> hriste = ZpracovaniXML.NacteniHrist(Application.StartupPath + "\\hriste.xml");
+        List<string> skupina = ZpracovaniXML.NacteniHrist(Application.StartupPath + "\\skupiny.xml");
 
         List<(string, string, string)> hristeZapasy = new List<(string, string, string)> { ("1.","č.1","Domažlice - Brno"), ("1.", "č.2", "Karlovy Vary - Děčín"),
             ("2.", "č.1", "Ústí nad Labem - Teplice") };
@@ -113,7 +116,6 @@ namespace RozpisZapasu
         public List<string> NazvyTymu()
         {
             List<string> list = new List<string>();
-            List<(string, int, bool)> tymy = zpracovani.NacteniTymu(Application.StartupPath + "\\tymy.xml");
 
             for (int i = 0; i < tymy.Count; i++)
             {

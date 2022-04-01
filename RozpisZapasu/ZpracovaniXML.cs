@@ -7,14 +7,14 @@ using System.Xml.Linq;
 
 namespace RozpisZapasu
 {
-    public class ZpracovaniXML
+    public static class ZpracovaniXML
     {
         /// <summary>
         /// Načítá týmy z XML
         /// </summary>
         /// <param name="souborXML">vstupní XML soubor</param>
         /// <returns>Vrátí seznam týmů</returns>
-        public List<(string, int, bool)> NacteniTymu(string souborXML)
+        public static List<(string, int, bool)> NacteniTymu(string souborXML)
         {
             List<(string, int, bool)> list = new List<(string, int, bool)>();
             XDocument xml = XDocument.Load(souborXML);
@@ -33,7 +33,7 @@ namespace RozpisZapasu
         /// </summary>
         /// <param name="souborXML">vstupní XML soubor</param>
         /// <returns>Vrátí seznam skupin</returns>
-        public List<string> NacteniSkupin(string souborXML)
+        public static List<string> NacteniSkupin(string souborXML)
         {
             List<string> list = new List<string>();
             XDocument xml = XDocument.Load(souborXML);
@@ -52,7 +52,7 @@ namespace RozpisZapasu
         /// </summary>
         /// <param name="souborXML">vstupní XML soubor</param>
         /// <returns>Vrátí seznam hřišť</returns>
-        public List<string> NacteniHrist(string souborXML)
+        public static List<string> NacteniHrist(string souborXML)
         {
             List<string> list = new List<string>();
             XDocument xml = XDocument.Load(souborXML);
@@ -71,7 +71,7 @@ namespace RozpisZapasu
         /// </summary>
         /// <param name="souborXML">výstupní XML soubor</param>
         /// <param name="list">vstupní seznam týmů</param>
-        public void UlozeniTymu(string souborXML, List<(string,int,bool)> list)
+        public static void UlozeniTymu(string souborXML, List<(string,int,bool)> list)
         {
             XDocument xml = new XDocument();
             XElement koren = new XElement("Sprava");
@@ -92,7 +92,7 @@ namespace RozpisZapasu
         /// </summary>
         /// <param name="souborXML">výstupní XML soubor</param>
         /// <param name="list">vstupní seznam hřišť</param>
-        public void UlozeniHrist(string souborXML, List<string> list)
+        public static void UlozeniHrist(string souborXML, List<string> list)
         {
             XDocument xml = new XDocument();
             XElement koren = new XElement("Sprava");
@@ -112,7 +112,7 @@ namespace RozpisZapasu
         /// </summary>
         /// <param name="souborXML">výstupní XML soubor</param>
         /// <param name="list">vstupní seznam skupin</param>
-        public void UlozeniSkupin(string souborXML, List<string> list)
+        public static void UlozeniSkupin(string souborXML, List<string> list)
         {
             XDocument xml = new XDocument();
             XElement koren = new XElement("Sprava");

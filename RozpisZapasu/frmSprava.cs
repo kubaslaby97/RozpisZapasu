@@ -17,7 +17,6 @@ namespace RozpisZapasu
         List<string> hriste = new List<string>();
         List<string> skupiny = new List<string>();
         List<(string, int, bool)> tymy = new List<(string, int, bool)>();
-        ZpracovaniXML zpracovani = new ZpracovaniXML();
         public frmSprava(string titulek,int volba)
         {
             InitializeComponent();
@@ -46,7 +45,7 @@ namespace RozpisZapasu
                 //načtení souboru
                 if (File.Exists(Application.StartupPath + "\\tymy.xml"))
                 {
-                    tymy = zpracovani.NacteniTymu(Application.StartupPath + "\\tymy.xml");
+                    tymy = ZpracovaniXML.NacteniTymu(Application.StartupPath + "\\tymy.xml");
                     
                     foreach (var polozka in tymy)
                     {
@@ -73,7 +72,7 @@ namespace RozpisZapasu
                 //načtení souboru
                 if (File.Exists(Application.StartupPath + "\\hriste.xml"))
                 {
-                    hriste = zpracovani.NacteniHrist(Application.StartupPath + "\\hriste.xml");
+                    hriste = ZpracovaniXML.NacteniHrist(Application.StartupPath + "\\hriste.xml");
 
                     foreach (var polozka in hriste)
                     {
@@ -94,7 +93,7 @@ namespace RozpisZapasu
                 //načtení souboru
                 if (File.Exists(Application.StartupPath + "\\skupiny.xml"))
                 {
-                    skupiny = zpracovani.NacteniSkupin(Application.StartupPath + "\\skupiny.xml");
+                    skupiny = ZpracovaniXML.NacteniSkupin(Application.StartupPath + "\\skupiny.xml");
 
                     foreach (var polozka in skupiny)
                     {
@@ -269,7 +268,7 @@ namespace RozpisZapasu
                     tymy.Add((lsvPolozky.Items[i].Text, int.Parse(lsvPolozky.Items[i].SubItems[1].Text), bool.Parse(lsvPolozky.Items[i].SubItems[2].Text)));
                 }
 
-                zpracovani.UlozeniTymu(Application.StartupPath + "\\tymy.xml", tymy);
+                ZpracovaniXML.UlozeniTymu(Application.StartupPath + "\\tymy.xml", tymy);
                 MessageBox.Show("Soubor týmů byl uložen", "Informace", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             //hřiště
@@ -280,7 +279,7 @@ namespace RozpisZapasu
                     hriste.Add(lsvPolozky.Items[i].Text);
                 }
 
-                zpracovani.UlozeniHrist(Application.StartupPath + "\\hriste.xml", hriste);
+                ZpracovaniXML.UlozeniHrist(Application.StartupPath + "\\hriste.xml", hriste);
                 MessageBox.Show("Soubor hřišť byl uložen", "Informace", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             //skupina
@@ -291,7 +290,8 @@ namespace RozpisZapasu
                     hriste.Add(lsvPolozky.Items[i].Text);
                 }
 
-                zpracovani.UlozeniHrist(Application.StartupPath + "\\skupiny.xml", skupiny);
+                ZpracovaniXML.UlozeniHrist(Application.StartupPath + "\\skupiny.xml", skupiny);
+                MessageBox.Show("Soubor skupin byl uložen", "Informace", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {

@@ -157,53 +157,64 @@ namespace RozpisZapasu
 
         private void btnUpravit_Click(object sender, EventArgs e)
         {
-            string polozka = lsvPolozky.SelectedItems[0].SubItems[0].Text;
+            string polozka = "";
 
-            //tým
-            if (volba == 1)
+            //pokud byla vybrána položka
+            if (lsvPolozky.SelectedIndices.Count > 0)
             {
-                int hodnoceni = int.Parse(lsvPolozky.SelectedItems[0].SubItems[1].Text);
-                bool prvniZapas = bool.Parse(lsvPolozky.SelectedItems[0].SubItems[2].Text);
-                if (InputBoxTym.Show("Upravit tým", "Zadejte název týmu, který chcete upravit.", ref polozka, "Hodnocení týmu", 
-                    ref hodnoceni, ref prvniZapas, overeni) == DialogResult.OK)
+                polozka = lsvPolozky.SelectedItems[0].SubItems[0].Text;
+
+                //tým
+                if (volba == 1)
                 {
-                    lsvPolozky.SelectedItems[0].SubItems[0].Text = polozka;
-                    lsvPolozky.SelectedItems[0].SubItems[1].Text = hodnoceni.ToString();
-                    lsvPolozky.SelectedItems[0].SubItems[2].Text = prvniZapas.ToString();
+                    int hodnoceni = int.Parse(lsvPolozky.SelectedItems[0].SubItems[1].Text);
+                    bool prvniZapas = bool.Parse(lsvPolozky.SelectedItems[0].SubItems[2].Text);
+                    if (InputBoxTym.Show("Upravit tým", "Zadejte název týmu, který chcete upravit.", ref polozka, "Hodnocení týmu",
+                        ref hodnoceni, ref prvniZapas, overeni) == DialogResult.OK)
+                    {
+                        lsvPolozky.SelectedItems[0].SubItems[0].Text = polozka;
+                        lsvPolozky.SelectedItems[0].SubItems[1].Text = hodnoceni.ToString();
+                        lsvPolozky.SelectedItems[0].SubItems[2].Text = prvniZapas.ToString();
+                    }
+                }
+                //hřiště
+                else if (volba == 2)
+                {
+                    if (InputBox.Show("Upravit hřiště", "Zadejte název hřiště, které chcete upravit.", ref polozka, overeni) == DialogResult.OK)
+                    {
+                        lsvPolozky.SelectedItems[0].SubItems[0].Text = polozka;
+                    }
+                }
+                //skupina
+                else if (volba == 3)
+                {
+                    if (InputBox.Show("Upravit skupinu", "Zadejte název skupiny, kterou chcete upravit.", ref polozka, overeni) == DialogResult.OK)
+                    {
+                        lsvPolozky.SelectedItems[0].SubItems[0].Text = polozka;
+                    }
+                }
+                else
+                {
+                    //Easter egg
+                    MessageBox.Show("Klikej si na mě jak chceš a nic tím nezískáš :(", "Info", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
             }
-            //hřiště
-            else if (volba == 2)
-            {
-                if (InputBox.Show("Upravit hřiště", "Zadejte název hřiště, které chcete upravit.", ref polozka, overeni) == DialogResult.OK)
-                {
-                    lsvPolozky.SelectedItems[0].SubItems[0].Text = polozka;
-                }
-            }
-            //skupina
-            else if (volba == 3)
-            {
-                if (InputBox.Show("Upravit skupinu", "Zadejte název skupiny, kterou chcete upravit.", ref polozka, overeni) == DialogResult.OK)
-                {
-                    lsvPolozky.SelectedItems[0].SubItems[0].Text = polozka;
-                }
-            }
+            //pokud nebyla vybrána položka
             else
             {
-                //Easter egg
-                MessageBox.Show("Klikej si na mě jak chceš a nic tím nezískáš :(", "Info", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Nebyla vybrána žádná položka k upravení", "Upozornění", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 
         private void btnOdebrat_Click(object sender, EventArgs e)
         {
-            string polozka = lsvPolozky.SelectedItems[0].SubItems[0].Text;
-            if (polozka == "")
+            string polozka = "";
+
+            //pokud byla vybrána položka
+            if (lsvPolozky.SelectedIndices.Count > 0)
             {
-                MessageBox.Show("Nebyla vybrána žádná položka", "Upozornění", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
-            else
-            {
+                polozka = lsvPolozky.SelectedItems[0].SubItems[0].Text;
+
                 //tým
                 if (volba == 1)
                 {
@@ -236,6 +247,11 @@ namespace RozpisZapasu
                     //Easter egg
                     MessageBox.Show("Klikej si na mě jak chceš a nic tím nezískáš :(", "Info", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
+            }
+            //pokud nebyla vybrána položka
+            else
+            {
+                MessageBox.Show("Nebyla vybrána žádná položka k odebrání", "Upozornění", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 

@@ -38,7 +38,7 @@ namespace RozpisZapasu
                 sfd.Title = "Export do Excelu";
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
-                    export.UlozitExcel(sfd.FileName, Color.LimeGreen, NacteniTymuNazvy(), hristeZapasy, skupinyZapasy);
+                    export.UlozitExcel(sfd.FileName, Color.LimeGreen, NacteniNazvuTymu(), hristeZapasy, skupinyZapasy);
 
                     //otevření souboru
                     Process.Start(sfd.FileName);
@@ -78,8 +78,7 @@ namespace RozpisZapasu
             //hriste z XML vrátit string
 
             //Zobrazení zápasů v ListView
-            //otázka vymazat rozřazení?
-            if (MessageBox.Show("Přejete si vymazat aktuální rozřazení týmů?", "Otázka", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (MessageBox.Show("Přejete si přepsat aktuální rozřazení týmů?", "Upozornění", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
             {
                 ZobrazitZapasy(hristeZapasy, lsvZapasyHriste);
                 ZobrazitZapasy(skupinyZapasy, lsvZapasySkupina);
@@ -112,10 +111,10 @@ namespace RozpisZapasu
         }
 
         /// <summary>
-        /// Načítá týmy ze souboru
+        /// Načítá názvy týmů ze souboru
         /// </summary>
         /// <returns>Vrátí seznam týmů</returns>
-        public List<string> NacteniTymuNazvy()
+        public List<string> NacteniNazvuTymu()
         {
             List<string> list = new List<string>();
             XDocument xml = XDocument.Load(Application.StartupPath + "\\tymy.xml");

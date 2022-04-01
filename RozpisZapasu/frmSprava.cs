@@ -287,10 +287,10 @@ namespace RozpisZapasu
             {
                 for (int i = 0; i < lsvPolozky.Items.Count; i++)
                 {
-                    hriste.Add(lsvPolozky.Items[i].Text);
+                    skupiny.Add(lsvPolozky.Items[i].Text);
                 }
 
-                ZpracovaniXML.UlozeniHrist(Application.StartupPath + "\\skupiny.xml", skupiny);
+                ZpracovaniXML.UlozeniSkupin(Application.StartupPath + "\\skupiny.xml", skupiny);
                 MessageBox.Show("Soubor skupin byl uložen", "Informace", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else

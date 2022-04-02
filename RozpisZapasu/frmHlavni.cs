@@ -38,10 +38,17 @@ namespace RozpisZapasu
                 sfd.Title = "Export do Excelu";
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
-                    Export.UlozitExcel(sfd.FileName, Color.LimeGreen, NazvyTymu(), hristeZapasy, skupinyZapasy);
+                    if (!SouborPouzivan(sfd.FileName))
+                    {
+                        Export.UlozitExcel(sfd.FileName, Color.LimeGreen, NazvyTymu(), hristeZapasy, skupinyZapasy);
 
-                    //otevření souboru
-                    Process.Start(sfd.FileName);
+                        //otevření souboru
+                        Process.Start(sfd.FileName);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Soubor je používán", "Upozornění", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
                 }
             }
             else
@@ -126,6 +133,23 @@ namespace RozpisZapasu
         private void btnUlozit_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Neimplementováno");
+        }
+
+        //ověření, zda je soubor používán
+        //převzato z: https://social.msdn.microsoft.com/Forums/vstudio/en-US/dead0507-06f5-43e0-9250-a78437956bc8/faq-how-do-i-check-whether-a-file-is-in-use?forum=netfxbcl
+        private bool SouborPouzivan(string soubor)
+        {
+            bool uzamcen = false;
+            try
+            {
+                FileStream fs = File.Open(soubor, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
+                fs.Close();
+            }
+            catch (IOException)
+            {
+                uzamcen = true;
+            }
+            return uzamcen;
         }
     }
 }

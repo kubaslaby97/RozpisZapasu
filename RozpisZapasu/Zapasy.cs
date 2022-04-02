@@ -7,25 +7,25 @@ using System.Xml.Linq;
 
 namespace RozpisZapasu
 {
-    public class Zapasy
+    public static class Zapasy
     {
-        public List<(string,string,string)> RozraditDoHrist(List<string> tymy, List<string> hriste)
+        public static List<(string,string,string)> TvorbaZapasuHrist(List<string> tymy, List<string> hriste)
         {
             //TODO: zde se vytvoří zápasy na hřištích
             return null;
         }
-        public List<(string, string, string)> RozraditDoSkupin(List<string> tymy, List<string> skupiny)
+        public static List<(string, string, string)> TvorbaZapasuSkupin(List<string> tymy, List<string> skupiny)
         {
             //TODO: zde se vytvoří zápasy ve skupinách
             return null;
         }
-        public List<Tuple<string,bool>> TymyDoSkupin(List<string> skupiny)
+        public static List<Tuple<string,bool>> TvorbaSkupin(List<string> skupiny)
         {
             //TODO: naplnění skupin týmů
             return null;
         }
 
-        private List<Tuple<string, bool>> TymyDoTuple(List<(string, int, bool)> tymy)
+        private static List<Tuple<string, bool>> TymyDoTuple(List<(string, int, bool)> tymy)
         {
             List<Tuple<string, bool>> list = new List<Tuple<string, bool>>();
 

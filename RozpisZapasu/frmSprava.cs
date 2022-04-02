@@ -17,6 +17,7 @@ namespace RozpisZapasu
         List<string> hriste = new List<string>();
         List<string> skupiny = new List<string>();
         List<(string, int, bool)> tymy = new List<(string, int, bool)>();
+
         public frmSprava(string titulek,int volba)
         {
             InitializeComponent();
@@ -46,14 +47,14 @@ namespace RozpisZapasu
                 if (File.Exists(Application.StartupPath + "\\tymy.xml"))
                 {
                     tymy = ZpracovaniXML.NacteniTymu(Application.StartupPath + "\\tymy.xml");
-                    
-                    foreach (var polozka in tymy)
+
+                    for (int i = 0; i < tymy.Count; i++)
                     {
                         ListViewItem lvi;
 
-                        lvi = new ListViewItem(polozka.Item1);
-                        lvi.SubItems.Add(polozka.Item2.ToString());
-                        lvi.SubItems.Add(polozka.Item3.ToString());
+                        lvi = new ListViewItem(tymy[i].Item1);
+                        lvi.SubItems.Add(tymy[i].Item2.ToString());
+                        lvi.SubItems.Add(tymy[i].Item3.ToString());
 
                         lsvPolozky.Items.Add(lvi);
                     }
@@ -74,9 +75,9 @@ namespace RozpisZapasu
                 {
                     hriste = ZpracovaniXML.NacteniHrist(Application.StartupPath + "\\hriste.xml");
 
-                    foreach (var polozka in hriste)
+                    for (int i = 0; i < hriste.Count; i++)
                     {
-                        lsvPolozky.Items.Add(polozka);
+                        lsvPolozky.Items.Add(hriste[i]);
                     }
                 }
                 else
@@ -95,9 +96,9 @@ namespace RozpisZapasu
                 {
                     skupiny = ZpracovaniXML.NacteniSkupin(Application.StartupPath + "\\skupiny.xml");
 
-                    foreach (var polozka in skupiny)
+                    for (int i = 0; i < skupiny.Count; i++)
                     {
-                        lsvPolozky.Items.Add(polozka);
+                        lsvPolozky.Items.Add(skupiny[i]);
                     }
                 }
                 else
@@ -263,6 +264,10 @@ namespace RozpisZapasu
             //tým
             if (volba == 1)
             {
+                //vyčištění seznamu
+                tymy.Clear();
+
+                //naplnění seznamu
                 for (int i = 0; i < lsvPolozky.Items.Count; i++)
                 {
                     tymy.Add((lsvPolozky.Items[i].Text, int.Parse(lsvPolozky.Items[i].SubItems[1].Text), bool.Parse(lsvPolozky.Items[i].SubItems[2].Text)));
@@ -274,6 +279,10 @@ namespace RozpisZapasu
             //hřiště
             else if (volba == 2)
             {
+                //vyčištění seznamu
+                hriste.Clear();
+
+                //naplnění seznamu
                 for (int i = 0; i < lsvPolozky.Items.Count; i++)
                 {
                     hriste.Add(lsvPolozky.Items[i].Text);
@@ -285,6 +294,10 @@ namespace RozpisZapasu
             //skupina
             else if (volba == 3)
             {
+                //vyčištění seznamu
+                skupiny.Clear();
+
+                //naplnění seznamu
                 for (int i = 0; i < lsvPolozky.Items.Count; i++)
                 {
                     skupiny.Add(lsvPolozky.Items[i].Text);

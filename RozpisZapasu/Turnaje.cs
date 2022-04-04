@@ -7,24 +7,32 @@ using System.Xml.Linq;
 
 namespace RozpisZapasu
 {
-    public static class Zapasy
+    public static class Turnaje
     {
-        public static List<(string,string,string)> TvorbaZapasuHrist(List<(string, int, bool)> tymy, List<string> hriste)
+        public static List<(string,string,string)> TvorbaZapasu(int volba, List<(string, int, bool)> tymy, List<string> hriste, List<string> skupiny)
         {
             List<(string, string, string)> list = new List<(string, string, string)>();
+            //tvorba zápasů na hřištích
+            if (volba == 1)
+            {
+                //TODO: zde se vytvoří zápasy na hřištích
+                return list;
+            }
+            //tvorba zápasů ve skupinách
+            else if (volba == 2)
+            {
+                //TODO: zde se vytvoří zápasy ve skupinách
 
-            //TODO: zde se vytvoří zápasy na hřištích
-
-            return list;
+                return list;
+            }
+            //easter egg
+            else
+            {
+                list = new List<(string, string, string)> { ("2021/2022", "KI/PROJ", "PřF-UJEP"), ("2021/2022", "Jan Jiřička", "Jakub Slabý-Jiří Vašák") };
+                return list;
+            }
         }
-        public static List<(string, string, string)> TvorbaZapasuSkupin(List<(string,int,bool)> tymy, List<string> skupiny)
-        {
-            List<(string, string, string)> list = new List<(string, string, string)>();
 
-            //TODO: zde se vytvoří zápasy ve skupinách
-
-            return list;
-        }
         private static List<Tuple<string,bool>> TvorbaSkupin(List<string> skupiny)
         {
             List<Tuple<string,bool>> list = new List<Tuple<string, bool>>();

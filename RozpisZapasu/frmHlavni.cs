@@ -83,13 +83,8 @@ namespace RozpisZapasu
         //tvorba zápasů a jejich zobrazení
         private void btnRozradit_Click(object sender, EventArgs e)
         {
-            //prozatímní řešení
-            hristeZapasy = new List<(string, string, string)> { ("1.", "č.1", "Domažlice - Brno"), ("1.", "č.2", "Karlovy Vary - Děčín"), ("2.", "č.1", "Ústí nad Labem - Teplice") };
-            skupinyZapasy = new List<(string, string, string)> { ("1.", "A", "Domažlice - Brno"), ("1.", "B", "Karlovy Vary - Děčín"), ("2.", "A", "Ústí nad Labem - Teplice") };
-
-            //konečné řešení
-            //hristeZapasy = Zapasy.TvorbaZapasu(1,tymy, hriste, skupiny);
-            //skupinyZapasy = Zapasy.TvorbaZapasu(2, tymy, hriste, skupiny);
+            hristeZapasy = Turnaje.TvorbaZapasu(3,tymy, hriste, skupiny);
+            skupinyZapasy = Turnaje.TvorbaZapasu(3, tymy, hriste, skupiny);
 
             //Zobrazení zápasů v ListView
             if (MessageBox.Show("Přejete si přepsat aktuální rozřazení týmů?", "Upozornění", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)

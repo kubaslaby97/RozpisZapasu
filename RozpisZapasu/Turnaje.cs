@@ -28,7 +28,7 @@ namespace RozpisZapasu
             //easter egg
             else
             {
-                list = new List<(string, string, string)> { ("2021/2022", "KI/PROJ", "PřF-UJEP"), ("2021/2022", "Jan Jiřička", "Jakub Slabý-Jiří Vašák") };
+                list = new List<(string, string, string)> { ("2021/2022", "KI/PROJ", "PřF UJEP-SK Volejbal"), ("2021/2022", "Jan Jiřička", "Jakub Slabý-Jiří Vašák") };
                 return list;
             }
         }

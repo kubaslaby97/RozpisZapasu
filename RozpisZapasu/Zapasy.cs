@@ -19,7 +19,7 @@ namespace RozpisZapasu
             //TODO: zde se vytvoří zápasy ve skupinách
             return null;
         }
-        public static List<Tuple<string,bool>> TvorbaSkupin(List<string> skupiny)
+        private static List<Tuple<string,bool>> TvorbaSkupin(List<string> skupiny)
         {
             //TODO: naplnění skupin týmů
             return null;

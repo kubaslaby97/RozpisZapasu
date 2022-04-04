@@ -202,6 +202,8 @@ namespace RozpisZapasu
             this.Name = "frmHlavni";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Rozpis volejbalových zápasů";
+            this.Load += new System.EventHandler(this.frmHlavni_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmHlavni_KeyDown);
             this.ResumeLayout(false);
 
         }

@@ -151,5 +151,26 @@ namespace RozpisZapasu
             }
             return uzamcen;
         }
+
+        private void frmHlavni_Load(object sender, EventArgs e)
+        {
+            KeyPreview = true;
+        }
+
+        private void frmHlavni_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Modifiers == Keys.Shift && e.KeyCode == Keys.C)
+            {
+                Autori.Show();
+            }
+            if (e.Modifiers == Keys.Alt && e.KeyCode == Keys.H)
+            {
+                MessageBox.Show("Honzo vstávej. Kolik je hodin?", "Dotaz", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Dvě kukaččí", "Odpověď", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            if (e.Modifiers == Keys.Shift && e.KeyCode == Keys.Enter){
+                //zatím nemám vymyšleno
+            }
+        }
     }
 }

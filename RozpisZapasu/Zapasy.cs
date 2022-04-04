@@ -9,20 +9,29 @@ namespace RozpisZapasu
 {
     public static class Zapasy
     {
-        public static List<(string,string,string)> TvorbaZapasuHrist(List<string> tymy, List<string> hriste)
+        public static List<(string,string,string)> TvorbaZapasuHrist(List<(string, int, bool)> tymy, List<string> hriste)
         {
+            List<(string, string, string)> list = new List<(string, string, string)>();
+
             //TODO: zde se vytvoří zápasy na hřištích
-            return null;
+
+            return list;
         }
-        public static List<(string, string, string)> TvorbaZapasuSkupin(List<string> tymy, List<string> skupiny)
+        public static List<(string, string, string)> TvorbaZapasuSkupin(List<(string,int,bool)> tymy, List<string> skupiny)
         {
+            List<(string, string, string)> list = new List<(string, string, string)>();
+
             //TODO: zde se vytvoří zápasy ve skupinách
-            return null;
+
+            return list;
         }
         private static List<Tuple<string,bool>> TvorbaSkupin(List<string> skupiny)
         {
+            List<Tuple<string,bool>> list = new List<Tuple<string, bool>>();
+
             //TODO: naplnění skupin týmů
-            return null;
+
+            return list;
         }
 
         private static List<Tuple<string, bool>> TymyDoTuple(List<(string, int, bool)> tymy)

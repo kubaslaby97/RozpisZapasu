@@ -14,14 +14,12 @@ namespace RozpisZapasu
 {
     public partial class frmHlavni : Form
     {
+        //deklarace seznamů
         List<(string, int, bool)> tymy = new List<(string, int, bool)>();
-        //List<string> hriste = ZpracovaniXML.NacteniHrist(Application.StartupPath + "\\hriste.xml");
-        //List<string> skupina = ZpracovaniXML.NacteniHrist(Application.StartupPath + "\\skupiny.xml");
-
-        List<(string, string, string)> hristeZapasy = new List<(string, string, string)> { ("1.","č.1","Domažlice - Brno"), ("1.", "č.2", "Karlovy Vary - Děčín"),
-            ("2.", "č.1", "Ústí nad Labem - Teplice") };
-        List<(string, string, string)> skupinyZapasy = new List<(string, string, string)> { ("1.","A","Domažlice - Brno"), ("1.", "B", "Karlovy Vary - Děčín"),
-            ("2.", "A", "Ústí nad Labem - Teplice") };
+        List<string> hriste = new List<string>();
+        List<string> skupiny = new List<string>();
+        List<(string, string, string)> hristeZapasy = new List<(string, string, string)> ();
+        List<(string, string, string)> skupinyZapasy = new List<(string, string, string)> ();
 
         public frmHlavni()
         {
@@ -32,22 +30,29 @@ namespace RozpisZapasu
         {
             if (File.Exists(Application.StartupPath + "\\tymy.xml"))
             {
-                SaveFileDialog sfd = new SaveFileDialog();
-                sfd.Filter = "Sešit aplikace MS Excel (verze 2007 a vyšší)|*.xlsx";
-                sfd.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-                sfd.Title = "Export do Excelu";
-                if (sfd.ShowDialog() == DialogResult.OK)
+                if(hristeZapasy.Count==0 && skupinyZapasy.Count == 0)
                 {
-                    if (!SouborPouzivan(sfd.FileName))
+                    MessageBox.Show("Nebyly nalezeny žádné zápasy", "Chyba exportu", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    SaveFileDialog sfd = new SaveFileDialog();
+                    sfd.Filter = "Sešit aplikace MS Excel (verze 2007 a vyšší)|*.xlsx";
+                    sfd.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                    sfd.Title = "Export do Excelu";
+                    if (sfd.ShowDialog() == DialogResult.OK)
                     {
-                        Export.UlozitExcel(sfd.FileName, Color.LimeGreen, NazvyTymu(), hristeZapasy, skupinyZapasy);
+                        if (!SouborPouzivan(sfd.FileName))
+                        {
+                            Export.UlozitExcel(sfd.FileName, Color.LimeGreen, NazvyTymu(), hristeZapasy, skupinyZapasy);
 
-                        //otevření souboru
-                        Process.Start(sfd.FileName);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Soubor je používán", "Upozornění", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                            //otevření souboru
+                            Process.Start(sfd.FileName);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Soubor je používán", "Upozornění", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        }
                     }
                 }
             }
@@ -78,11 +83,13 @@ namespace RozpisZapasu
         //tvorba zápasů a jejich zobrazení
         private void btnRozradit_Click(object sender, EventArgs e)
         {
-            //TODO: Rozřazení týmů do zápasů
-            //Zapasy.Rozradit(tymy,skupiny,hriste)
-            //týmy z XML vrátit Tuple<string,bool>
-            //skupina z XML vrátit List<Tuple<string,bool>>
-            //hriste z XML vrátit string
+            //prozatímní řešení
+            hristeZapasy = new List<(string, string, string)> { ("1.", "č.1", "Domažlice - Brno"), ("1.", "č.2", "Karlovy Vary - Děčín"), ("2.", "č.1", "Ústí nad Labem - Teplice") };
+            skupinyZapasy = new List<(string, string, string)> { ("1.", "A", "Domažlice - Brno"), ("1.", "B", "Karlovy Vary - Děčín"), ("2.", "A", "Ústí nad Labem - Teplice") };
+
+            //konečné řešení
+            //hristeZapasy = Zapasy.TvorbaZapasu(1,tymy, hriste, skupiny);
+            //skupinyZapasy = Zapasy.TvorbaZapasu(2, tymy, hriste, skupiny);
 
             //Zobrazení zápasů v ListView
             if (MessageBox.Show("Přejete si přepsat aktuální rozřazení týmů?", "Upozornění", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)

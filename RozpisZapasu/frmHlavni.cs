@@ -18,8 +18,8 @@ namespace RozpisZapasu
         List<(string, int, bool)> tymy = new List<(string, int, bool)>();
         List<string> hriste = new List<string>();
         List<string> skupiny = new List<string>();
-        List<(string, string, string)> hristeZapasy = new List<(string, string, string)> ();
-        List<(string, string, string)> skupinyZapasy = new List<(string, string, string)> ();
+        List<(int, string, string)> hristeZapasy = new List<(int, string, string)> ();
+        List<(int, string, string)> skupinyZapasy = new List<(int, string, string)> ();
 
         public frmHlavni()
         {
@@ -83,8 +83,12 @@ namespace RozpisZapasu
         //tvorba zápasů a jejich zobrazení
         private void btnRozradit_Click(object sender, EventArgs e)
         {
-            hristeZapasy = Turnaje.TvorbaZapasu(3,tymy, hriste, skupiny);
-            skupinyZapasy = Turnaje.TvorbaZapasu(3, tymy, hriste, skupiny);
+            tymy = ZpracovaniXML.NacteniTymu(Application.StartupPath + "\\tymy.xml");
+            hriste = ZpracovaniXML.NacteniHrist(Application.StartupPath + "\\hriste.xml");
+            skupiny = ZpracovaniXML.NacteniHrist(Application.StartupPath + "\\skupiny.xml");
+
+            hristeZapasy = Turnaje.VyslednyRozpis(1,tymy, hriste, skupiny);
+            skupinyZapasy = Turnaje.VyslednyRozpis(3, tymy, hriste, skupiny);
 
             //Zobrazení zápasů v ListView
             if (MessageBox.Show("Přejete si přepsat aktuální rozřazení týmů?", "Upozornění", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
@@ -99,7 +103,7 @@ namespace RozpisZapasu
         /// </summary>
         /// <param name="list">vstupní seznam zápasů</param>
         /// <param name="listView">zobrazení zápasů</param>
-        private void ZobrazitZapasy(List<(string, string, string)> list, ListView listView)
+        private void ZobrazitZapasy(List<(int, string, string)> list, ListView listView)
         {
             string polozka = "";
             listView.Items.Clear();
@@ -113,7 +117,7 @@ namespace RozpisZapasu
                 lvi = new ListViewItem(polozka.Split('-')); //domácí a hosté
 
                 lvi.SubItems.Add(list[i].Item2); //hřiště nebo skupina
-                lvi.SubItems.Add(list[i].Item1); //kolo
+                lvi.SubItems.Add(list[i].Item1.ToString()); //kolo
 
                 listView.Items.Add(lvi);
             }

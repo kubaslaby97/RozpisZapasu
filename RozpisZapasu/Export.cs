@@ -19,7 +19,7 @@ namespace RozpisZapasu
         /// <param name="tymy">vstupní seznam týmů</param>
         /// <param name="hristeZapasy">zápasy na hřištích</param>
         /// <param name="skupinyZapasy">zápasy ve skupinách</param>
-        public static void UlozitExcel(string nazev, System.Drawing.Color barva, List<string> tymy, List<(string, string, string)> hristeZapasy, List<(string, string, string)> skupinyZapasy)
+        public static void UlozitExcel(string nazev, System.Drawing.Color barva, List<string> tymy, List<(int, string, string)> hristeZapasy, List<(int, string, string)> skupinyZapasy)
         {
             using (SpreadsheetDocument doc = SpreadsheetDocument.Create(nazev, SpreadsheetDocumentType.Workbook))
             {
@@ -34,7 +34,7 @@ namespace RozpisZapasu
         /// <param name="tymy">vstupní seznam týmů</param>
         /// <param name="hristeZapasy">zápasy na hřištích</param>
         /// <param name="skupinyZapasy">zápasy ve skupinách</param>
-        private static void VytvoritObsah(SpreadsheetDocument doc, System.Drawing.Color barva, List<string> tymy, List<(string, string, string)> hristeZapasy, List<(string, string, string)> skupinyZapasy)
+        private static void VytvoritObsah(SpreadsheetDocument doc, System.Drawing.Color barva, List<string> tymy, List<(int, string, string)> hristeZapasy, List<(int, string, string)> skupinyZapasy)
         {
             //vytvoření listů
             WorkbookPart wbPart = doc.AddWorkbookPart();
@@ -211,7 +211,7 @@ namespace RozpisZapasu
         /// </summary>
         /// <param name="wsPart">část list</param>
         /// <param name="hristeZapasy">zápasy na hřištích</param>
-        private static void ZapasyHriste(WorksheetPart wsPart, List<(string, string, string)> hristeZapasy)
+        private static void ZapasyHriste(WorksheetPart wsPart, List<(int, string, string)> hristeZapasy)
         {
             string[] hlavicka = new string[] { "Kolo", "Hřiště", "Zápas", "Skóre" };
             Worksheet ws = new Worksheet();
@@ -260,7 +260,7 @@ namespace RozpisZapasu
                         if (sloupec == 0)
                         {
                             cell.CellValue = new CellValue(hristeZapasy[radek - 2].Item1);
-                            cell.DataType = CellValues.String;
+                            cell.DataType = CellValues.Number;
                         }
                         else if (sloupec == 1)
                         {
@@ -288,7 +288,7 @@ namespace RozpisZapasu
         /// </summary>
         /// <param name="wsPart">část list</param>
         /// <param name="skupinyZapasy">zápasy ve skupinách</param>
-        private static void ZapasySkupina(WorksheetPart wsPart, List<(string, string, string)> skupinyZapasy)
+        private static void ZapasySkupina(WorksheetPart wsPart, List<(int, string, string)> skupinyZapasy)
         {
             string[] hlavicka = new string[] { "Kolo", "Skupina", "Zápas", "Skóre" };
             Worksheet ws = new Worksheet();
@@ -335,7 +335,7 @@ namespace RozpisZapasu
                         if (sloupec == 0)
                         {
                             cell.CellValue = new CellValue(skupinyZapasy[radek - 2].Item1);
-                            cell.DataType = CellValues.String;
+                            cell.DataType = CellValues.Number;
                         }
                         else if (sloupec == 1)
                         {
@@ -473,13 +473,13 @@ namespace RozpisZapasu
         /// <param name="kolekce">vstupní kolekce</param>
         /// <param name="volbaPoradi">volba pořadí položky v kolekci</param>
         /// <returns></returns>
-        private static int NejdelsiRetezec(List<(string, string, string)> kolekce, int volbaPoradi)
+        private static int NejdelsiRetezec(List<(int, string, string)> kolekce, int volbaPoradi)
         {
             List<string> pole = new List<string>();
             for (int i = 0; i < kolekce.Count; i++)
             {
                 if (volbaPoradi == 1)
-                    pole.Add(kolekce[i].Item1);
+                    pole.Add(kolekce[i].Item1.ToString());
                 else if (volbaPoradi == 2)
                     pole.Add(kolekce[i].Item2);
                 else if (volbaPoradi == 3)

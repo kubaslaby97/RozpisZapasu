@@ -9,6 +9,8 @@ namespace RozpisZapasu
 {
     public static class Turnaje
     {
+        //Třída třída = new Třída
+
         /// <summary>
         /// Rozpis zápasů
         /// </summary>
@@ -21,6 +23,7 @@ namespace RozpisZapasu
         {
             List<(int, string, string)> list = new List<(int, string, string)>();
             List<(string, string)> zapasy = new List<(string, string)>();
+
             //hřiště
             if (volba == 1)
             {
@@ -63,22 +66,29 @@ namespace RozpisZapasu
             }
         }
 
-        //Tvorba zápasů na hřištích
+        /// <summary>
+        /// Rozdělení zápasů na hřiště
+        /// </summary>
+        /// <param name="tymy">vstupní seznam týmů</param>
+        /// <param name="hriste">vstupní seznam hřišť</param>
+        /// <returns>Vrátí seznam zápasů na hřištích</returns>
         private static List<(string, string)> HristeZapasy(List<(string, int, bool)> tymy, List<string> hriste)
         {
             List<(string, string)> list = new List<(string, string)>();
             List<string> rozpis = new List<string> { "prvni-druhy", "treti-ctvrty", "paty-sesty", "sedmy-osmy", "devaty-desaty" }; //výsledek z třídy kolegy Vašáka
-            //int pocetTymu = tymy.Count / hriste.Count;
+            //List<string> rozpis = třída.Metoda(tymy);
 
             //rozdělení rozpisu do hřišť
+            int j = 0;
             for (int i = 0; i < rozpis.Count; i++)
             {
-                for(int j = 0; j < hriste.Count; j++)
+                if (j == hriste.Count)
                 {
-                    list.Add((hriste[j], rozpis[i]));
+                    j = 0;
                 }
+                list.Add((hriste[j], rozpis[i]));
+                j++;  
             }
-
             return list;
         }
 
@@ -87,21 +97,23 @@ namespace RozpisZapasu
         {
             List<(string, string)> list = new List<(string, string)>();
             List<string> rozpis = new List<string> { "prvni-druhy", "treti-ctvrty", "paty-sesty", "sedmy-osmy", "devaty-desaty" }; //výsledek z třídy kolegy Vašáka
-            //int pocetTymu = tymy.Count / skupiny.Count;
+            //List<string> rozpis = třída.Metoda(tymy);
 
             //rozdělení rozpisu do skupin
+            int j = 0;
             for (int i = 0; i < rozpis.Count; i++)
             {
-                for (int j = 0; j < skupiny.Count; j++)
+                if (j == skupiny.Count)
                 {
-                    //Rozpis List<string> rozdělit do skupin podle int hodnota
+                    j = 0;
                 }
+                list.Add((skupiny[j], rozpis[i]));
+                j++;
             }
-
             return list;
         }
 
-        /*private static List<Tuple<string,bool>> TvorbaSkupin(List<string> skupiny)
+        /*private static List<Tuple<string, bool>> TvorbaSkupin(List<(string, int, bool)> tymy, List<string> skupiny)
         {
             List<Tuple<string,bool>> list = new List<Tuple<string, bool>>();
 

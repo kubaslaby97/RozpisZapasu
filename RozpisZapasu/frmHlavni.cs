@@ -30,9 +30,9 @@ namespace RozpisZapasu
         {
             if (File.Exists(Application.StartupPath + "\\tymy.xml"))
             {
-                if(hristeZapasy.Count==0 && skupinyZapasy.Count == 0)
+                if(hristeZapasy.Count==0 || skupinyZapasy.Count == 0)
                 {
-                    MessageBox.Show("Nebyly nalezeny žádné zápasy", "Chyba exportu", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Nebyly nalezeny žádné zápasy skupin nebo na hřištích", "Chyba exportu", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
                 {
@@ -85,10 +85,10 @@ namespace RozpisZapasu
         {
             tymy = ZpracovaniXML.NacteniTymu(Application.StartupPath + "\\tymy.xml");
             hriste = ZpracovaniXML.NacteniHrist(Application.StartupPath + "\\hriste.xml");
-            skupiny = ZpracovaniXML.NacteniHrist(Application.StartupPath + "\\skupiny.xml");
+            skupiny = ZpracovaniXML.NacteniSkupin(Application.StartupPath + "\\skupiny.xml");
 
             hristeZapasy = Turnaje.VyslednyRozpis(1,tymy, hriste, skupiny);
-            skupinyZapasy = Turnaje.VyslednyRozpis(3, tymy, hriste, skupiny);
+            skupinyZapasy = Turnaje.VyslednyRozpis(2, tymy, hriste, skupiny);
 
             //Zobrazení zápasů v ListView
             if (MessageBox.Show("Přejete si přepsat aktuální rozřazení týmů?", "Upozornění", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)

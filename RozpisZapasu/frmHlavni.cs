@@ -122,6 +122,20 @@ namespace RozpisZapasu
                 listView.Items.Add(lvi);
             }
         }
+        /// <summary>
+        /// Upravené pořadí zápasů uloží do seznamu 
+        /// </summary>
+        /// <param name="list">výstupní seznam zápasů</param>
+        /// <param name="listView">zobrazené zápasy</param>
+        private void UlozitZapasy(List<(int, string, string)> list, ListView listView)
+        {
+            list.Clear();
+
+            for (int i = 0; i < listView.Items.Count; i++)
+            {
+                list.Add((i + 1, listView.Items[i].SubItems[1].Text, listView.Items[i].SubItems[2].Text));
+            }
+        }
 
         public List<string> NazvyTymu()
         {
@@ -135,10 +149,11 @@ namespace RozpisZapasu
 
             return list;
         }
-
+        //uloží změny do seznamu
         private void btnUlozit_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Neimplementováno");
+            UlozitZapasy(hristeZapasy, lsvZapasyHriste);
+            UlozitZapasy(skupinyZapasy, lsvZapasySkupina);
         }
 
         //ověření, zda je soubor používán

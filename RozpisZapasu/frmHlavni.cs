@@ -152,8 +152,11 @@ namespace RozpisZapasu
         //uloží změny do seznamu
         private void btnUlozit_Click(object sender, EventArgs e)
         {
-            UlozitZapasy(hristeZapasy, lsvZapasyHriste);
-            UlozitZapasy(skupinyZapasy, lsvZapasySkupina);
+            if (MessageBox.Show("Přejete si uložit aktuální rozřazení týmů?", "Upozornění", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
+            {
+                UlozitZapasy(hristeZapasy, lsvZapasyHriste);
+                UlozitZapasy(skupinyZapasy, lsvZapasySkupina);
+            }
         }
 
         //ověření, zda je soubor používán

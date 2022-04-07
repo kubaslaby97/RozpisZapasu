@@ -69,7 +69,6 @@
     <Compile Include="frmTurnaj.Designer.cs">
       <DependentUpon>frmTurnaj.cs</DependentUpon>
     </Compile>
-    <Compile Include="InputBoxTurnaj.cs" />
     <Compile Include="InputBoxTym.cs" />
     <Compile Include="InputBox.cs" />
     <Compile Include="Autori.cs" />

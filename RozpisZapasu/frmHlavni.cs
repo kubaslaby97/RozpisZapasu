@@ -92,12 +92,16 @@ namespace RozpisZapasu
             //Zobrazení zápasů v ListView
             if (MessageBox.Show("Přejete si přepsat aktuální rozřazení týmů?", "Upozornění", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
             {
-                InputBoxTurnaj.Show(ref pocetHrist, ref pocetSkupin);
-                hristeZapasy = Turnaje.VyslednyRozpis(1, tymy, hriste, skupiny);
-                skupinyZapasy = Turnaje.VyslednyRozpis(2, tymy, hriste, skupiny);
+                //InputBoxTurnaj.Show(ref pocetHrist, ref pocetSkupin);
+                frmTurnaj turnaj = new frmTurnaj();
+                if (turnaj.ShowDialog() == DialogResult.OK)
+                {
+                    hristeZapasy = Turnaje.VyslednyRozpis(1, tymy, hriste, skupiny);
+                    skupinyZapasy = Turnaje.VyslednyRozpis(2, tymy, hriste, skupiny);
 
-                ZobrazitZapasy(hristeZapasy, lsvZapasyHriste);
-                ZobrazitZapasy(skupinyZapasy, lsvZapasySkupina);
+                    ZobrazitZapasy(hristeZapasy, lsvZapasyHriste);
+                    ZobrazitZapasy(skupinyZapasy, lsvZapasySkupina);
+                }
             }
         }
 

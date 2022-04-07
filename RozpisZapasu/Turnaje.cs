@@ -21,6 +21,8 @@ namespace RozpisZapasu
         /// <returns>vrátí výsledný seznam zápasů</returns>
         public static List<(int,string,string)> VyslednyRozpis(int volba, List<(string, int, bool)> tymy, List<string> hriste, List<string> skupiny)
         {
+            //List<bool> hraji = new List<bool> { true, true, false, true, false };
+            //List<(string, int, bool, bool)> vybraneTymy = VybraneTymy(tymy, hraji);
             List<(int, string, string)> list = new List<(int, string, string)>();
             List<(string, string)> zapasy = new List<(string, string)>();
 

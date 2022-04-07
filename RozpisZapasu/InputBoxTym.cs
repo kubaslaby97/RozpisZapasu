@@ -4,12 +4,12 @@ using System.Windows.Forms;
 
 public class InputBoxTym
 {
-    public static DialogResult Show(string titulek, string textZpravy, ref string hodnota1, string textZpravy2, ref int hodnota2, ref bool hodnota3)
+    public static DialogResult Show(ref string hodnota1, ref int hodnota2, ref bool hodnota3)
     {
-        return Show(titulek, textZpravy, ref hodnota1, textZpravy2, ref hodnota2, ref hodnota3, null);
+        return Show(ref hodnota1, ref hodnota2, ref hodnota3, null);
     }
 
-    public static DialogResult Show(string titulek, string textZpravy, ref string hodnota1, string textZpravy2, ref int hodnota2, ref bool hodnota3,
+    public static DialogResult Show(ref string hodnota1, ref int hodnota2, ref bool hodnota3,
                                     InputBoxValidation overeni)
     {
         Form form = new Form();
@@ -21,10 +21,10 @@ public class InputBoxTym
         Button buttonOk = new Button();
         Button buttonStorno = new Button();
 
-        form.Text = titulek;
-        label.Text = textZpravy;
+        form.Text = "Parametry týmu";
+        label.Text = "Zadejte nebo upravte název týmu.";
         textBox.Text = hodnota1;
-        label2.Text = textZpravy2;
+        label2.Text = "Hodnocení týmu (1-nejhorší až 4-nejlepší)";
         numericUp.Value = hodnota2;
         numericUp.Minimum = 1;
         numericUp.Maximum = 4;

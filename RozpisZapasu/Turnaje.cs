@@ -78,6 +78,8 @@ namespace RozpisZapasu
             List<string> rozpis = new List<string> { "prvni-druhy", "treti-ctvrty", "paty-sesty", "sedmy-osmy", "devaty-desaty" }; //výsledek z třídy kolegy Vašáka
             //List<string> rozpis = třída.Metoda(tymy);
 
+            //List<(string,int,bool,bool)> výstup a zpracuje ho kolega Vašák
+
             //rozdělení rozpisu do hřišť
             int j = 0;
             for (int i = 0; i < rozpis.Count; i++)

@@ -86,15 +86,46 @@ namespace RozpisZapasu
             tymy = ZpracovaniXML.NacteniTymu(Application.StartupPath + "\\tymy.xml");
             hriste = ZpracovaniXML.NacteniHrist(Application.StartupPath + "\\hriste.xml");
             skupiny = ZpracovaniXML.NacteniSkupin(Application.StartupPath + "\\skupiny.xml");
-
-            hristeZapasy = Turnaje.VyslednyRozpis(1,tymy, hriste, skupiny);
-            skupinyZapasy = Turnaje.VyslednyRozpis(2, tymy, hriste, skupiny);
+            int pocetHrist = hriste.Count();
+            int pocetSkupin = skupiny.Count();
 
             //Zobrazení zápasů v ListView
             if (MessageBox.Show("Přejete si přepsat aktuální rozřazení týmů?", "Upozornění", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
             {
+                InputBoxTurnaj.Show(ref pocetHrist, ref pocetSkupin);
+                hristeZapasy = Turnaje.VyslednyRozpis(1, tymy, hriste, skupiny);
+                skupinyZapasy = Turnaje.VyslednyRozpis(2, tymy, hriste, skupiny);
+
                 ZobrazitZapasy(hristeZapasy, lsvZapasyHriste);
                 ZobrazitZapasy(skupinyZapasy, lsvZapasySkupina);
+            }
+        }
+
+        //uloží změny do seznamu
+        private void btnUlozit_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Přejete si uložit aktuální rozřazení týmů?", "Upozornění", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
+            {
+                UlozitZapasy(hristeZapasy, lsvZapasyHriste);
+                UlozitZapasy(skupinyZapasy, lsvZapasySkupina);
+            }
+        }
+
+        private void frmHlavni_Load(object sender, EventArgs e)
+        {
+            KeyPreview = true;
+        }
+
+        private void frmHlavni_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Modifiers == Keys.Shift && e.KeyCode == Keys.C)
+            {
+                Autori.Show();
+            }
+            if (e.Modifiers == Keys.Alt && e.KeyCode == Keys.H)
+            {
+                MessageBox.Show("Honzo vstávej. Kolik je hodin?", "Dotaz", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Dvě kukaččí", "Odpověď", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -108,7 +139,7 @@ namespace RozpisZapasu
             string polozka = "";
             listView.Items.Clear();
 
-            for(int i = 0; i < list.Count; i++)
+            for (int i = 0; i < list.Count; i++)
             {
                 polozka = list[i].Item3;
 
@@ -122,6 +153,7 @@ namespace RozpisZapasu
                 listView.Items.Add(lvi);
             }
         }
+
         /// <summary>
         /// Upravené pořadí zápasů uloží do seznamu 
         /// </summary>
@@ -149,15 +181,6 @@ namespace RozpisZapasu
 
             return list;
         }
-        //uloží změny do seznamu
-        private void btnUlozit_Click(object sender, EventArgs e)
-        {
-            if (MessageBox.Show("Přejete si uložit aktuální rozřazení týmů?", "Upozornění", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
-            {
-                UlozitZapasy(hristeZapasy, lsvZapasyHriste);
-                UlozitZapasy(skupinyZapasy, lsvZapasySkupina);
-            }
-        }
 
         //ověření, zda je soubor používán
         //převzato z: https://social.msdn.microsoft.com/Forums/vstudio/en-US/dead0507-06f5-43e0-9250-a78437956bc8/faq-how-do-i-check-whether-a-file-is-in-use?forum=netfxbcl
@@ -174,27 +197,6 @@ namespace RozpisZapasu
                 uzamcen = true;
             }
             return uzamcen;
-        }
-
-        private void frmHlavni_Load(object sender, EventArgs e)
-        {
-            KeyPreview = true;
-        }
-
-        private void frmHlavni_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Modifiers == Keys.Shift && e.KeyCode == Keys.C)
-            {
-                Autori.Show();
-            }
-            if (e.Modifiers == Keys.Alt && e.KeyCode == Keys.H)
-            {
-                MessageBox.Show("Honzo vstávej. Kolik je hodin?", "Dotaz", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                MessageBox.Show("Dvě kukaččí", "Odpověď", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            if (e.Modifiers == Keys.Shift && e.KeyCode == Keys.Enter){
-                //zatím nemám vymyšleno
-            }
         }
     }
 }

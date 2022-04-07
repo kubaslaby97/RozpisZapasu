@@ -63,6 +63,7 @@
     <Compile Include="frmSprava.Designer.cs">
       <DependentUpon>frmSprava.cs</DependentUpon>
     </Compile>
+    <Compile Include="InputBoxTurnaj.cs" />
     <Compile Include="InputBoxTym.cs" />
     <Compile Include="InputBox.cs" />
     <Compile Include="Autori.cs" />

@@ -39,9 +39,10 @@ namespace RozpisZapasu
                 //styl zobrazení
                 lsvPolozky.View = View.Details;
                 //přidání sloupců
-                lsvPolozky.Columns.Add("Název").Width = 110;
+                lsvPolozky.Columns.Add("Název").Width = 90;
                 lsvPolozky.Columns.Add("Hodnocení").Width = 70;
                 lsvPolozky.Columns.Add("První zápas?").Width = 80;
+                lsvPolozky.Columns.Add("Hrát?").Width = 70;
 
                 //načtení souboru
                 if (File.Exists(Application.StartupPath + "\\tymy.xml"))
@@ -124,8 +125,7 @@ namespace RozpisZapasu
                 bool prvniZapas = false;
                 int hodnoceni = 0;
 
-                if (InputBoxTym.Show("Přidat tým", "Zadejte název týmu, který chcete přidat.", ref polozka, "Hodnocení týmu (1-nejhorší až 4-nejlepší)",
-                    ref hodnoceni, ref prvniZapas, overeni) == DialogResult.OK)
+                if (InputBoxTym.Show(ref polozka, ref hodnoceni, ref prvniZapas, overeni) == DialogResult.OK)
                 {
                     ListViewItem lvi;
 
@@ -173,8 +173,7 @@ namespace RozpisZapasu
                 {
                     int hodnoceni = int.Parse(lsvPolozky.SelectedItems[0].SubItems[1].Text);
                     bool prvniZapas = bool.Parse(lsvPolozky.SelectedItems[0].SubItems[2].Text);
-                    if (InputBoxTym.Show("Upravit tým", "Zadejte název týmu, který chcete upravit.", ref polozka, "Hodnocení týmu",
-                        ref hodnoceni, ref prvniZapas, overeni) == DialogResult.OK)
+                    if (InputBoxTym.Show(ref polozka, ref hodnoceni,ref prvniZapas, overeni) == DialogResult.OK)
                     {
                         lsvPolozky.SelectedItems[0].SubItems[0].Text = polozka;
                         lsvPolozky.SelectedItems[0].SubItems[1].Text = hodnoceni.ToString();

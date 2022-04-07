@@ -115,7 +115,7 @@ namespace RozpisZapasu
             return list;
         }
 
-        /*private static List<Tuple<string, bool>> TvorbaSkupin(List<(string, int, bool)> tymy, List<string> skupiny)
+        /*private static List<Tuple<string, bool>> TvorbaSkupin(List<(string, int, bool, bool)> tymy, List<string> skupiny)
         {
             List<Tuple<string,bool>> list = new List<Tuple<string, bool>>();
 
@@ -124,7 +124,7 @@ namespace RozpisZapasu
             return list;
         }*/
 
-        /*private static List<Tuple<string, bool>> TymyDoTuple(List<(string, int, bool)> tymy)
+        /*private static List<Tuple<string, bool>> TymyDoTuple(List<(string, int, bool, bool)> tymy)
         {
             List<Tuple<string, bool>> list = new List<Tuple<string, bool>>();
 

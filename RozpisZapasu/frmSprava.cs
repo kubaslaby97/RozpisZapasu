@@ -39,10 +39,9 @@ namespace RozpisZapasu
                 //styl zobrazení
                 lsvPolozky.View = View.Details;
                 //přidání sloupců
-                lsvPolozky.Columns.Add("Název").Width = 90;
+                lsvPolozky.Columns.Add("Název").Width = 110;
                 lsvPolozky.Columns.Add("Hodnocení").Width = 70;
                 lsvPolozky.Columns.Add("První zápas?").Width = 80;
-                lsvPolozky.Columns.Add("Hrát?").Width = 70;
 
                 //načtení souboru
                 if (File.Exists(Application.StartupPath + "\\tymy.xml"))

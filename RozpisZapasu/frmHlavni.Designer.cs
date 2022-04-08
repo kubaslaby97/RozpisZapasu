@@ -51,7 +51,7 @@ namespace RozpisZapasu
             // btnExcel
             // 
             this.btnExcel.Location = new System.Drawing.Point(609, 418);
-            this.btnExcel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnExcel.Margin = new System.Windows.Forms.Padding(4);
             this.btnExcel.Name = "btnExcel";
             this.btnExcel.Size = new System.Drawing.Size(137, 31);
             this.btnExcel.TabIndex = 0;
@@ -62,7 +62,7 @@ namespace RozpisZapasu
             // btnSpravaTymu
             // 
             this.btnSpravaTymu.Location = new System.Drawing.Point(609, 15);
-            this.btnSpravaTymu.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnSpravaTymu.Margin = new System.Windows.Forms.Padding(4);
             this.btnSpravaTymu.Name = "btnSpravaTymu";
             this.btnSpravaTymu.Size = new System.Drawing.Size(137, 32);
             this.btnSpravaTymu.TabIndex = 1;
@@ -73,7 +73,7 @@ namespace RozpisZapasu
             // btnSpravaHrist
             // 
             this.btnSpravaHrist.Location = new System.Drawing.Point(609, 54);
-            this.btnSpravaHrist.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnSpravaHrist.Margin = new System.Windows.Forms.Padding(4);
             this.btnSpravaHrist.Name = "btnSpravaHrist";
             this.btnSpravaHrist.Size = new System.Drawing.Size(137, 32);
             this.btnSpravaHrist.TabIndex = 2;
@@ -84,7 +84,7 @@ namespace RozpisZapasu
             // btnSpravaSkupin
             // 
             this.btnSpravaSkupin.Location = new System.Drawing.Point(609, 94);
-            this.btnSpravaSkupin.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnSpravaSkupin.Margin = new System.Windows.Forms.Padding(4);
             this.btnSpravaSkupin.Name = "btnSpravaSkupin";
             this.btnSpravaSkupin.Size = new System.Drawing.Size(137, 32);
             this.btnSpravaSkupin.TabIndex = 3;
@@ -101,7 +101,7 @@ namespace RozpisZapasu
             this.colKolo});
             this.lsvZapasyHriste.HideSelection = false;
             this.lsvZapasyHriste.Location = new System.Drawing.Point(16, 15);
-            this.lsvZapasyHriste.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.lsvZapasyHriste.Margin = new System.Windows.Forms.Padding(4);
             this.lsvZapasyHriste.Name = "lsvZapasyHriste";
             this.lsvZapasyHriste.Size = new System.Drawing.Size(584, 226);
             this.lsvZapasyHriste.TabIndex = 0;
@@ -135,7 +135,7 @@ namespace RozpisZapasu
             // btnVytvoritTurnaj
             // 
             this.btnVytvoritTurnaj.Location = new System.Drawing.Point(609, 379);
-            this.btnVytvoritTurnaj.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnVytvoritTurnaj.Margin = new System.Windows.Forms.Padding(4);
             this.btnVytvoritTurnaj.Name = "btnVytvoritTurnaj";
             this.btnVytvoritTurnaj.Size = new System.Drawing.Size(137, 32);
             this.btnVytvoritTurnaj.TabIndex = 5;
@@ -146,7 +146,7 @@ namespace RozpisZapasu
             // btnUlozit
             // 
             this.btnUlozit.Location = new System.Drawing.Point(609, 458);
-            this.btnUlozit.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnUlozit.Margin = new System.Windows.Forms.Padding(4);
             this.btnUlozit.Name = "btnUlozit";
             this.btnUlozit.Size = new System.Drawing.Size(137, 32);
             this.btnUlozit.TabIndex = 6;
@@ -163,7 +163,7 @@ namespace RozpisZapasu
             this.cmnKolo});
             this.lsvZapasySkupina.HideSelection = false;
             this.lsvZapasySkupina.Location = new System.Drawing.Point(16, 249);
-            this.lsvZapasySkupina.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.lsvZapasySkupina.Margin = new System.Windows.Forms.Padding(4);
             this.lsvZapasySkupina.Name = "lsvZapasySkupina";
             this.lsvZapasySkupina.Size = new System.Drawing.Size(584, 239);
             this.lsvZapasySkupina.TabIndex = 7;
@@ -208,7 +208,7 @@ namespace RozpisZapasu
             this.Controls.Add(this.btnSpravaHrist);
             this.Controls.Add(this.btnSpravaTymu);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.Name = "frmHlavni";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

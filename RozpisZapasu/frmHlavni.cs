@@ -14,6 +14,9 @@ namespace RozpisZapasu
 {
     public partial class frmHlavni : Form
     {
+        string souborTymy = Application.StartupPath + "\\tymy.xml";
+        string souborHriste = Application.StartupPath + "\\hriste.xml";
+        string souborSkupiny = Application.StartupPath + "\\skupiny.xml";
         //deklarace seznamů
         List<(string, int, bool)> tymy = new List<(string, int, bool)>();
         List<(string, int, bool, bool)> vybraneTymy = new List<(string, int, bool, bool)>();
@@ -29,7 +32,7 @@ namespace RozpisZapasu
         //export do Excelu
         private void btnExcel_Click(object sender, EventArgs e)
         {
-            if (File.Exists(Application.StartupPath + "\\tymy.xml"))
+            if (File.Exists(souborTymy))
             {
                 if(hristeZapasy.Count==0 || skupinyZapasy.Count == 0)
                 {
@@ -84,25 +87,33 @@ namespace RozpisZapasu
         //tvorba zápasů a jejich zobrazení
         private void btnVytvoritTurnaj_Click(object sender, EventArgs e)
         {
-            tymy = ZpracovaniXML.NacteniTymu(Application.StartupPath + "\\tymy.xml");
-            hriste = ZpracovaniXML.NacteniHrist(Application.StartupPath + "\\hriste.xml");
-            skupiny = ZpracovaniXML.NacteniSkupin(Application.StartupPath + "\\skupiny.xml");
 
-            //Zobrazení zápasů v ListView
-            if (MessageBox.Show("Přejete si přepsat aktuální rozřazení týmů?", "Upozornění", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
+            if (File.Exists(souborTymy) || File.Exists(souborHriste) || File.Exists(souborSkupiny))
             {
-                frmTurnaj turnaj = new frmTurnaj(hriste.Count(), skupiny.Count(), tymy);
-                if (turnaj.ShowDialog() == DialogResult.OK)
+                tymy = ZpracovaniXML.NacteniTymu(souborTymy);
+                hriste = ZpracovaniXML.NacteniHrist(souborHriste);
+                skupiny = ZpracovaniXML.NacteniSkupin(souborSkupiny);
+
+                //Zobrazení zápasů v ListView
+                if (MessageBox.Show("Přejete si přepsat aktuální rozřazení týmů?", "Upozornění", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
                 {
-                    tymy.Clear();
-                    tymy = turnaj.VybraneTymy();
+                    frmTurnaj turnaj = new frmTurnaj(hriste.Count(), skupiny.Count(), tymy);
+                    if (turnaj.ShowDialog() == DialogResult.OK)
+                    {
+                        tymy.Clear();
+                        tymy = turnaj.VybraneTymy();
 
-                    hristeZapasy = ZpracovaniTurnaje.VyslednyRozpis(1, tymy, hriste, skupiny);
-                    skupinyZapasy = ZpracovaniTurnaje.VyslednyRozpis(2, tymy, hriste, skupiny);
+                        hristeZapasy = ZpracovaniTurnaje.VyslednyRozpis(1, tymy, hriste, skupiny);
+                        skupinyZapasy = ZpracovaniTurnaje.VyslednyRozpis(2, tymy, hriste, skupiny);
 
-                    ZobrazitZapasy(hristeZapasy, lsvZapasyHriste);
-                    ZobrazitZapasy(skupinyZapasy, lsvZapasySkupina);
+                        ZobrazitZapasy(hristeZapasy, lsvZapasyHriste);
+                        ZobrazitZapasy(skupinyZapasy, lsvZapasySkupina);
+                    }
                 }
+            }
+            else
+            {
+                MessageBox.Show("Některý ze souborů neexistuje", "Upozornění", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 

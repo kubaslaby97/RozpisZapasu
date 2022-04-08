@@ -48,27 +48,6 @@ namespace RozpisZapasu
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            //naplnění seznamu vybraných týmů
-            for (int i = 0; i < clbTymy.Items.Count; i++)
-            {
-                if (clbTymy.GetItemChecked(i) == true)
-                {
-                    oznaceneTymy.Add(clbTymy.Items[i].ToString());
-                }
-            }
-            
-            //zpracování vybraných týmů
-            for (int i = 0; i < seznamTymu.Count; i++)
-            {
-                for (int j = 0; j < vybraneTymy.Count; j++)
-                {
-                    if (oznaceneTymy[j].Contains(seznamTymu[i].Item1))
-                    {
-                        vybraneTymy.Add((seznamTymu[i].Item1, seznamTymu[i].Item2, seznamTymu[i].Item3));
-                    }
-                }
-            }
-
             //naplnění seznamu vybraných hřišť
             for (int i = 0; i < clbHriste.Items.Count; i++)
             {
@@ -84,6 +63,27 @@ namespace RozpisZapasu
                 if (clbSkupiny.GetItemChecked(i) == true)
                 {
                     vybraneSkupiny.Add(clbSkupiny.Items[i].ToString());
+                }
+            }
+
+            //naplnění seznamu vybraných týmů
+            for (int i = 0; i < clbTymy.Items.Count; i++)
+            {
+                if (clbTymy.GetItemChecked(i) == true)
+                {
+                    oznaceneTymy.Add(clbTymy.Items[i].ToString());
+                }
+            }
+
+            //zpracování vybraných týmů
+            for (int i = 0; i < seznamTymu.Count; i++)
+            {
+                for (int j = 0; j < oznaceneTymy.Count; j++)
+                {
+                    if (oznaceneTymy[j].Contains(seznamTymu[i].Item1))
+                    {
+                        vybraneTymy.Add((seznamTymu[i].Item1, seznamTymu[i].Item2, seznamTymu[i].Item3));
+                    }
                 }
             }
 

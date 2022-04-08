@@ -74,7 +74,7 @@
     <Compile Include="Autori.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Turnaje.cs" />
+    <Compile Include="ZpracovaniTurnaje.cs" />
     <Compile Include="ZpracovaniXML.cs" />
     <EmbeddedResource Include="frmHlavni.resx">
       <DependentUpon>frmHlavni.cs</DependentUpon>

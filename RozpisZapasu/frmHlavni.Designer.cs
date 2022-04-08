@@ -38,7 +38,7 @@ namespace RozpisZapasu
             this.colHoste = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colHriste = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colKolo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.btnRozradit = new System.Windows.Forms.Button();
+            this.btnVytvoritTurnaj = new System.Windows.Forms.Button();
             this.btnUlozit = new System.Windows.Forms.Button();
             this.lsvZapasySkupina = new System.Windows.Forms.ListView();
             this.cmnDomaci = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -126,15 +126,15 @@ namespace RozpisZapasu
             this.colKolo.Text = "Kolo";
             this.colKolo.Width = 40;
             // 
-            // btnRozradit
+            // btnVytvoritTurnaj
             // 
-            this.btnRozradit.Location = new System.Drawing.Point(457, 308);
-            this.btnRozradit.Name = "btnRozradit";
-            this.btnRozradit.Size = new System.Drawing.Size(103, 26);
-            this.btnRozradit.TabIndex = 5;
-            this.btnRozradit.Text = "Rozřadit týmy";
-            this.btnRozradit.UseVisualStyleBackColor = true;
-            this.btnRozradit.Click += new System.EventHandler(this.btnRozradit_Click);
+            this.btnVytvoritTurnaj.Location = new System.Drawing.Point(457, 308);
+            this.btnVytvoritTurnaj.Name = "btnVytvoritTurnaj";
+            this.btnVytvoritTurnaj.Size = new System.Drawing.Size(103, 26);
+            this.btnVytvoritTurnaj.TabIndex = 5;
+            this.btnVytvoritTurnaj.Text = "Vytvořit turnaj";
+            this.btnVytvoritTurnaj.UseVisualStyleBackColor = true;
+            this.btnVytvoritTurnaj.Click += new System.EventHandler(this.btnVytvoritTurnaj_Click);
             // 
             // btnUlozit
             // 
@@ -194,7 +194,7 @@ namespace RozpisZapasu
             this.Controls.Add(this.lsvZapasyHriste);
             this.Controls.Add(this.btnUlozit);
             this.Controls.Add(this.btnExcel);
-            this.Controls.Add(this.btnRozradit);
+            this.Controls.Add(this.btnVytvoritTurnaj);
             this.Controls.Add(this.btnSpravaSkupin);
             this.Controls.Add(this.btnSpravaHrist);
             this.Controls.Add(this.btnSpravaTymu);
@@ -218,7 +218,7 @@ namespace RozpisZapasu
         private System.Windows.Forms.ColumnHeader colDomaci;
         private System.Windows.Forms.ColumnHeader colHoste;
         private System.Windows.Forms.ColumnHeader colHriste;
-        private System.Windows.Forms.Button btnRozradit;
+        private System.Windows.Forms.Button btnVytvoritTurnaj;
         private System.Windows.Forms.Button btnUlozit;
         private System.Windows.Forms.ColumnHeader colKolo;
         private System.Windows.Forms.ListView lsvZapasySkupina;

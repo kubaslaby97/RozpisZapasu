@@ -12,29 +12,66 @@ namespace RozpisZapasu
 {
     public partial class frmTurnaj : Form
     {
-        List<(string, int, bool)> tymy = ZpracovaniXML.NacteniTymu(Application.StartupPath + "\\tymy.xml");
-        List<(string, int, bool, bool)> vybraneTymy = new List<(string, int, bool, bool)>();
-        public frmTurnaj()
+        int pocetHrist = 0, pocetSkupin = 0;
+        List<(string, int, bool)> seznamTymu = ZpracovaniXML.NacteniTymu(Application.StartupPath + "\\tymy.xml");
+        List<(string, int, bool)> tymy = new List<(string, int, bool)>();
+        List<string> vybraneTymy = new List<string>();
+
+        public frmTurnaj(int pocetHrist,int pocetSkupin)
         {
             InitializeComponent();
+            this.pocetHrist = pocetHrist;
+            this.pocetSkupin = pocetSkupin;
         }
 
         private void frmTurnaj_Load(object sender, EventArgs e)
         {
-            for (int i = 0; i < tymy.Count; i++)
+            numHriste.Maximum = pocetHrist;
+            numHriste.Minimum = 1;
+            numHriste.Value = pocetHrist;
+            numSkupiny.Maximum = pocetSkupin;
+            numSkupiny.Minimum = 1;
+            numSkupiny.Value = pocetSkupin;
+
+            for (int i = 0; i < seznamTymu.Count; i++)
             {
-                clbTymy.Items.Add(tymy[i].Item1);
+                clbTymy.Items.Add(seznamTymu[i].Item1);
             }
         }
 
-        /*private static List<(string, int, bool, bool)> VybraneTymy(List<(string, int, bool)> tymy, List<bool> hraji)
+        private void btnOK_Click(object sender, EventArgs e)
         {
-            List<(string, int, bool, bool)> list = new List<(string, int, bool, bool)>();
-            for (int i = 0; i < tymy.Count; i++)
+            //naplnění seznamu vybraných týmů
+            for (int i = 0; i < clbTymy.Items.Count; i++)
             {
-                list.Add((tymy[i].Item1, tymy[i].Item2, tymy[i].Item3, hraji[i]));
+                if (clbTymy.GetItemChecked(i) == true)
+                {
+                    vybraneTymy.Add(clbTymy.Items[i].ToString());
+                }
             }
-            return list;
-        }*/
+            
+            //zpracování vybraných týmů
+            for (int i = 0; i < seznamTymu.Count; i++)
+            {
+                for (int j = 0; j < vybraneTymy.Count; j++)
+                {
+                    if (vybraneTymy[j].Contains(seznamTymu[i].Item1))
+                    {
+                        tymy.Add((seznamTymu[i].Item1, seznamTymu[i].Item2, seznamTymu[i].Item3));
+                    }
+                }
+            }
+            this.Close();
+        }
+
+        private void btnStorno_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        public List<(string, int, bool)> VybraneTymy()
+        {
+            return tymy;
+        }
     }
 }

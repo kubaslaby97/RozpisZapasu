@@ -16,6 +16,7 @@ namespace RozpisZapasu
     {
         //deklarace seznamů
         List<(string, int, bool)> tymy = new List<(string, int, bool)>();
+        List<(string, int, bool, bool)> vybraneTymy = new List<(string, int, bool, bool)>();
         List<string> hriste = new List<string>();
         List<string> skupiny = new List<string>();
         List<(int, string, string)> hristeZapasy = new List<(int, string, string)> ();
@@ -81,23 +82,23 @@ namespace RozpisZapasu
             sprava.Show();
         }
         //tvorba zápasů a jejich zobrazení
-        private void btnRozradit_Click(object sender, EventArgs e)
+        private void btnVytvoritTurnaj_Click(object sender, EventArgs e)
         {
             tymy = ZpracovaniXML.NacteniTymu(Application.StartupPath + "\\tymy.xml");
             hriste = ZpracovaniXML.NacteniHrist(Application.StartupPath + "\\hriste.xml");
             skupiny = ZpracovaniXML.NacteniSkupin(Application.StartupPath + "\\skupiny.xml");
-            int pocetHrist = hriste.Count();
-            int pocetSkupin = skupiny.Count();
 
             //Zobrazení zápasů v ListView
             if (MessageBox.Show("Přejete si přepsat aktuální rozřazení týmů?", "Upozornění", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
             {
-                //InputBoxTurnaj.Show(ref pocetHrist, ref pocetSkupin);
-                frmTurnaj turnaj = new frmTurnaj();
+                frmTurnaj turnaj = new frmTurnaj(hriste.Count(), skupiny.Count());
                 if (turnaj.ShowDialog() == DialogResult.OK)
                 {
-                    hristeZapasy = Turnaje.VyslednyRozpis(1, tymy, hriste, skupiny);
-                    skupinyZapasy = Turnaje.VyslednyRozpis(2, tymy, hriste, skupiny);
+                    tymy.Clear();
+                    tymy = turnaj.VybraneTymy();
+
+                    hristeZapasy = ZpracovaniTurnaje.VyslednyRozpis(1, tymy, hriste, skupiny);
+                    skupinyZapasy = ZpracovaniTurnaje.VyslednyRozpis(2, tymy, hriste, skupiny);
 
                     ZobrazitZapasy(hristeZapasy, lsvZapasyHriste);
                     ZobrazitZapasy(skupinyZapasy, lsvZapasySkupina);
@@ -176,7 +177,6 @@ namespace RozpisZapasu
         public List<string> NazvyTymu()
         {
             List<string> list = new List<string>();
-            tymy = ZpracovaniXML.NacteniTymu(Application.StartupPath + "\\tymy.xml");
 
             for (int i = 0; i < tymy.Count; i++)
             {

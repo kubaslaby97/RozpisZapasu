@@ -21,7 +21,6 @@ namespace RozpisZapasu
         /// <returns>vrátí výsledný seznam zápasů</returns>
         public static List<(int,string,string)> VyslednyRozpis(int volba, List<(string, int, bool)> tymy, List<string> hriste, List<string> skupiny)
         {
-            //List<bool> hraji = new List<bool> { true, true, false, true, false };
             List<(int, string, string)> list = new List<(int, string, string)>();
             List<(string, string)> zapasy = new List<(string, string)>();
 
@@ -115,15 +114,6 @@ namespace RozpisZapasu
             }
             return list;
         }
-
-        /*private static List<Tuple<string, bool>> TvorbaSkupin(List<(string, int, bool, bool)> tymy, List<string> skupiny)
-        {
-            List<Tuple<string,bool>> list = new List<Tuple<string, bool>>();
-
-            //TODO: naplnění skupin týmů
-
-            return list;
-        }*/
 
         /*private static List<Tuple<string, bool>> TymyDoTuple(List<(string, int, bool, bool)> tymy)
         {

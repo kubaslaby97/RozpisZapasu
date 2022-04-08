@@ -91,7 +91,7 @@ namespace RozpisZapasu
             //Zobrazení zápasů v ListView
             if (MessageBox.Show("Přejete si přepsat aktuální rozřazení týmů?", "Upozornění", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
             {
-                frmTurnaj turnaj = new frmTurnaj(hriste.Count(), skupiny.Count());
+                frmTurnaj turnaj = new frmTurnaj(hriste.Count(), skupiny.Count(), tymy);
                 if (turnaj.ShowDialog() == DialogResult.OK)
                 {
                     tymy.Clear();

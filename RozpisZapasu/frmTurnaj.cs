@@ -13,15 +13,16 @@ namespace RozpisZapasu
     public partial class frmTurnaj : Form
     {
         int pocetHrist = 0, pocetSkupin = 0;
-        List<(string, int, bool)> seznamTymu = ZpracovaniXML.NacteniTymu(Application.StartupPath + "\\tymy.xml");
+        List<(string, int, bool)> seznamTymu = new List<(string, int, bool)>();
         List<(string, int, bool)> tymy = new List<(string, int, bool)>();
         List<string> vybraneTymy = new List<string>();
 
-        public frmTurnaj(int pocetHrist,int pocetSkupin)
+        public frmTurnaj(int pocetHrist,int pocetSkupin, List<(string, int, bool)> seznamTymu)
         {
             InitializeComponent();
             this.pocetHrist = pocetHrist;
             this.pocetSkupin = pocetSkupin;
+            this.seznamTymu = seznamTymu;
         }
 
         private void frmTurnaj_Load(object sender, EventArgs e)
@@ -61,6 +62,8 @@ namespace RozpisZapasu
                     }
                 }
             }
+
+            //zavření okna
             this.Close();
         }
 
@@ -69,6 +72,7 @@ namespace RozpisZapasu
             this.Close();
         }
 
+        //vrátí vybrané týmy
         public List<(string, int, bool)> VybraneTymy()
         {
             return tymy;

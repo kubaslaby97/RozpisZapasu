@@ -103,8 +103,8 @@ namespace RozpisZapasu
                         tymy.Clear();
                         tymy = turnaj.VybraneTymy();
 
-                        hristeZapasy = ZpracovaniTurnaje.VyslednyRozpis(1, tymy, hriste, skupiny);
-                        skupinyZapasy = ZpracovaniTurnaje.VyslednyRozpis(2, tymy, hriste, skupiny);
+                        hristeZapasy = ZpracovaniTurnaje.VyslednyRozpis(1, tymy, hriste, skupiny, turnaj.PocetHrist(), turnaj.PocetHrist());
+                        skupinyZapasy = ZpracovaniTurnaje.VyslednyRozpis(2, tymy, hriste, skupiny, turnaj.PocetHrist(), turnaj.PocetHrist());
 
                         ZobrazitZapasy(hristeZapasy, lsvZapasyHriste);
                         ZobrazitZapasy(skupinyZapasy, lsvZapasySkupina);

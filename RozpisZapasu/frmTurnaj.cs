@@ -77,5 +77,15 @@ namespace RozpisZapasu
         {
             return tymy;
         }
+        //vrátí počet hřišť
+        public int PocetHrist()
+        {
+            return pocetHrist;
+        }
+        //vrátí počet skupin
+        public int PocetSkupin()
+        {
+            return pocetSkupin;
+        }
     }
 }

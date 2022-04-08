@@ -17,7 +17,7 @@ namespace RozpisZapasu
         /// <param name="hriste">vstupní seznam hřišť</param>
         /// <param name="skupiny">vstupní seznam skupin</param>
         /// <returns>vrátí výsledný seznam zápasů</returns>
-        public static List<(int,string,string)> VyslednyRozpis(int volba, List<(string, int, bool)> tymy, List<string> hriste, List<string> skupiny)
+        public static List<(int, string, string)> VyslednyRozpis(int volba, List<(string, int, bool)> tymy, List<string> hriste, List<string> skupiny, int pocetSkupin, int pocetHrist)
         {
             List<(int, string, string)> list = new List<(int, string, string)>();
             List<(string, string)> zapasy = new List<(string, string)>();
@@ -29,7 +29,7 @@ namespace RozpisZapasu
                 zapasy.Clear();
 
                 //přidělení týmů na hřiště
-                zapasy = HristeZapasy(tymy, hriste);
+                zapasy = HristeZapasy(tymy, hriste, pocetSkupin, pocetHrist);
 
                 //naplnění výsledného rozpisu
                 for (int i = 0; i < zapasy.Count; i++)
@@ -70,12 +70,10 @@ namespace RozpisZapasu
         /// <param name="tymy">vstupní seznam týmů</param>
         /// <param name="hriste">vstupní seznam hřišť</param>
         /// <returns>Vrátí seznam zápasů na hřištích</returns>
-        private static List<(string, string)> HristeZapasy(List<(string, int, bool)> tymy, List<string> hriste)
+        private static List<(string, string)> HristeZapasy(List<(string, int, bool)> tymy, List<string> hriste, int pocetSkupin, int pocetHrist)
         {
             List<(string, string)> list = new List<(string, string)>();
-            List<string> rozpis = VytvoreniRozpisu(VytvoreniSkupin(tymy, 2), 2);
-
-            //List<(string,int,bool,bool)> výstup a zpracuje ho kolega Vašák
+            List<string> rozpis = VytvoreniRozpisu(VytvoreniSkupin(tymy,pocetSkupin), pocetHrist);
 
             //rozdělení rozpisu do hřišť
             int j = 0;

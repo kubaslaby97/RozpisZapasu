@@ -79,7 +79,7 @@ namespace RozpisZapasu
             int j = 0;
             for (int i = 0; i < rozpis.Count; i++)
             {
-                if (j == hriste.Count)
+                if (j == pocetHrist)
                 {
                     j = 0;
                 }

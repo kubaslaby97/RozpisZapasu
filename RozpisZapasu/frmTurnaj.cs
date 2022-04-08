@@ -80,11 +80,13 @@ namespace RozpisZapasu
         //vrátí počet hřišť
         public int PocetHrist()
         {
+            pocetHrist = (int)numHriste.Value;
             return pocetHrist;
         }
         //vrátí počet skupin
         public int PocetSkupin()
         {
+            pocetSkupin = (int)numSkupiny.Value;
             return pocetSkupin;
         }
     }

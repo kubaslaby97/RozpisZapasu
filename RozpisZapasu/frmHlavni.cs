@@ -24,6 +24,7 @@ namespace RozpisZapasu
         List<string> skupiny = new List<string>();
         List<(int, string, string)> hristeZapasy = new List<(int, string, string)> ();
         List<(int, string, string)> skupinyZapasy = new List<(int, string, string)> ();
+        List<(string, string)> skupinyTymy = new List<(string, string)>();
 
         public frmHlavni()
         {
@@ -93,6 +94,8 @@ namespace RozpisZapasu
                 tymy = ZpracovaniXML.NacteniTymu(souborTymy);
                 hriste = ZpracovaniXML.NacteniHrist(souborHriste);
                 skupiny = ZpracovaniXML.NacteniSkupin(souborSkupiny);
+                skupinyTymy = new List<(string, string)> { ("Tým2","SkupinaA"), ("Tým3", "SkupinaA") ,
+                    ("Tým5", "SkupinaB"),("Tým4","SkupinaB") };
 
                 //Zobrazení zápasů v ListView
                 if (MessageBox.Show("Přejete si přepsat aktuální rozřazení týmů?", "Upozornění", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
@@ -108,6 +111,8 @@ namespace RozpisZapasu
 
                         ZobrazitZapasy(hristeZapasy, lsvZapasyHriste);
                         ZobrazitZapasy(skupinyZapasy, lsvZapasySkupina);
+
+                        ZobrazitSkupiny(skupinyTymy, lsvSkupinyTymy);
                     }
                 }
             }
@@ -165,6 +170,26 @@ namespace RozpisZapasu
 
                 lvi.SubItems.Add(list[i].Item2); //hřiště nebo skupina
                 lvi.SubItems.Add(list[i].Item1.ToString()); //kolo
+
+                listView.Items.Add(lvi);
+            }
+        }
+
+        /// <summary>
+        /// Zobrazí týmy ve skupinách
+        /// </summary>
+        /// <param name="list">vstupní seznam týmů ve skupinách</param>
+        /// <param name="listView">zobrazení skupin a jejich členů</param>
+        private void ZobrazitSkupiny(List<(string,string)> list, ListView listView)
+        {
+            listView.Items.Clear();
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                ListViewItem lvi;
+
+                lvi = new ListViewItem(list[i].Item1); //tým
+                lvi.SubItems.Add(list[i].Item2); //skupina
 
                 listView.Items.Add(lvi);
             }

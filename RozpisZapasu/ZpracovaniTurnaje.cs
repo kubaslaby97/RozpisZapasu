@@ -17,7 +17,7 @@ namespace RozpisZapasu
         /// <param name="hriste">vstupní seznam hřišť</param>
         /// <param name="skupiny">vstupní seznam skupin</param>
         /// <returns>vrátí výsledný seznam zápasů</returns>
-        public static List<(int, string, string)> VyslednyRozpis(int volba, List<(string, int, bool)> tymy, List<string> hriste, List<string> skupiny, int pocetSkupin, int pocetHrist)
+        public static List<(int, string, string)> VyslednyRozpis(int volba, List<(string, int, bool)> tymy, List<string> hriste, List<string> skupiny)
         {
             List<(int, string, string)> list = new List<(int, string, string)>();
             List<(string, string)> zapasy = new List<(string, string)>();
@@ -29,7 +29,7 @@ namespace RozpisZapasu
                 zapasy.Clear();
 
                 //přidělení týmů na hřiště
-                zapasy = HristeZapasy(tymy, hriste, pocetSkupin, pocetHrist);
+                zapasy = HristeZapasy(tymy, hriste, skupiny);
 
                 //naplnění výsledného rozpisu
                 for (int i = 0; i < zapasy.Count; i++)
@@ -70,16 +70,16 @@ namespace RozpisZapasu
         /// <param name="tymy">vstupní seznam týmů</param>
         /// <param name="hriste">vstupní seznam hřišť</param>
         /// <returns>Vrátí seznam zápasů na hřištích</returns>
-        private static List<(string, string)> HristeZapasy(List<(string, int, bool)> tymy, List<string> hriste, int pocetSkupin, int pocetHrist)
+        private static List<(string, string)> HristeZapasy(List<(string, int, bool)> tymy, List<string> hriste, List<string> skupiny)
         {
             List<(string, string)> list = new List<(string, string)>();
-            List<string> rozpis = VytvoreniRozpisu(VytvoreniSkupin(tymy,pocetSkupin), pocetHrist);
+            List<string> rozpis = VytvoreniRozpisu(VytvoreniSkupin(tymy,skupiny.Count()), hriste.Count());
 
             //rozdělení rozpisu do hřišť
             int j = 0;
             for (int i = 0; i < rozpis.Count; i++)
             {
-                if (j == pocetHrist)
+                if (j == hriste.Count())
                 {
                     j = 0;
                 }

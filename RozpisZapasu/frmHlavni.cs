@@ -14,9 +14,11 @@ namespace RozpisZapasu
 {
     public partial class frmHlavni : Form
     {
+        //deklarace názvů souborů
         string souborTymy = Application.StartupPath + "\\tymy.xml";
         string souborHriste = Application.StartupPath + "\\hriste.xml";
         string souborSkupiny = Application.StartupPath + "\\skupiny.xml";
+
         //deklarace seznamů
         List<(string, int, bool)> tymy = new List<(string, int, bool)>();
         List<(string, int, bool, bool)> vybraneTymy = new List<(string, int, bool, bool)>();
@@ -70,25 +72,30 @@ namespace RozpisZapasu
         //správa týmů
         private void btnSpravaTymu_Click(object sender, EventArgs e)
         {
-            frmSprava sprava = new frmSprava("Správa týmů", 1);
-            sprava.Show();
+            using (frmSprava form = new frmSprava("Správa týmů", 1))
+            {
+                form.Show();
+            }
         }
         //správa hřišť
         private void btnSpravaHrist_Click(object sender, EventArgs e)
         {
-            frmSprava sprava = new frmSprava("Správa hřišť", 2);
-            sprava.Show();
+            using (frmSprava form = new frmSprava("Správa hřišť", 2))
+            {
+                form.Show();
+            }  
         }
         //správa skupin
         private void btnSpravaSkupin_Click(object sender, EventArgs e)
         {
-            frmSprava sprava = new frmSprava("Správa skupin", 3);
-            sprava.Show();
+            using (frmSprava form = new frmSprava("Správa skupin", 3))
+            {
+                form.Show();
+            }    
         }
         //tvorba zápasů a jejich zobrazení
         private void btnVytvoritTurnaj_Click(object sender, EventArgs e)
         {
-
             if (File.Exists(souborTymy) || File.Exists(souborHriste) || File.Exists(souborSkupiny))
             {
                 tymy = ZpracovaniXML.NacteniTymu(souborTymy);
@@ -100,19 +107,27 @@ namespace RozpisZapasu
                 //Zobrazení zápasů v ListView
                 if (MessageBox.Show("Přejete si přepsat aktuální rozřazení týmů?", "Upozornění", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
                 {
-                    frmTurnaj turnaj = new frmTurnaj(hriste.Count(), skupiny.Count(), tymy);
-                    if (turnaj.ShowDialog() == DialogResult.OK)
+                    using (frmTurnaj form = new frmTurnaj(tymy, hriste, skupiny))
                     {
-                        tymy.Clear();
-                        tymy = turnaj.VybraneTymy();
+                        {
+                            if (form.ShowDialog() == DialogResult.OK)
+                            {
+                                tymy.Clear();
+                                tymy = form.VybraneTymy();
+                                hriste.Clear();
+                                hriste = form.VybranaHriste();
+                                skupiny.Clear();
+                                skupiny = form.VybraneSkupiny();
 
-                        hristeZapasy = ZpracovaniTurnaje.VyslednyRozpis(1, tymy, hriste, skupiny, turnaj.PocetHrist(), turnaj.PocetHrist());
-                        skupinyZapasy = ZpracovaniTurnaje.VyslednyRozpis(2, tymy, hriste, skupiny, turnaj.PocetHrist(), turnaj.PocetHrist());
+                                hristeZapasy = ZpracovaniTurnaje.VyslednyRozpis(1, tymy, hriste, skupiny);
+                                skupinyZapasy = ZpracovaniTurnaje.VyslednyRozpis(2, tymy, hriste, skupiny);
 
-                        ZobrazitZapasy(hristeZapasy, lsvZapasyHriste);
-                        ZobrazitZapasy(skupinyZapasy, lsvZapasySkupina);
+                                ZobrazitZapasy(hristeZapasy, lsvZapasyHriste);
+                                ZobrazitZapasy(skupinyZapasy, lsvZapasySkupina);
 
-                        ZobrazitSkupiny(skupinyTymy, lsvSkupinyTymy);
+                                ZobrazitSkupiny(skupinyTymy, lsvSkupinyTymy);
+                            }
+                        }
                     }
                 }
             }

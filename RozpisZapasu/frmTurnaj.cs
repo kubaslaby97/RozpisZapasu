@@ -12,31 +12,37 @@ namespace RozpisZapasu
 {
     public partial class frmTurnaj : Form
     {
-        int pocetHrist = 0, pocetSkupin = 0;
         List<(string, int, bool)> seznamTymu = new List<(string, int, bool)>();
-        List<(string, int, bool)> tymy = new List<(string, int, bool)>();
-        List<string> vybraneTymy = new List<string>();
+        List<string> seznamHrist = new List<string>();
+        List<string> seznamSkupin = new List<string>();
+        List<(string, int, bool)> vybraneTymy = new List<(string, int, bool)>();
+        List<string> oznaceneTymy = new List<string>();
+        List<string> vybranaHriste = new List<string>();
+        List<string> vybraneSkupiny = new List<string>();
 
-        public frmTurnaj(int pocetHrist,int pocetSkupin, List<(string, int, bool)> seznamTymu)
+        public frmTurnaj(List<(string, int, bool)> seznamTymu,List<string> seznamHrist, List<string> seznamSkupin)
         {
             InitializeComponent();
-            this.pocetHrist = pocetHrist;
-            this.pocetSkupin = pocetSkupin;
+            this.seznamHrist = seznamHrist;
+            this.seznamSkupin = seznamSkupin;
             this.seznamTymu = seznamTymu;
         }
 
         private void frmTurnaj_Load(object sender, EventArgs e)
         {
-            numHriste.Maximum = pocetHrist;
-            numHriste.Minimum = 1;
-            numHriste.Value = pocetHrist;
-            numSkupiny.Maximum = pocetSkupin;
-            numSkupiny.Minimum = 1;
-            numSkupiny.Value = pocetSkupin;
-
             for (int i = 0; i < seznamTymu.Count; i++)
             {
                 clbTymy.Items.Add(seznamTymu[i].Item1);
+            }
+
+            for (int i = 0; i < seznamHrist.Count; i++)
+            {
+                clbHriste.Items.Add(seznamHrist[i]);
+            }
+
+            for (int i = 0; i < seznamSkupin.Count; i++)
+            {
+                clbSkupiny.Items.Add(seznamSkupin[i]);
             }
         }
 
@@ -47,7 +53,7 @@ namespace RozpisZapasu
             {
                 if (clbTymy.GetItemChecked(i) == true)
                 {
-                    vybraneTymy.Add(clbTymy.Items[i].ToString());
+                    oznaceneTymy.Add(clbTymy.Items[i].ToString());
                 }
             }
             
@@ -56,10 +62,28 @@ namespace RozpisZapasu
             {
                 for (int j = 0; j < vybraneTymy.Count; j++)
                 {
-                    if (vybraneTymy[j].Contains(seznamTymu[i].Item1))
+                    if (oznaceneTymy[j].Contains(seznamTymu[i].Item1))
                     {
-                        tymy.Add((seznamTymu[i].Item1, seznamTymu[i].Item2, seznamTymu[i].Item3));
+                        vybraneTymy.Add((seznamTymu[i].Item1, seznamTymu[i].Item2, seznamTymu[i].Item3));
                     }
+                }
+            }
+
+            //naplnění seznamu vybraných hřišť
+            for (int i = 0; i < clbHriste.Items.Count; i++)
+            {
+                if (clbHriste.GetItemChecked(i) == true)
+                {
+                    vybranaHriste.Add(clbHriste.Items[i].ToString());
+                }
+            }
+
+            //naplnění seznamu vybraných skupin
+            for (int i = 0; i < clbSkupiny.Items.Count; i++)
+            {
+                if (clbSkupiny.GetItemChecked(i) == true)
+                {
+                    vybraneSkupiny.Add(clbSkupiny.Items[i].ToString());
                 }
             }
 
@@ -75,19 +99,19 @@ namespace RozpisZapasu
         //vrátí vybrané týmy
         public List<(string, int, bool)> VybraneTymy()
         {
-            return tymy;
+            return vybraneTymy;
         }
-        //vrátí počet hřišť
-        public int PocetHrist()
+
+        //vrátí vybraná hřiště
+        public List<string> VybranaHriste()
         {
-            pocetHrist = (int)numHriste.Value;
-            return pocetHrist;
+            return vybranaHriste;
         }
-        //vrátí počet skupin
-        public int PocetSkupin()
+
+        //vrátí vybrané skupiny
+        public List<string> VybraneSkupiny()
         {
-            pocetSkupin = (int)numSkupiny.Value;
-            return pocetSkupin;
+            return vybraneSkupiny;
         }
     }
 }

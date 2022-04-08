@@ -29,6 +29,7 @@ namespace RozpisZapasu
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmHlavni));
             this.btnExcel = new System.Windows.Forms.Button();
             this.btnSpravaTymu = new System.Windows.Forms.Button();
             this.btnSpravaHrist = new System.Windows.Forms.Button();
@@ -49,9 +50,10 @@ namespace RozpisZapasu
             // 
             // btnExcel
             // 
-            this.btnExcel.Location = new System.Drawing.Point(457, 340);
+            this.btnExcel.Location = new System.Drawing.Point(609, 418);
+            this.btnExcel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnExcel.Name = "btnExcel";
-            this.btnExcel.Size = new System.Drawing.Size(103, 25);
+            this.btnExcel.Size = new System.Drawing.Size(137, 31);
             this.btnExcel.TabIndex = 0;
             this.btnExcel.Text = "Export do Excelu";
             this.btnExcel.UseVisualStyleBackColor = true;
@@ -59,9 +61,10 @@ namespace RozpisZapasu
             // 
             // btnSpravaTymu
             // 
-            this.btnSpravaTymu.Location = new System.Drawing.Point(457, 12);
+            this.btnSpravaTymu.Location = new System.Drawing.Point(609, 15);
+            this.btnSpravaTymu.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnSpravaTymu.Name = "btnSpravaTymu";
-            this.btnSpravaTymu.Size = new System.Drawing.Size(103, 26);
+            this.btnSpravaTymu.Size = new System.Drawing.Size(137, 32);
             this.btnSpravaTymu.TabIndex = 1;
             this.btnSpravaTymu.Text = "Správa týmů";
             this.btnSpravaTymu.UseVisualStyleBackColor = true;
@@ -69,9 +72,10 @@ namespace RozpisZapasu
             // 
             // btnSpravaHrist
             // 
-            this.btnSpravaHrist.Location = new System.Drawing.Point(457, 44);
+            this.btnSpravaHrist.Location = new System.Drawing.Point(609, 54);
+            this.btnSpravaHrist.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnSpravaHrist.Name = "btnSpravaHrist";
-            this.btnSpravaHrist.Size = new System.Drawing.Size(103, 26);
+            this.btnSpravaHrist.Size = new System.Drawing.Size(137, 32);
             this.btnSpravaHrist.TabIndex = 2;
             this.btnSpravaHrist.Text = "Správa hřišť";
             this.btnSpravaHrist.UseVisualStyleBackColor = true;
@@ -79,9 +83,10 @@ namespace RozpisZapasu
             // 
             // btnSpravaSkupin
             // 
-            this.btnSpravaSkupin.Location = new System.Drawing.Point(457, 76);
+            this.btnSpravaSkupin.Location = new System.Drawing.Point(609, 94);
+            this.btnSpravaSkupin.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnSpravaSkupin.Name = "btnSpravaSkupin";
-            this.btnSpravaSkupin.Size = new System.Drawing.Size(103, 26);
+            this.btnSpravaSkupin.Size = new System.Drawing.Size(137, 32);
             this.btnSpravaSkupin.TabIndex = 3;
             this.btnSpravaSkupin.Text = "Správa skupin";
             this.btnSpravaSkupin.UseVisualStyleBackColor = true;
@@ -95,9 +100,10 @@ namespace RozpisZapasu
             this.colHriste,
             this.colKolo});
             this.lsvZapasyHriste.HideSelection = false;
-            this.lsvZapasyHriste.Location = new System.Drawing.Point(12, 12);
+            this.lsvZapasyHriste.Location = new System.Drawing.Point(16, 15);
+            this.lsvZapasyHriste.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.lsvZapasyHriste.Name = "lsvZapasyHriste";
-            this.lsvZapasyHriste.Size = new System.Drawing.Size(439, 184);
+            this.lsvZapasyHriste.Size = new System.Drawing.Size(584, 226);
             this.lsvZapasyHriste.TabIndex = 0;
             this.lsvZapasyHriste.UseCompatibleStateImageBehavior = false;
             this.lsvZapasyHriste.View = System.Windows.Forms.View.Details;
@@ -128,9 +134,10 @@ namespace RozpisZapasu
             // 
             // btnVytvoritTurnaj
             // 
-            this.btnVytvoritTurnaj.Location = new System.Drawing.Point(457, 308);
+            this.btnVytvoritTurnaj.Location = new System.Drawing.Point(609, 379);
+            this.btnVytvoritTurnaj.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnVytvoritTurnaj.Name = "btnVytvoritTurnaj";
-            this.btnVytvoritTurnaj.Size = new System.Drawing.Size(103, 26);
+            this.btnVytvoritTurnaj.Size = new System.Drawing.Size(137, 32);
             this.btnVytvoritTurnaj.TabIndex = 5;
             this.btnVytvoritTurnaj.Text = "Vytvořit turnaj";
             this.btnVytvoritTurnaj.UseVisualStyleBackColor = true;
@@ -138,9 +145,10 @@ namespace RozpisZapasu
             // 
             // btnUlozit
             // 
-            this.btnUlozit.Location = new System.Drawing.Point(457, 372);
+            this.btnUlozit.Location = new System.Drawing.Point(609, 458);
+            this.btnUlozit.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnUlozit.Name = "btnUlozit";
-            this.btnUlozit.Size = new System.Drawing.Size(103, 26);
+            this.btnUlozit.Size = new System.Drawing.Size(137, 32);
             this.btnUlozit.TabIndex = 6;
             this.btnUlozit.Text = "Uložit změny";
             this.btnUlozit.UseVisualStyleBackColor = true;
@@ -154,9 +162,10 @@ namespace RozpisZapasu
             this.cmnSkupina,
             this.cmnKolo});
             this.lsvZapasySkupina.HideSelection = false;
-            this.lsvZapasySkupina.Location = new System.Drawing.Point(12, 202);
+            this.lsvZapasySkupina.Location = new System.Drawing.Point(16, 249);
+            this.lsvZapasySkupina.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.lsvZapasySkupina.Name = "lsvZapasySkupina";
-            this.lsvZapasySkupina.Size = new System.Drawing.Size(439, 195);
+            this.lsvZapasySkupina.Size = new System.Drawing.Size(584, 239);
             this.lsvZapasySkupina.TabIndex = 7;
             this.lsvZapasySkupina.UseCompatibleStateImageBehavior = false;
             this.lsvZapasySkupina.View = System.Windows.Forms.View.Details;
@@ -187,9 +196,9 @@ namespace RozpisZapasu
             // 
             // frmHlavni
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(572, 409);
+            this.ClientSize = new System.Drawing.Size(763, 503);
             this.Controls.Add(this.lsvZapasySkupina);
             this.Controls.Add(this.lsvZapasyHriste);
             this.Controls.Add(this.btnUlozit);
@@ -198,6 +207,8 @@ namespace RozpisZapasu
             this.Controls.Add(this.btnSpravaSkupin);
             this.Controls.Add(this.btnSpravaHrist);
             this.Controls.Add(this.btnSpravaTymu);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
             this.Name = "frmHlavni";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

@@ -18,7 +18,7 @@ namespace RozpisZapasu
         List<(string, int, bool)> vybraneTymy = new List<(string, int, bool)>();
         List<string> vybranaHriste = new List<string>();
         List<string> vybraneSkupiny = new List<string>();
-        Color barvaZapasu, barvaSkupin = new Color();
+        Color barvaZapasu = new Color();
 
         public frmTurnaj(List<(string, int, bool)> seznamTymu,List<string> seznamHrist, List<string> seznamSkupin)
         {

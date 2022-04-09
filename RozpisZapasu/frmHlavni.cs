@@ -23,8 +23,8 @@ namespace RozpisZapasu
         List<(string, int, bool)> tymy = new List<(string, int, bool)>();
         List<string> hriste = new List<string>();
         List<string> skupiny = new List<string>();
-        List<(int, string, string)> hristeZapasy = new List<(int, string, string)> ();
-        List<(int, string, string)> skupinyZapasy = new List<(int, string, string)> ();
+        List<(int, string, string)> hristeZapasy = new List<(int, string, string)>();
+        List<(int, string, string)> skupinyZapasy = new List<(int, string, string)>();
         List<(string, string)> skupinyTymy = new List<(string, string)>();
 
         public frmHlavni()
@@ -94,7 +94,7 @@ namespace RozpisZapasu
         private void btnSpravaSkupin_Click(object sender, EventArgs e)
         {
             frmSprava form = new frmSprava("Správa skupin", 3);
-            form.Show();    
+            form.Show();
         }
         //tvorba zápasů a jejich zobrazení
         private void btnVytvoritTurnaj_Click(object sender, EventArgs e)
@@ -128,7 +128,7 @@ namespace RozpisZapasu
                                 ZobrazitZapasy(skupinyZapasy, form.BarvaZapasu(), lsvZapasySkupina);
 
                                 skupinyTymy = ZpracovaniTurnaje.TymyVeSkupine(tymy, skupiny);
-                                ZobrazitSkupiny(skupinyTymy, lsvSkupinyTymy);
+                                ZobrazitSkupiny(skupinyTymy, skupiny, lsvSkupinyTymy);
                             }
                         }
                     }
@@ -202,7 +202,7 @@ namespace RozpisZapasu
         /// </summary>
         /// <param name="list">vstupní seznam týmů ve skupinách</param>
         /// <param name="listView">zobrazení skupin a jejich členů</param>
-        private void ZobrazitSkupiny(List<(string,string)> list, ListView listView)
+        private void ZobrazitSkupiny(List<(string, string)> list, List<string> seznamSkupin, ListView listView)
         {
             listView.Items.Clear();
 
@@ -215,6 +215,15 @@ namespace RozpisZapasu
 
                 listView.Items.Add(lvi);
             }
+
+            /*for (int i = 0; i < list.Count; i++)
+            {
+                for (int j = 0; j < seznamSkupin.Count; j++)
+                {
+                    listView.Groups.Add(new ListViewGroup(seznamSkupin[j], HorizontalAlignment.Left));
+                    listView.Items[i].Group = listView.Groups[j];
+                }
+            }*/
         }
 
         /// <summary>

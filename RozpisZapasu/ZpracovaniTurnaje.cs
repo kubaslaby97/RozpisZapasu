@@ -173,9 +173,10 @@ namespace RozpisZapasu
         /// <param name="tymy"></param>
         /// <param name="nazvySkupin"></param>
         /// <returns></returns>
-        private static List<(string, string)> TymyVeSkupine (List<List<Tuple<string, bool>>> tymy, List<string> nazvySkupin)
+        public static List<(string, string)> TymyVeSkupine(List<(string, int, bool)> seznamTymu, List<string> nazvySkupin)
         {
             List<(string, string)> vystup = new List<(string, string)>();
+            List<List<Tuple<string, bool>>> tymy = VytvoreniSkupin(seznamTymu, nazvySkupin.Count());
 
             int y = 0;
             foreach(List<Tuple<string, bool>> skupina in tymy)

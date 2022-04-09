@@ -101,8 +101,8 @@ namespace RozpisZapasu
                 tymy = ZpracovaniXML.NacteniTymu(souborTymy);
                 hriste = ZpracovaniXML.NacteniHrist(souborHriste);
                 skupiny = ZpracovaniXML.NacteniSkupin(souborSkupiny);
-                skupinyTymy = new List<(string, string)> { ("Tým2","SkupinaA"), ("Tým3", "SkupinaA") ,
-                    ("Tým5", "SkupinaB"),("Tým4","SkupinaB") };
+                //skupinyTymy = new List<(string, string)> { ("Tým2","SkupinaA"), ("Tým3", "SkupinaA") ,
+                 //   ("Tým5", "SkupinaB"),("Tým4","SkupinaB") };
 
                 //Zobrazení zápasů v ListView
                 if (MessageBox.Show("Přejete si přepsat aktuální rozřazení týmů?", "Upozornění", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
@@ -125,6 +125,7 @@ namespace RozpisZapasu
                                 ZobrazitZapasy(hristeZapasy, lsvZapasyHriste);
                                 ZobrazitZapasy(skupinyZapasy, lsvZapasySkupina);
 
+                                skupinyTymy = ZpracovaniTurnaje.TymyVeSkupine(tymy, skupiny);
                                 ZobrazitSkupiny(skupinyTymy, lsvSkupinyTymy);
                             }
                         }

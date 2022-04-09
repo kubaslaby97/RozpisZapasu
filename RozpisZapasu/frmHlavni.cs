@@ -124,8 +124,8 @@ namespace RozpisZapasu
                                 hristeZapasy = ZpracovaniTurnaje.VyslednyRozpis(1, tymy, hriste, skupiny);
                                 skupinyZapasy = ZpracovaniTurnaje.VyslednyRozpis(2, tymy, hriste, skupiny);
 
-                                ZobrazitZapasy(hristeZapasy, lsvZapasyHriste);
-                                ZobrazitZapasy(skupinyZapasy, lsvZapasySkupina);
+                                ZobrazitZapasy(hristeZapasy, form.BarvaZapasu(), lsvZapasyHriste);
+                                ZobrazitZapasy(skupinyZapasy, form.BarvaZapasu(), lsvZapasySkupina);
 
                                 skupinyTymy = ZpracovaniTurnaje.TymyVeSkupine(tymy, skupiny);
                                 ZobrazitSkupiny(skupinyTymy, lsvSkupinyTymy);
@@ -171,7 +171,7 @@ namespace RozpisZapasu
         /// </summary>
         /// <param name="list">vstupní seznam zápasů</param>
         /// <param name="listView">zobrazení zápasů</param>
-        private void ZobrazitZapasy(List<(int, string, string)> list, ListView listView)
+        private void ZobrazitZapasy(List<(int, string, string)> list, Color barva, ListView listView)
         {
             string polozka = "";
             listView.Items.Clear();
@@ -188,6 +188,12 @@ namespace RozpisZapasu
                 lvi.SubItems.Add(list[i].Item1.ToString()); //kolo
 
                 listView.Items.Add(lvi);
+            }
+
+            //vybarvení položek
+            for (int i = 0; i < listView.Items.Count; i += 2)
+            {
+                listView.Items[i].BackColor = barva;
             }
         }
 

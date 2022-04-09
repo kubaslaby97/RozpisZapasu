@@ -36,7 +36,7 @@ namespace RozpisZapasu
         private void btnExcel_Click(object sender, EventArgs e)
         {
             Color barva = new Color();
-            barva = Color.LimeGreen;
+            barva = Color.White;
             if (File.Exists(souborTymy))
             {
                 if(hristeZapasy.Count==0 || skupinyZapasy.Count == 0)
@@ -82,26 +82,20 @@ namespace RozpisZapasu
         //správa týmů
         private void btnSpravaTymu_Click(object sender, EventArgs e)
         {
-            using (frmSprava form = new frmSprava("Správa týmů", 1))
-            {
-                form.Show();
-            }
+            frmSprava form = new frmSprava("Správa týmů", 1);
+            form.Show();
         }
         //správa hřišť
         private void btnSpravaHrist_Click(object sender, EventArgs e)
         {
-            using (frmSprava form = new frmSprava("Správa hřišť", 2))
-            {
-                form.Show();
-            }  
+            frmSprava form = new frmSprava("Správa hřišť", 2);
+            form.Show();
         }
         //správa skupin
         private void btnSpravaSkupin_Click(object sender, EventArgs e)
         {
-            using (frmSprava form = new frmSprava("Správa skupin", 3))
-            {
-                form.Show();
-            }    
+            frmSprava form = new frmSprava("Správa skupin", 3);
+            form.Show();    
         }
         //tvorba zápasů a jejich zobrazení
         private void btnVytvoritTurnaj_Click(object sender, EventArgs e)

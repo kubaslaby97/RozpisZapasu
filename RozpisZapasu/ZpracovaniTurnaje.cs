@@ -166,5 +166,27 @@ namespace RozpisZapasu
 
             return vystup;
         }
+
+        /// <summary>
+        /// Metoda, která vytváření List všech týmu ve skupině
+        /// </summary>
+        /// <param name="tymy"></param>
+        /// <param name="nazvySkupin"></param>
+        /// <returns></returns>
+        private static List<(string, string)> TymyVeSkupine (List<List<Tuple<string, bool>>> tymy, List<string> nazvySkupin)
+        {
+            List<(string, string)> vystup = new List<(string, string)>();
+
+            int y = 0;
+            foreach(List<Tuple<string, bool>> skupina in tymy)
+            {
+                for(int i = 0; i < skupina.Count(); i++)
+                {
+                    vystup.Add((skupina[i].Item1, nazvySkupin[y]));
+                }
+                y++;
+            }
+            return vystup;
+        }
     }
 }

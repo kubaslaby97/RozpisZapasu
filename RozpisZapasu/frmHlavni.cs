@@ -35,6 +35,8 @@ namespace RozpisZapasu
         //export do Excelu
         private void btnExcel_Click(object sender, EventArgs e)
         {
+            Color barva = new Color();
+            barva = Color.LimeGreen;
             if (File.Exists(souborTymy))
             {
                 if(hristeZapasy.Count==0 || skupinyZapasy.Count == 0)
@@ -49,9 +51,17 @@ namespace RozpisZapasu
                     sfd.Title = "Export do Excelu";
                     if (sfd.ShowDialog() == DialogResult.OK)
                     {
+                        //výběr barvy podbarvení tabulek
+                        ColorDialog cd = new ColorDialog();
+                        if (cd.ShowDialog() == DialogResult.OK)
+                        {
+                            barva = cd.Color;
+                        }
+
+                        //kontrola zda je soubor používán
                         if (!SouborPouzivan(sfd.FileName))
                         {
-                            Export.UlozitExcel(sfd.FileName, Color.LimeGreen, NazvyTymu(), hristeZapasy, skupinyZapasy);
+                            Export.UlozitExcel(sfd.FileName, barva, NazvyTymu(), hristeZapasy, skupinyZapasy);
 
                             //otevření souboru
                             Process.Start(sfd.FileName);

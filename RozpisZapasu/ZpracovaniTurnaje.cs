@@ -158,5 +158,34 @@ namespace RozpisZapasu
 
             return vystup;
         }
+
+        /// <summary>
+        /// Metoda, která vytvoření všechny možné zápasy v rámci jedné skupiny
+        /// </summary>
+        /// <param name="tymy"></param>
+        /// <returns>Vrací List<(sttring zapas, string skupina)</returns>
+        private static List<(string, string)> ZapasySkupina(List<List<Tuple<string, bool>>> tymy, List<string> nazvySkupin)
+        {
+            List<(string, string)> vystup = new List<(string, string)>();
+
+            int index = 0;
+            foreach (List<Tuple<string, bool>> skupina in tymy)
+            {
+                for (int i = 0; i < skupina.Count(); i++)
+                {
+                    if (i + 1 < skupina.Count())
+                    {
+                        for (int y = i + 1; y < skupina.Count(); y++)
+                        {
+                            vystup.Add((skupina[i].Item1 +"-"+ skupina[y].Item1, nazvySkupin[index]));
+                        }
+
+                    }
+                }
+                index++;
+            }
+
+            return vystup;
+        }
     }
 }

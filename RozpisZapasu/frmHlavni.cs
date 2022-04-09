@@ -213,20 +213,7 @@ namespace RozpisZapasu
                 lvi = new ListViewItem(list[i].Item1); //tým
                 lvi.SubItems.Add(list[i].Item2); //skupina
 
-                listView.Items.Add(lvi);
-
-                //seskupení
-                int j = 0;
-                if (j == seznamSkupin.Count)
-                {
-                    j = 0;
-                }
-                if (listView.Items[i].SubItems[1].Text.Contains(seznamSkupin[j]))
-                {
-                    listView.Groups.Add(new ListViewGroup(seznamSkupin[j], HorizontalAlignment.Left));
-                    listView.Items[i].Group = listView.Groups[j];
-                }
-                j++;
+                listView.Items.Add(lvi);                
             }
         }
 

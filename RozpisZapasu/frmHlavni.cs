@@ -21,7 +21,6 @@ namespace RozpisZapasu
 
         //deklarace seznamů
         List<(string, int, bool)> tymy = new List<(string, int, bool)>();
-        List<(string, int, bool, bool)> vybraneTymy = new List<(string, int, bool, bool)>();
         List<string> hriste = new List<string>();
         List<string> skupiny = new List<string>();
         List<(int, string, string)> hristeZapasy = new List<(int, string, string)> ();
@@ -39,7 +38,7 @@ namespace RozpisZapasu
             barva = Color.White;
             if (File.Exists(souborTymy))
             {
-                if(hristeZapasy.Count==0 || skupinyZapasy.Count == 0)
+                if (hristeZapasy.Count == 0 || skupinyZapasy.Count == 0)
                 {
                     MessageBox.Show("Nebyly nalezeny žádné zápasy skupin nebo na hřištích", "Chyba exportu", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
@@ -105,8 +104,6 @@ namespace RozpisZapasu
                 tymy = ZpracovaniXML.NacteniTymu(souborTymy);
                 hriste = ZpracovaniXML.NacteniHrist(souborHriste);
                 skupiny = ZpracovaniXML.NacteniSkupin(souborSkupiny);
-                //skupinyTymy = new List<(string, string)> { ("Tým2","SkupinaA"), ("Tým3", "SkupinaA") ,
-                 //   ("Tým5", "SkupinaB"),("Tým4","SkupinaB") };
 
                 //Zobrazení zápasů v ListView
                 if (MessageBox.Show("Přejete si přepsat aktuální rozřazení týmů?", "Upozornění", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
@@ -117,10 +114,11 @@ namespace RozpisZapasu
                             if (form.ShowDialog() == DialogResult.OK)
                             {
                                 tymy.Clear();
-                                tymy = form.VybraneTymy();
                                 hriste.Clear();
-                                hriste = form.VybranaHriste();
                                 skupiny.Clear();
+
+                                tymy = form.VybraneTymy();
+                                hriste = form.VybranaHriste();
                                 skupiny = form.VybraneSkupiny();
 
                                 hristeZapasy = ZpracovaniTurnaje.VyslednyRozpis(1, tymy, hriste, skupiny);
@@ -151,12 +149,10 @@ namespace RozpisZapasu
                 UlozitZapasy(skupinyZapasy, lsvZapasySkupina);
             }
         }
-
         private void frmHlavni_Load(object sender, EventArgs e)
         {
             KeyPreview = true;
         }
-
         private void frmHlavni_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Modifiers == Keys.Shift && e.KeyCode == Keys.C)
@@ -230,6 +226,10 @@ namespace RozpisZapasu
             }
         }
 
+        /// <summary>
+        /// Vloží názvy týmů do seznamu
+        /// </summary>
+        /// <returns>Vrátí seznam názvů týmů</returns>
         public List<string> NazvyTymu()
         {
             List<string> list = new List<string>();

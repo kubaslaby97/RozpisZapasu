@@ -243,7 +243,7 @@ namespace RozpisZapasu
             // colTym
             // 
             this.colTym.Text = "Tým";
-            this.colTym.Width = 80;
+            this.colTym.Width = 150;
             // 
             // colSkupina
             // 

@@ -16,7 +16,6 @@ namespace RozpisZapasu
         List<string> seznamHrist = new List<string>();
         List<string> seznamSkupin = new List<string>();
         List<(string, int, bool)> vybraneTymy = new List<(string, int, bool)>();
-        List<string> oznaceneTymy = new List<string>();
         List<string> vybranaHriste = new List<string>();
         List<string> vybraneSkupiny = new List<string>();
 
@@ -67,22 +66,16 @@ namespace RozpisZapasu
             }
 
             //naplnění seznamu vybraných týmů
-            for (int i = 0; i < clbTymy.Items.Count; i++)
-            {
-                if (clbTymy.GetItemChecked(i) == true)
-                {
-                    oznaceneTymy.Add(clbTymy.Items[i].ToString());
-                }
-            }
-
-            //zpracování vybraných týmů
             for (int i = 0; i < seznamTymu.Count; i++)
             {
-                for (int j = 0; j < oznaceneTymy.Count; j++)
+                for (int j = 0; j < clbTymy.Items.Count; j++)
                 {
-                    if (oznaceneTymy[j].Contains(seznamTymu[i].Item1))
+                    if (clbTymy.GetItemChecked(j) == true)
                     {
-                        vybraneTymy.Add((seznamTymu[i].Item1, seznamTymu[i].Item2, seznamTymu[i].Item3));
+                        if (clbTymy.Items[j].ToString().Contains(seznamTymu[i].Item1))
+                        {
+                            vybraneTymy.Add((seznamTymu[i].Item1, seznamTymu[i].Item2, seznamTymu[i].Item3));
+                        }
                     }
                 }
             }

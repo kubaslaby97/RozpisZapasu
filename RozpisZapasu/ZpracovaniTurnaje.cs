@@ -46,7 +46,7 @@ namespace RozpisZapasu
                 zapasy.Clear();
 
                 //přidělení týmů do skupin
-                zapasy = SkupinyZapasy(tymy, skupiny);
+                zapasy = SkupinyZapasy(VytvoreniSkupin(tymy, skupiny.Count()), skupiny);
 
                 //naplnění výsledného rozpisu
                 for (int i = 0; i < zapasy.Count; i++)
@@ -83,29 +83,8 @@ namespace RozpisZapasu
                 {
                     j = 0;
                 }
-                list.Add((hriste[j], rozpis[i]));
+                list.Add((rozpis[i], hriste[j]));
                 j++;  
-            }
-            return list;
-        }
-
-        //Tvorba zápasů skupin
-        private static List<(string, string)> SkupinyZapasy(List<(string, int, bool)> tymy, List<string> skupiny)
-        {
-            List<(string, string)> list = new List<(string, string)>();
-            List<string> rozpis = new List<string> { "prvni-druhy", "treti-ctvrty", "paty-sesty", "sedmy-osmy", "devaty-desaty" }; //výsledek z třídy kolegy Vašáka
-            //List<string> rozpis = třída.Metoda(tymy);
-
-            //rozdělení rozpisu do skupin
-            int j = 0;
-            for (int i = 0; i < rozpis.Count; i++)
-            {
-                if (j == skupiny.Count)
-                {
-                    j = 0;
-                }
-                list.Add((skupiny[j], rozpis[i]));
-                j++;
             }
             return list;
         }
@@ -164,7 +143,7 @@ namespace RozpisZapasu
         /// </summary>
         /// <param name="tymy"></param>
         /// <returns>Vrací List<(sttring zapas, string skupina)</returns>
-        private static List<(string, string)> ZapasySkupina(List<List<Tuple<string, bool>>> tymy, List<string> nazvySkupin)
+        private static List<(string, string)> SkupinyZapasy(List<List<Tuple<string, bool>>> tymy, List<string> nazvySkupin)
         {
             List<(string, string)> vystup = new List<(string, string)>();
 

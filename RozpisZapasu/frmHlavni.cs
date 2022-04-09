@@ -177,13 +177,13 @@ namespace RozpisZapasu
 
             for (int i = 0; i < list.Count; i++)
             {
-                polozka = list[i].Item3;
+                polozka = list[i].Item2;
 
                 ListViewItem lvi;
 
                 lvi = new ListViewItem(polozka.Split('-')); //domácí a hosté
 
-                lvi.SubItems.Add(list[i].Item2); //hřiště nebo skupina
+                lvi.SubItems.Add(list[i].Item3); //hřiště nebo skupina
                 lvi.SubItems.Add(list[i].Item1.ToString()); //kolo
 
                 listView.Items.Add(lvi);

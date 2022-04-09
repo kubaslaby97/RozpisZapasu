@@ -29,6 +29,7 @@ namespace RozpisZapasu
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmTurnaj));
             this.clbTymy = new System.Windows.Forms.CheckedListBox();
             this.lblTymy = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -129,6 +130,7 @@ namespace RozpisZapasu
             this.Controls.Add(this.lblTymy);
             this.Controls.Add(this.clbTymy);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;

@@ -213,11 +213,11 @@ namespace RozpisZapasu
         /// <param name="hristeZapasy">zápasy na hřištích</param>
         private static void ZapasyHriste(WorksheetPart wsPart, List<(int, string, string)> hristeZapasy)
         {
-            string[] hlavicka = new string[] { "Kolo", "Hřiště", "Zápas", "Skóre" };
+            string[] hlavicka = new string[] { "Kolo", "Zápas", "Hřiště", "Skóre" };
             Worksheet ws = new Worksheet();
             Columns cols = new Columns();
-            Column col = new Column() { Min = (UInt32Value)2U, Max = (UInt32Value)2U, Width = NejdelsiRetezec(hristeZapasy, 3), CustomWidth = true };
-            Column col1 = new Column() { Min = (UInt32Value)3U, Max = (UInt32Value)3U, Width = NejdelsiRetezec(hristeZapasy, 2), CustomWidth = true };
+            Column col = new Column() { Min = (UInt32Value)2U, Max = (UInt32Value)2U, Width = NejdelsiRetezec(hristeZapasy, 2), CustomWidth = true };
+            Column col1 = new Column() { Min = (UInt32Value)3U, Max = (UInt32Value)3U, Width = NejdelsiRetezec(hristeZapasy, 3), CustomWidth = true };
             cols.Append(col);
             cols.Append(col1);
             ws.Append(cols);
@@ -266,12 +266,12 @@ namespace RozpisZapasu
                         }
                         else if (sloupec == 1)
                         {
-                            cell.CellValue = new CellValue(hristeZapasy[radek - 2].Item3);
+                            cell.CellValue = new CellValue(hristeZapasy[radek - 2].Item2);
                             cell.DataType = CellValues.String;
                         }
                         else if (sloupec == 2)
                         {
-                            cell.CellValue = new CellValue(hristeZapasy[radek - 2].Item2);
+                            cell.CellValue = new CellValue(hristeZapasy[radek - 2].Item3);
                             cell.DataType = CellValues.String;
                         }
                     }
@@ -292,11 +292,11 @@ namespace RozpisZapasu
         /// <param name="skupinyZapasy">zápasy ve skupinách</param>
         private static void ZapasySkupina(WorksheetPart wsPart, List<(int, string, string)> skupinyZapasy)
         {
-            string[] hlavicka = new string[] { "Kolo", "Skupina", "Zápas", "Skóre" };
+            string[] hlavicka = new string[] { "Kolo", "Zápas", "Skupina", "Skóre" };
             Worksheet ws = new Worksheet();
             Columns cols = new Columns();
-            Column col = new Column() { Min = (UInt32Value)2U, Max = (UInt32Value)2U, Width = NejdelsiRetezec(skupinyZapasy, 3), CustomWidth = true };
-            Column col1 = new Column() { Min = (UInt32Value)3U, Max = (UInt32Value)3U, Width = NejdelsiRetezec(skupinyZapasy, 2), CustomWidth = true };
+            Column col = new Column() { Min = (UInt32Value)2U, Max = (UInt32Value)2U, Width = NejdelsiRetezec(skupinyZapasy, 2), CustomWidth = true };
+            Column col1 = new Column() { Min = (UInt32Value)3U, Max = (UInt32Value)3U, Width = NejdelsiRetezec(skupinyZapasy, 3), CustomWidth = true };
             cols.Append(col);
             cols.Append(col1);
             ws.Append(cols);
@@ -343,12 +343,12 @@ namespace RozpisZapasu
                         }
                         else if (sloupec == 1)
                         {
-                            cell.CellValue = new CellValue(skupinyZapasy[radek - 2].Item3);
+                            cell.CellValue = new CellValue(skupinyZapasy[radek - 2].Item2);
                             cell.DataType = CellValues.String;
                         }
                         else if (sloupec == 2)
                         {
-                            cell.CellValue = new CellValue(skupinyZapasy[radek - 2].Item2);
+                            cell.CellValue = new CellValue(skupinyZapasy[radek - 2].Item3);
                             cell.DataType = CellValues.String;
                         }
                     }

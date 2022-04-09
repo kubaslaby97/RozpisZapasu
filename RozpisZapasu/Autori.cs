@@ -43,7 +43,7 @@ namespace RozpisZapasu
                     sf.Alignment = StringAlignment.Center;
 
                     e.Graphics.DrawString(
-                        "Vedoucí:\n" +
+                        "Odprezentoval:\n" +
                         "Jan Jiřička\n\n" +
                         "Největší dříči:\n" +
                         "Jiří Vašák\n" +

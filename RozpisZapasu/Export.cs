@@ -216,7 +216,7 @@ namespace RozpisZapasu
             string[] hlavicka = new string[] { "Kolo", "Hřiště", "Zápas", "Skóre" };
             Worksheet ws = new Worksheet();
             Columns cols = new Columns();
-            Column col = new Column() { Min = (UInt32Value)3U, Max = (UInt32Value)3U, Width = NejdelsiRetezec(hristeZapasy, 3), CustomWidth = true };
+            Column col = new Column() { Min = (UInt32Value)3U, Max = (UInt32Value)3U, Width = NejdelsiRetezec(hristeZapasy, 2), CustomWidth = true };
             cols.Append(col);
             ws.Append(cols);
 
@@ -264,12 +264,12 @@ namespace RozpisZapasu
                         }
                         else if (sloupec == 1)
                         {
-                            cell.CellValue = new CellValue(hristeZapasy[radek - 2].Item2);
+                            cell.CellValue = new CellValue(hristeZapasy[radek - 2].Item3);
                             cell.DataType = CellValues.String;
                         }
                         else if (sloupec == 2)
                         {
-                            cell.CellValue = new CellValue(hristeZapasy[radek - 2].Item3);
+                            cell.CellValue = new CellValue(hristeZapasy[radek - 2].Item2);
                             cell.DataType = CellValues.String;
                         }
                     }
@@ -293,7 +293,7 @@ namespace RozpisZapasu
             string[] hlavicka = new string[] { "Kolo", "Skupina", "Zápas", "Skóre" };
             Worksheet ws = new Worksheet();
             Columns cols = new Columns();
-            Column col = new Column() { Min = (UInt32Value)3U, Max = (UInt32Value)3U, Width = NejdelsiRetezec(skupinyZapasy, 3), CustomWidth = true };
+            Column col = new Column() { Min = (UInt32Value)3U, Max = (UInt32Value)3U, Width = NejdelsiRetezec(skupinyZapasy, 2), CustomWidth = true };
             cols.Append(col);
             ws.Append(cols);
 
@@ -339,12 +339,12 @@ namespace RozpisZapasu
                         }
                         else if (sloupec == 1)
                         {
-                            cell.CellValue = new CellValue(skupinyZapasy[radek - 2].Item2);
+                            cell.CellValue = new CellValue(skupinyZapasy[radek - 2].Item3);
                             cell.DataType = CellValues.String;
                         }
                         else if (sloupec == 2)
                         {
-                            cell.CellValue = new CellValue(skupinyZapasy[radek - 2].Item3);
+                            cell.CellValue = new CellValue(skupinyZapasy[radek - 2].Item2);
                             cell.DataType = CellValues.String;
                         }
                     }

@@ -273,6 +273,7 @@ namespace RozpisZapasu
 
                 ZpracovaniXML.UlozeniTymu(Application.StartupPath + "\\tymy.xml", tymy);
                 MessageBox.Show("Soubor týmů byl uložen", "Informace", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Close();
             }
             //hřiště
             else if (volba == 2)
@@ -288,6 +289,7 @@ namespace RozpisZapasu
 
                 ZpracovaniXML.UlozeniHrist(Application.StartupPath + "\\hriste.xml", hriste);
                 MessageBox.Show("Soubor hřišť byl uložen", "Informace", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Close();
             }
             //skupina
             else if (volba == 3)
@@ -303,6 +305,7 @@ namespace RozpisZapasu
 
                 ZpracovaniXML.UlozeniSkupin(Application.StartupPath + "\\skupiny.xml", skupiny);
                 MessageBox.Show("Soubor skupin byl uložen", "Informace", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Close();
             }
             else
             {

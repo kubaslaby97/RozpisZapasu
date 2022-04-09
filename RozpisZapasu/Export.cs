@@ -216,8 +216,10 @@ namespace RozpisZapasu
             string[] hlavicka = new string[] { "Kolo", "Hřiště", "Zápas", "Skóre" };
             Worksheet ws = new Worksheet();
             Columns cols = new Columns();
-            Column col = new Column() { Min = (UInt32Value)3U, Max = (UInt32Value)3U, Width = NejdelsiRetezec(hristeZapasy, 2), CustomWidth = true };
+            Column col = new Column() { Min = (UInt32Value)2U, Max = (UInt32Value)2U, Width = NejdelsiRetezec(hristeZapasy, 3), CustomWidth = true };
+            Column col1 = new Column() { Min = (UInt32Value)3U, Max = (UInt32Value)3U, Width = NejdelsiRetezec(hristeZapasy, 2), CustomWidth = true };
             cols.Append(col);
+            cols.Append(col1);
             ws.Append(cols);
 
             SheetData sd = new SheetData();
@@ -293,8 +295,10 @@ namespace RozpisZapasu
             string[] hlavicka = new string[] { "Kolo", "Skupina", "Zápas", "Skóre" };
             Worksheet ws = new Worksheet();
             Columns cols = new Columns();
-            Column col = new Column() { Min = (UInt32Value)3U, Max = (UInt32Value)3U, Width = NejdelsiRetezec(skupinyZapasy, 2), CustomWidth = true };
+            Column col = new Column() { Min = (UInt32Value)2U, Max = (UInt32Value)2U, Width = NejdelsiRetezec(skupinyZapasy, 3), CustomWidth = true };
+            Column col1 = new Column() { Min = (UInt32Value)3U, Max = (UInt32Value)3U, Width = NejdelsiRetezec(skupinyZapasy, 2), CustomWidth = true };
             cols.Append(col);
+            cols.Append(col1);
             ws.Append(cols);
 
             SheetData sd = new SheetData();

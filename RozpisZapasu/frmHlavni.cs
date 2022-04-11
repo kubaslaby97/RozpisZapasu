@@ -27,6 +27,8 @@ namespace RozpisZapasu
         List<(int, string, string)> skupinyZapasy = new List<(int, string, string)>();
         List<(string, string)> skupinyTymy = new List<(string, string)>();
 
+        Color barva = new Color();
+
         public frmHlavni()
         {
             InitializeComponent();
@@ -34,8 +36,6 @@ namespace RozpisZapasu
         //export do Excelu
         private void btnExcel_Click(object sender, EventArgs e)
         {
-            Color barva = new Color();
-            barva = Color.White;
             if (File.Exists(souborTymy))
             {
                 if (hristeZapasy.Count == 0 || skupinyZapasy.Count == 0)
@@ -50,13 +50,6 @@ namespace RozpisZapasu
                     sfd.Title = "Export do Excelu";
                     if (sfd.ShowDialog() == DialogResult.OK)
                     {
-                        //výběr barvy podbarvení tabulek
-                        ColorDialog cd = new ColorDialog();
-                        if (cd.ShowDialog() == DialogResult.OK)
-                        {
-                            barva = cd.Color;
-                        }
-
                         //kontrola zda je soubor používán
                         if (!SouborPouzivan(sfd.FileName))
                         {
@@ -120,15 +113,16 @@ namespace RozpisZapasu
                                 tymy = form.VybraneTymy();
                                 hriste = form.VybranaHriste();
                                 skupiny = form.VybraneSkupiny();
+                                barva = form.BarvaPrehledu();
 
                                 hristeZapasy = ZpracovaniTurnaje.VyslednyRozpis(1, tymy, hriste, skupiny);
                                 skupinyZapasy = ZpracovaniTurnaje.VyslednyRozpis(2, tymy, hriste, skupiny);
 
-                                ZobrazitZapasy(hristeZapasy, form.BarvaZapasu(), lsvZapasyHriste);
-                                ZobrazitZapasy(skupinyZapasy, form.BarvaZapasu(), lsvZapasySkupina);
+                                ZobrazitZapasy(hristeZapasy, barva, lsvZapasyHriste);
+                                ZobrazitZapasy(skupinyZapasy, barva, lsvZapasySkupina);
 
                                 skupinyTymy = ZpracovaniTurnaje.TymyVeSkupine(tymy, skupiny);
-                                ZobrazitSkupiny(skupinyTymy, skupiny, lsvSkupinyTymy);
+                                ZobrazitSkupiny(skupinyTymy, lsvSkupinyTymy);
                             }
                         }
                     }
@@ -202,7 +196,7 @@ namespace RozpisZapasu
         /// </summary>
         /// <param name="list">vstupní seznam týmů ve skupinách</param>
         /// <param name="listView">zobrazení skupin a jejich členů</param>
-        private void ZobrazitSkupiny(List<(string, string)> list, List<string> seznamSkupin, ListView listView)
+        private void ZobrazitSkupiny(List<(string, string)> list, ListView listView)
         {
             listView.Items.Clear();
 
@@ -214,6 +208,12 @@ namespace RozpisZapasu
                 lvi.SubItems.Add(list[i].Item2); //skupina
 
                 listView.Items.Add(lvi);                
+            }
+
+            //vybarvení položek
+            for (int i = 0; i < listView.Items.Count; i += 2)
+            {
+                listView.Items[i].BackColor = barva;
             }
         }
 

@@ -18,7 +18,7 @@ namespace RozpisZapasu
         List<(string, int, bool)> vybraneTymy = new List<(string, int, bool)>();
         List<string> vybranaHriste = new List<string>();
         List<string> vybraneSkupiny = new List<string>();
-        Color barvaZapasu = new Color();
+        Color barva = new Color();
 
         public frmTurnaj(List<(string, int, bool)> seznamTymu,List<string> seznamHrist, List<string> seznamSkupin)
         {
@@ -90,13 +90,14 @@ namespace RozpisZapasu
             this.Close();
         }
 
-        private void btnBarvaZapasu_Click(object sender, EventArgs e)
+        private void btnZvolitBarvu_Click(object sender, EventArgs e)
         {
             ColorDialog cd = new ColorDialog();
             if (cd.ShowDialog() == DialogResult.OK)
             {
-                barvaZapasu = cd.Color;
-                picBarvaZapasu.BackColor = barvaZapasu;
+                barva = cd.Color;
+                picBarvaZapasu.BackColor = barva;
+                lblUkazka.BackColor = barva;
             }
         }
 
@@ -120,9 +121,9 @@ namespace RozpisZapasu
         }
 
         //barva pozadí přehledu zápasů
-        public Color BarvaZapasu()
+        public Color BarvaPrehledu()
         {
-            return barvaZapasu;
+            return barva;
         }
     }
 }

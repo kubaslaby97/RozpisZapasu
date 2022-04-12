@@ -57,10 +57,10 @@ namespace RozpisZapasu
             this.flowTlacitkaSprava = new System.Windows.Forms.FlowLayoutPanel();
             this.flowTlacitkaOstatni = new System.Windows.Forms.FlowLayoutPanel();
             this.splitPrehled = new System.Windows.Forms.SplitContainer();
-            this.tableTymySkupiny = new System.Windows.Forms.TableLayoutPanel();
             this.splitZapasy = new System.Windows.Forms.SplitContainer();
             this.tableZapasyHriste = new System.Windows.Forms.TableLayoutPanel();
             this.tableZapasySkupiny = new System.Windows.Forms.TableLayoutPanel();
+            this.tableTymySkupiny = new System.Windows.Forms.TableLayoutPanel();
             this.tableHlavni.SuspendLayout();
             this.tableTlacitka.SuspendLayout();
             this.flowTlacitkaSprava.SuspendLayout();
@@ -69,13 +69,13 @@ namespace RozpisZapasu
             this.splitPrehled.Panel1.SuspendLayout();
             this.splitPrehled.Panel2.SuspendLayout();
             this.splitPrehled.SuspendLayout();
-            this.tableTymySkupiny.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitZapasy)).BeginInit();
             this.splitZapasy.Panel1.SuspendLayout();
             this.splitZapasy.Panel2.SuspendLayout();
             this.splitZapasy.SuspendLayout();
             this.tableZapasyHriste.SuspendLayout();
             this.tableZapasySkupiny.SuspendLayout();
+            this.tableTymySkupiny.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnExcel
@@ -135,7 +135,7 @@ namespace RozpisZapasu
             this.lsvZapasyHriste.Location = new System.Drawing.Point(4, 24);
             this.lsvZapasyHriste.Margin = new System.Windows.Forms.Padding(4);
             this.lsvZapasyHriste.Name = "lsvZapasyHriste";
-            this.lsvZapasyHriste.Size = new System.Drawing.Size(390, 211);
+            this.lsvZapasyHriste.Size = new System.Drawing.Size(380, 211);
             this.lsvZapasyHriste.TabIndex = 0;
             this.lsvZapasyHriste.UseCompatibleStateImageBehavior = false;
             this.lsvZapasyHriste.View = System.Windows.Forms.View.Details;
@@ -200,7 +200,7 @@ namespace RozpisZapasu
             this.lsvZapasySkupina.Location = new System.Drawing.Point(4, 24);
             this.lsvZapasySkupina.Margin = new System.Windows.Forms.Padding(4);
             this.lsvZapasySkupina.Name = "lsvZapasySkupina";
-            this.lsvZapasySkupina.Size = new System.Drawing.Size(390, 330);
+            this.lsvZapasySkupina.Size = new System.Drawing.Size(380, 330);
             this.lsvZapasySkupina.TabIndex = 7;
             this.lsvZapasySkupina.UseCompatibleStateImageBehavior = false;
             this.lsvZapasySkupina.View = System.Windows.Forms.View.Details;
@@ -265,7 +265,7 @@ namespace RozpisZapasu
             this.lsvSkupinyTymy.HideSelection = false;
             this.lsvSkupinyTymy.Location = new System.Drawing.Point(3, 23);
             this.lsvSkupinyTymy.Name = "lsvSkupinyTymy";
-            this.lsvSkupinyTymy.Size = new System.Drawing.Size(475, 575);
+            this.lsvSkupinyTymy.Size = new System.Drawing.Size(485, 575);
             this.lsvSkupinyTymy.TabIndex = 11;
             this.lsvSkupinyTymy.UseCompatibleStateImageBehavior = false;
             this.lsvSkupinyTymy.View = System.Windows.Forms.View.Details;
@@ -346,23 +346,8 @@ namespace RozpisZapasu
             // 
             this.splitPrehled.Panel2.Controls.Add(this.tableTymySkupiny);
             this.splitPrehled.Size = new System.Drawing.Size(883, 601);
-            this.splitPrehled.SplitterDistance = 398;
+            this.splitPrehled.SplitterDistance = 388;
             this.splitPrehled.TabIndex = 1;
-            // 
-            // tableTymySkupiny
-            // 
-            this.tableTymySkupiny.ColumnCount = 1;
-            this.tableTymySkupiny.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableTymySkupiny.Controls.Add(this.lsvSkupinyTymy, 0, 1);
-            this.tableTymySkupiny.Controls.Add(this.lblSkupinyTymy, 0, 0);
-            this.tableTymySkupiny.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableTymySkupiny.Location = new System.Drawing.Point(0, 0);
-            this.tableTymySkupiny.Name = "tableTymySkupiny";
-            this.tableTymySkupiny.RowCount = 2;
-            this.tableTymySkupiny.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableTymySkupiny.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableTymySkupiny.Size = new System.Drawing.Size(481, 601);
-            this.tableTymySkupiny.TabIndex = 0;
             // 
             // splitZapasy
             // 
@@ -378,7 +363,7 @@ namespace RozpisZapasu
             // splitZapasy.Panel2
             // 
             this.splitZapasy.Panel2.Controls.Add(this.tableZapasySkupiny);
-            this.splitZapasy.Size = new System.Drawing.Size(398, 601);
+            this.splitZapasy.Size = new System.Drawing.Size(388, 601);
             this.splitZapasy.SplitterDistance = 239;
             this.splitZapasy.TabIndex = 0;
             // 
@@ -394,7 +379,7 @@ namespace RozpisZapasu
             this.tableZapasyHriste.RowCount = 2;
             this.tableZapasyHriste.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableZapasyHriste.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableZapasyHriste.Size = new System.Drawing.Size(398, 239);
+            this.tableZapasyHriste.Size = new System.Drawing.Size(388, 239);
             this.tableZapasyHriste.TabIndex = 0;
             // 
             // tableZapasySkupiny
@@ -409,8 +394,23 @@ namespace RozpisZapasu
             this.tableZapasySkupiny.RowCount = 2;
             this.tableZapasySkupiny.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableZapasySkupiny.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableZapasySkupiny.Size = new System.Drawing.Size(398, 358);
+            this.tableZapasySkupiny.Size = new System.Drawing.Size(388, 358);
             this.tableZapasySkupiny.TabIndex = 0;
+            // 
+            // tableTymySkupiny
+            // 
+            this.tableTymySkupiny.ColumnCount = 1;
+            this.tableTymySkupiny.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableTymySkupiny.Controls.Add(this.lsvSkupinyTymy, 0, 1);
+            this.tableTymySkupiny.Controls.Add(this.lblSkupinyTymy, 0, 0);
+            this.tableTymySkupiny.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableTymySkupiny.Location = new System.Drawing.Point(0, 0);
+            this.tableTymySkupiny.Name = "tableTymySkupiny";
+            this.tableTymySkupiny.RowCount = 2;
+            this.tableTymySkupiny.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableTymySkupiny.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableTymySkupiny.Size = new System.Drawing.Size(491, 601);
+            this.tableTymySkupiny.TabIndex = 0;
             // 
             // frmHlavni
             // 
@@ -433,8 +433,6 @@ namespace RozpisZapasu
             this.splitPrehled.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitPrehled)).EndInit();
             this.splitPrehled.ResumeLayout(false);
-            this.tableTymySkupiny.ResumeLayout(false);
-            this.tableTymySkupiny.PerformLayout();
             this.splitZapasy.Panel1.ResumeLayout(false);
             this.splitZapasy.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitZapasy)).EndInit();
@@ -443,6 +441,8 @@ namespace RozpisZapasu
             this.tableZapasyHriste.PerformLayout();
             this.tableZapasySkupiny.ResumeLayout(false);
             this.tableZapasySkupiny.PerformLayout();
+            this.tableTymySkupiny.ResumeLayout(false);
+            this.tableTymySkupiny.PerformLayout();
             this.ResumeLayout(false);
 
         }

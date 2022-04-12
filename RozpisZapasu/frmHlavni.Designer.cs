@@ -80,7 +80,7 @@ namespace RozpisZapasu
             // 
             // btnExcel
             // 
-            this.btnExcel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnExcel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnExcel.Location = new System.Drawing.Point(149, 4);
             this.btnExcel.Margin = new System.Windows.Forms.Padding(4);
             this.btnExcel.Name = "btnExcel";
@@ -92,7 +92,6 @@ namespace RozpisZapasu
             // 
             // btnSpravaTymu
             // 
-            this.btnSpravaTymu.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnSpravaTymu.Location = new System.Drawing.Point(4, 4);
             this.btnSpravaTymu.Margin = new System.Windows.Forms.Padding(4);
             this.btnSpravaTymu.Name = "btnSpravaTymu";
@@ -104,7 +103,6 @@ namespace RozpisZapasu
             // 
             // btnSpravaHrist
             // 
-            this.btnSpravaHrist.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnSpravaHrist.Location = new System.Drawing.Point(149, 4);
             this.btnSpravaHrist.Margin = new System.Windows.Forms.Padding(4);
             this.btnSpravaHrist.Name = "btnSpravaHrist";
@@ -116,7 +114,6 @@ namespace RozpisZapasu
             // 
             // btnSpravaSkupin
             // 
-            this.btnSpravaSkupin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnSpravaSkupin.Location = new System.Drawing.Point(294, 4);
             this.btnSpravaSkupin.Margin = new System.Windows.Forms.Padding(4);
             this.btnSpravaSkupin.Name = "btnSpravaSkupin";
@@ -169,7 +166,7 @@ namespace RozpisZapasu
             // 
             // btnVytvoritTurnaj
             // 
-            this.btnVytvoritTurnaj.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnVytvoritTurnaj.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnVytvoritTurnaj.Location = new System.Drawing.Point(4, 4);
             this.btnVytvoritTurnaj.Margin = new System.Windows.Forms.Padding(4);
             this.btnVytvoritTurnaj.Name = "btnVytvoritTurnaj";
@@ -181,7 +178,7 @@ namespace RozpisZapasu
             // 
             // btnUlozit
             // 
-            this.btnUlozit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnUlozit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnUlozit.Location = new System.Drawing.Point(294, 4);
             this.btnUlozit.Margin = new System.Windows.Forms.Padding(4);
             this.btnUlozit.Name = "btnUlozit";

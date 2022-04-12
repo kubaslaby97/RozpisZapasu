@@ -52,11 +52,36 @@ namespace RozpisZapasu
             this.lsvSkupinyTymy = new System.Windows.Forms.ListView();
             this.colTym = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colSkupina = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.splitHlavni = new System.Windows.Forms.SplitContainer();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableTlacitka = new System.Windows.Forms.TableLayoutPanel();
+            this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
+            ((System.ComponentModel.ISupportInitialize)(this.splitHlavni)).BeginInit();
+            this.splitHlavni.Panel1.SuspendLayout();
+            this.splitHlavni.Panel2.SuspendLayout();
+            this.splitHlavni.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
+            this.splitContainer2.Panel1.SuspendLayout();
+            this.splitContainer2.Panel2.SuspendLayout();
+            this.splitContainer2.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
+            this.flowLayoutPanel1.SuspendLayout();
+            this.tableLayoutPanel4.SuspendLayout();
+            this.tableTlacitka.SuspendLayout();
+            this.flowLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnExcel
             // 
-            this.btnExcel.Location = new System.Drawing.Point(593, 614);
+            this.btnExcel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnExcel.Location = new System.Drawing.Point(149, 4);
             this.btnExcel.Margin = new System.Windows.Forms.Padding(4);
             this.btnExcel.Name = "btnExcel";
             this.btnExcel.Size = new System.Drawing.Size(137, 32);
@@ -67,7 +92,8 @@ namespace RozpisZapasu
             // 
             // btnSpravaTymu
             // 
-            this.btnSpravaTymu.Location = new System.Drawing.Point(13, 614);
+            this.btnSpravaTymu.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnSpravaTymu.Location = new System.Drawing.Point(4, 4);
             this.btnSpravaTymu.Margin = new System.Windows.Forms.Padding(4);
             this.btnSpravaTymu.Name = "btnSpravaTymu";
             this.btnSpravaTymu.Size = new System.Drawing.Size(137, 32);
@@ -78,7 +104,8 @@ namespace RozpisZapasu
             // 
             // btnSpravaHrist
             // 
-            this.btnSpravaHrist.Location = new System.Drawing.Point(158, 614);
+            this.btnSpravaHrist.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnSpravaHrist.Location = new System.Drawing.Point(149, 4);
             this.btnSpravaHrist.Margin = new System.Windows.Forms.Padding(4);
             this.btnSpravaHrist.Name = "btnSpravaHrist";
             this.btnSpravaHrist.Size = new System.Drawing.Size(137, 32);
@@ -89,7 +116,8 @@ namespace RozpisZapasu
             // 
             // btnSpravaSkupin
             // 
-            this.btnSpravaSkupin.Location = new System.Drawing.Point(303, 614);
+            this.btnSpravaSkupin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnSpravaSkupin.Location = new System.Drawing.Point(294, 4);
             this.btnSpravaSkupin.Margin = new System.Windows.Forms.Padding(4);
             this.btnSpravaSkupin.Name = "btnSpravaSkupin";
             this.btnSpravaSkupin.Size = new System.Drawing.Size(137, 32);
@@ -105,11 +133,12 @@ namespace RozpisZapasu
             this.colHoste,
             this.colHriste,
             this.colKolo});
+            this.lsvZapasyHriste.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lsvZapasyHriste.HideSelection = false;
-            this.lsvZapasyHriste.Location = new System.Drawing.Point(13, 30);
+            this.lsvZapasyHriste.Location = new System.Drawing.Point(4, 22);
             this.lsvZapasyHriste.Margin = new System.Windows.Forms.Padding(4);
             this.lsvZapasyHriste.Name = "lsvZapasyHriste";
-            this.lsvZapasyHriste.Size = new System.Drawing.Size(502, 276);
+            this.lsvZapasyHriste.Size = new System.Drawing.Size(499, 246);
             this.lsvZapasyHriste.TabIndex = 0;
             this.lsvZapasyHriste.UseCompatibleStateImageBehavior = false;
             this.lsvZapasyHriste.View = System.Windows.Forms.View.Details;
@@ -140,7 +169,8 @@ namespace RozpisZapasu
             // 
             // btnVytvoritTurnaj
             // 
-            this.btnVytvoritTurnaj.Location = new System.Drawing.Point(448, 614);
+            this.btnVytvoritTurnaj.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnVytvoritTurnaj.Location = new System.Drawing.Point(4, 4);
             this.btnVytvoritTurnaj.Margin = new System.Windows.Forms.Padding(4);
             this.btnVytvoritTurnaj.Name = "btnVytvoritTurnaj";
             this.btnVytvoritTurnaj.Size = new System.Drawing.Size(137, 32);
@@ -151,7 +181,8 @@ namespace RozpisZapasu
             // 
             // btnUlozit
             // 
-            this.btnUlozit.Location = new System.Drawing.Point(737, 614);
+            this.btnUlozit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnUlozit.Location = new System.Drawing.Point(294, 4);
             this.btnUlozit.Margin = new System.Windows.Forms.Padding(4);
             this.btnUlozit.Name = "btnUlozit";
             this.btnUlozit.Size = new System.Drawing.Size(137, 32);
@@ -167,11 +198,12 @@ namespace RozpisZapasu
             this.cmnHoste,
             this.cmnSkupina,
             this.cmnKolo});
+            this.lsvZapasySkupina.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lsvZapasySkupina.HideSelection = false;
-            this.lsvZapasySkupina.Location = new System.Drawing.Point(13, 330);
+            this.lsvZapasySkupina.Location = new System.Drawing.Point(4, 23);
             this.lsvZapasySkupina.Margin = new System.Windows.Forms.Padding(4);
             this.lsvZapasySkupina.Name = "lsvZapasySkupina";
-            this.lsvZapasySkupina.Size = new System.Drawing.Size(502, 276);
+            this.lsvZapasySkupina.Size = new System.Drawing.Size(499, 297);
             this.lsvZapasySkupina.TabIndex = 7;
             this.lsvZapasySkupina.UseCompatibleStateImageBehavior = false;
             this.lsvZapasySkupina.View = System.Windows.Forms.View.Details;
@@ -203,7 +235,7 @@ namespace RozpisZapasu
             // lblKazdy
             // 
             this.lblKazdy.AutoSize = true;
-            this.lblKazdy.Location = new System.Drawing.Point(12, 9);
+            this.lblKazdy.Location = new System.Drawing.Point(3, 0);
             this.lblKazdy.Name = "lblKazdy";
             this.lblKazdy.Size = new System.Drawing.Size(114, 17);
             this.lblKazdy.TabIndex = 8;
@@ -212,7 +244,7 @@ namespace RozpisZapasu
             // lblZapasySkupiny
             // 
             this.lblZapasySkupiny.AutoSize = true;
-            this.lblZapasySkupiny.Location = new System.Drawing.Point(10, 310);
+            this.lblZapasySkupiny.Location = new System.Drawing.Point(3, 0);
             this.lblZapasySkupiny.Name = "lblZapasySkupiny";
             this.lblZapasySkupiny.Size = new System.Drawing.Size(146, 17);
             this.lblZapasySkupiny.TabIndex = 9;
@@ -221,7 +253,7 @@ namespace RozpisZapasu
             // lblSkupinyTymy
             // 
             this.lblSkupinyTymy.AutoSize = true;
-            this.lblSkupinyTymy.Location = new System.Drawing.Point(519, 9);
+            this.lblSkupinyTymy.Location = new System.Drawing.Point(3, 0);
             this.lblSkupinyTymy.Name = "lblSkupinyTymy";
             this.lblSkupinyTymy.Size = new System.Drawing.Size(133, 17);
             this.lblSkupinyTymy.TabIndex = 10;
@@ -232,10 +264,11 @@ namespace RozpisZapasu
             this.lsvSkupinyTymy.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.colTym,
             this.colSkupina});
+            this.lsvSkupinyTymy.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lsvSkupinyTymy.HideSelection = false;
-            this.lsvSkupinyTymy.Location = new System.Drawing.Point(520, 29);
+            this.lsvSkupinyTymy.Location = new System.Drawing.Point(3, 22);
             this.lsvSkupinyTymy.Name = "lsvSkupinyTymy";
-            this.lsvSkupinyTymy.Size = new System.Drawing.Size(355, 578);
+            this.lsvSkupinyTymy.Size = new System.Drawing.Size(370, 575);
             this.lsvSkupinyTymy.TabIndex = 11;
             this.lsvSkupinyTymy.UseCompatibleStateImageBehavior = false;
             this.lsvSkupinyTymy.View = System.Windows.Forms.View.Details;
@@ -243,41 +276,176 @@ namespace RozpisZapasu
             // colTym
             // 
             this.colTym.Text = "Tým";
-            this.colTym.Width = 150;
+            this.colTym.Width = 151;
             // 
             // colSkupina
             // 
             this.colSkupina.Text = "Skupina";
             this.colSkupina.Width = 100;
             // 
+            // splitHlavni
+            // 
+            this.splitHlavni.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitHlavni.Location = new System.Drawing.Point(3, 3);
+            this.splitHlavni.Name = "splitHlavni";
+            // 
+            // splitHlavni.Panel1
+            // 
+            this.splitHlavni.Panel1.Controls.Add(this.splitContainer2);
+            // 
+            // splitHlavni.Panel2
+            // 
+            this.splitHlavni.Panel2.Controls.Add(this.tableLayoutPanel1);
+            this.splitHlavni.Size = new System.Drawing.Size(887, 600);
+            this.splitHlavni.SplitterDistance = 507;
+            this.splitHlavni.TabIndex = 12;
+            // 
+            // splitContainer2
+            // 
+            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer2.Name = "splitContainer2";
+            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer2.Panel1
+            // 
+            this.splitContainer2.Panel1.Controls.Add(this.tableLayoutPanel2);
+            // 
+            // splitContainer2.Panel2
+            // 
+            this.splitContainer2.Panel2.Controls.Add(this.tableLayoutPanel3);
+            this.splitContainer2.Size = new System.Drawing.Size(507, 600);
+            this.splitContainer2.SplitterDistance = 272;
+            this.splitContainer2.TabIndex = 0;
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 1;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.Controls.Add(this.lsvZapasyHriste, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.lblKazdy, 0, 0);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 2;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 6.617647F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 93.38235F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(507, 272);
+            this.tableLayoutPanel2.TabIndex = 0;
+            // 
+            // tableLayoutPanel3
+            // 
+            this.tableLayoutPanel3.ColumnCount = 1;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.Controls.Add(this.lsvZapasySkupina, 0, 1);
+            this.tableLayoutPanel3.Controls.Add(this.lblZapasySkupiny, 0, 0);
+            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.RowCount = 2;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5.864198F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 94.1358F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(507, 324);
+            this.tableLayoutPanel3.TabIndex = 0;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.lblSkupinyTymy, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.lsvSkupinyTymy, 0, 1);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 3.333333F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 96.66666F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(376, 600);
+            this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Controls.Add(this.btnSpravaTymu);
+            this.flowLayoutPanel1.Controls.Add(this.btnSpravaHrist);
+            this.flowLayoutPanel1.Controls.Add(this.btnSpravaSkupin);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 3);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(436, 40);
+            this.flowLayoutPanel1.TabIndex = 13;
+            // 
+            // tableLayoutPanel4
+            // 
+            this.tableLayoutPanel4.ColumnCount = 1;
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel4.Controls.Add(this.tableTlacitka, 0, 1);
+            this.tableLayoutPanel4.Controls.Add(this.splitHlavni, 0, 0);
+            this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
+            this.tableLayoutPanel4.RowCount = 2;
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 91.95751F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.042489F));
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(893, 659);
+            this.tableLayoutPanel4.TabIndex = 14;
+            // 
+            // tableTlacitka
+            // 
+            this.tableTlacitka.ColumnCount = 2;
+            this.tableTlacitka.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.05676F));
+            this.tableTlacitka.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.94324F));
+            this.tableTlacitka.Controls.Add(this.flowLayoutPanel1, 0, 0);
+            this.tableTlacitka.Controls.Add(this.flowLayoutPanel2, 1, 0);
+            this.tableTlacitka.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableTlacitka.Location = new System.Drawing.Point(3, 609);
+            this.tableTlacitka.Name = "tableTlacitka";
+            this.tableTlacitka.RowCount = 1;
+            this.tableTlacitka.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableTlacitka.Size = new System.Drawing.Size(887, 47);
+            this.tableTlacitka.TabIndex = 0;
+            // 
+            // flowLayoutPanel2
+            // 
+            this.flowLayoutPanel2.Controls.Add(this.btnVytvoritTurnaj);
+            this.flowLayoutPanel2.Controls.Add(this.btnExcel);
+            this.flowLayoutPanel2.Controls.Add(this.btnUlozit);
+            this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(447, 3);
+            this.flowLayoutPanel2.Name = "flowLayoutPanel2";
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(437, 41);
+            this.flowLayoutPanel2.TabIndex = 14;
+            // 
             // frmHlavni
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(887, 659);
-            this.Controls.Add(this.lsvSkupinyTymy);
-            this.Controls.Add(this.lblSkupinyTymy);
-            this.Controls.Add(this.lblZapasySkupiny);
-            this.Controls.Add(this.lblKazdy);
-            this.Controls.Add(this.lsvZapasySkupina);
-            this.Controls.Add(this.lsvZapasyHriste);
-            this.Controls.Add(this.btnUlozit);
-            this.Controls.Add(this.btnExcel);
-            this.Controls.Add(this.btnVytvoritTurnaj);
-            this.Controls.Add(this.btnSpravaSkupin);
-            this.Controls.Add(this.btnSpravaHrist);
-            this.Controls.Add(this.btnSpravaTymu);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.ClientSize = new System.Drawing.Size(893, 659);
+            this.Controls.Add(this.tableLayoutPanel4);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.MaximizeBox = false;
             this.Name = "frmHlavni";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Rozpis volejbalových zápasů";
             this.Load += new System.EventHandler(this.frmHlavni_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmHlavni_KeyDown);
+            this.splitHlavni.Panel1.ResumeLayout(false);
+            this.splitHlavni.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitHlavni)).EndInit();
+            this.splitHlavni.ResumeLayout(false);
+            this.splitContainer2.Panel1.ResumeLayout(false);
+            this.splitContainer2.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
+            this.splitContainer2.ResumeLayout(false);
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
+            this.tableLayoutPanel3.ResumeLayout(false);
+            this.tableLayoutPanel3.PerformLayout();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
+            this.flowLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel4.ResumeLayout(false);
+            this.tableTlacitka.ResumeLayout(false);
+            this.flowLayoutPanel2.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -305,6 +473,15 @@ namespace RozpisZapasu
         private System.Windows.Forms.ListView lsvSkupinyTymy;
         private System.Windows.Forms.ColumnHeader colTym;
         private System.Windows.Forms.ColumnHeader colSkupina;
+        private System.Windows.Forms.SplitContainer splitHlavni;
+        private System.Windows.Forms.SplitContainer splitContainer2;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
+        private System.Windows.Forms.TableLayoutPanel tableTlacitka;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
     }
 }
 

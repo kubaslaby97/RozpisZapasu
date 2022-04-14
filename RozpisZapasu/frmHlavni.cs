@@ -266,7 +266,7 @@ namespace RozpisZapasu
             return uzamcen;
         }
 
-        /*public string ZjistitVychoziAplikaci(string priponaSouboru)
+        public string ZjistitVychoziAplikaci(string priponaSouboru)
         {
             RegistryKey objExtReg = Registry.ClassesRoot;
             RegistryKey objAppReg = Registry.ClassesRoot;
@@ -284,7 +284,7 @@ namespace RozpisZapasu
                 objAppReg = objAppReg.OpenSubKey(strExtValue + "\\shell\\open\\command");
 
                 string[] splitArray;
-                //splitArray = Split(objAppReg.GetValue(Nothing), """");
+                //splitArray = String.Split((char)objAppReg.GetValue(null), '\0');
 
                 if (splitArray[0].Trim().Length > 0)
                 {
@@ -299,6 +299,6 @@ namespace RozpisZapasu
             {
                 return "";
             }
-        }*/
+        }
     }
 }

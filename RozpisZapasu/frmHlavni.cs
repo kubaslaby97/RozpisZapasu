@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -264,5 +265,40 @@ namespace RozpisZapasu
             }
             return uzamcen;
         }
+
+        /*public string ZjistitVychoziAplikaci(string priponaSouboru)
+        {
+            RegistryKey objExtReg = Registry.ClassesRoot;
+            RegistryKey objAppReg = Registry.ClassesRoot;
+            string strExtValue;
+
+            try
+            {
+                if(priponaSouboru.Substring(0, 1) != ".")
+                {
+                    priponaSouboru = "." + priponaSouboru;
+                }
+
+                objExtReg = objExtReg.OpenSubKey(priponaSouboru.Trim());
+                strExtValue = objExtReg.GetValue("").ToString();
+                objAppReg = objAppReg.OpenSubKey(strExtValue + "\\shell\\open\\command");
+
+                string[] splitArray;
+                //splitArray = Split(objAppReg.GetValue(Nothing), """");
+
+                if (splitArray[0].Trim().Length > 0)
+                {
+                    return splitArray[0].Replace("%1", "");
+                }
+                else
+                {
+                    return splitArray[1].Replace("%1", "");
+                }
+            }
+            catch
+            {
+                return "";
+            }
+        }*/
     }
 }

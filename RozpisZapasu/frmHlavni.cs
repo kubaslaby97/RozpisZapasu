@@ -56,8 +56,15 @@ namespace RozpisZapasu
                         {
                             Export.UlozitExcel(sfd.FileName, barva, NazvyTymu(), hristeZapasy, skupinyZapasy);
 
-                            //otevření souboru
-                            Process.Start(sfd.FileName);
+                            if (VychoziAplikace(sfd.FileName.Split('.').Last()) == "")
+                            {
+                                MessageBox.Show("Vyexportovaný soubor nelze otevřít, protože k němu není přidružena žádná aplikace", "Chyba při otevírání", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                            else
+                            {
+                                //otevření souboru
+                                Process.Start(sfd.FileName);
+                            }
                         }
                         else
                         {
@@ -266,7 +273,10 @@ namespace RozpisZapasu
             return uzamcen;
         }
 
-        public string ZjistitVychoziAplikaci(string priponaSouboru)
+        //zjištění výchozí aplikace pro danou příponu
+        //převzato z: https://social.msdn.microsoft.com/Forums/vstudio/en-US/92775e57-3acd-4ea1-bf65-a25682346cfa/get-default-application-from-file-extension?forum=vbgeneral
+        //přepsáno z VB.NET do C#
+        public string VychoziAplikace(string priponaSouboru)
         {
             RegistryKey objExtReg = Registry.ClassesRoot;
             RegistryKey objAppReg = Registry.ClassesRoot;
@@ -280,11 +290,11 @@ namespace RozpisZapasu
                 }
 
                 objExtReg = objExtReg.OpenSubKey(priponaSouboru.Trim());
-                strExtValue = objExtReg.GetValue("").ToString();
-                objAppReg = objAppReg.OpenSubKey(strExtValue + "\\shell\\open\\command");
+                strExtValue = objExtReg.GetValue(null).ToString();
+                objAppReg = objAppReg.OpenSubKey(strExtValue + @"\shell\open\command");
 
                 string[] splitArray;
-                //splitArray = String.Split((char)objAppReg.GetValue(null), '\0');
+                splitArray = objAppReg.GetValue(null).ToString().Split('\"');
 
                 if (splitArray[0].Trim().Length > 0)
                 {

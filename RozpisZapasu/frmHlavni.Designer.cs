@@ -121,6 +121,7 @@ namespace RozpisZapasu
             // 
             // lsvZapasyHriste
             // 
+            this.lsvZapasyHriste.AllowDrop = true;
             this.lsvZapasyHriste.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.colDomaci,
             this.colHoste,
@@ -134,6 +135,9 @@ namespace RozpisZapasu
             this.lsvZapasyHriste.TabIndex = 0;
             this.lsvZapasyHriste.UseCompatibleStateImageBehavior = false;
             this.lsvZapasyHriste.View = System.Windows.Forms.View.Details;
+            this.lsvZapasyHriste.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.lsvZapasyHriste_ItemDrag);
+            this.lsvZapasyHriste.DragDrop += new System.Windows.Forms.DragEventHandler(this.lsvZapasyHriste_DragDrop);
+            this.lsvZapasyHriste.DragEnter += new System.Windows.Forms.DragEventHandler(this.lsvZapasyHriste_DragEnter);
             // 
             // colDomaci
             // 
@@ -183,6 +187,7 @@ namespace RozpisZapasu
             // 
             // lsvZapasySkupina
             // 
+            this.lsvZapasySkupina.AllowDrop = true;
             this.lsvZapasySkupina.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.cmnDomaci,
             this.cmnHoste,
@@ -196,6 +201,9 @@ namespace RozpisZapasu
             this.lsvZapasySkupina.TabIndex = 7;
             this.lsvZapasySkupina.UseCompatibleStateImageBehavior = false;
             this.lsvZapasySkupina.View = System.Windows.Forms.View.Details;
+            this.lsvZapasySkupina.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.lsvZapasySkupina_ItemDrag);
+            this.lsvZapasySkupina.DragDrop += new System.Windows.Forms.DragEventHandler(this.lsvZapasySkupina_DragDrop);
+            this.lsvZapasySkupina.DragEnter += new System.Windows.Forms.DragEventHandler(this.lsvZapasySkupina_DragEnter);
             // 
             // cmnDomaci
             // 

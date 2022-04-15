@@ -149,6 +149,9 @@ namespace RozpisZapasu
             {
                 UlozitZapasy(hristeZapasy, lsvZapasyHriste);
                 UlozitZapasy(skupinyZapasy, lsvZapasySkupina);
+
+                ZobrazitZapasy(hristeZapasy, barva, lsvZapasyHriste);
+                ZobrazitZapasy(skupinyZapasy, barva, lsvZapasySkupina);
             }
         }
         private void frmHlavni_Load(object sender, EventArgs e)
@@ -236,7 +239,7 @@ namespace RozpisZapasu
 
             for (int i = 0; i < listView.Items.Count; i++)
             {
-                list.Add((i + 1, listView.Items[i].SubItems[1].Text, listView.Items[i].SubItems[2].Text));
+                list.Add((i + 1, String.Join("-", new string[] { listView.Items[i].SubItems[0].Text, listView.Items[i].SubItems[1].Text }), listView.Items[i].SubItems[2].Text));
             }
         }
 
@@ -309,6 +312,92 @@ namespace RozpisZapasu
             {
                 return "";
             }
+        }
+
+        private void lsvZapasyHriste_ItemDrag(object sender, ItemDragEventArgs e)
+        {
+            lsvZapasyHriste.DoDragDrop(lsvZapasyHriste.SelectedItems, DragDropEffects.Move);
+        }
+
+        private void lsvZapasyHriste_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.Move;
+        }
+
+        private void lsvZapasyHriste_DragDrop(object sender, DragEventArgs e)
+        {
+            if (lsvZapasyHriste.SelectedItems.Count == 0) { return; }
+
+            Point pt = lsvZapasyHriste.PointToClient(new Point(e.X, e.Y));
+            ListViewItem itemDrag = lsvZapasyHriste.GetItemAt(pt.X, pt.Y);
+
+            if (itemDrag == null) { return; }
+
+            int itemDragIndex = itemDrag.Index;
+            ListViewItem[] select = new ListViewItem[lsvZapasyHriste.SelectedItems.Count];
+
+            for(int i = 0; i < lsvZapasyHriste.SelectedItems.Count; i++)
+            {
+                select[i] = lsvZapasyHriste.SelectedItems[i];
+            }
+
+            for(int i = 0; i < select.GetLength(0); i++)
+            {
+                ListViewItem item = select[i];
+                int itemIndex = itemDragIndex;
+
+                if (itemIndex == item.Index) { return; }
+
+                if (item.Index < itemIndex) { itemIndex++; }
+                else { itemIndex = itemDragIndex + 1; }
+
+                ListViewItem insertItem = (ListViewItem)item.Clone();
+                lsvZapasyHriste.Items.Insert(itemIndex,insertItem);
+                lsvZapasyHriste.Items.Remove(item);
+            }
+        }
+
+        private void lsvZapasySkupina_DragDrop(object sender, DragEventArgs e)
+        {
+            if (lsvZapasySkupina.SelectedItems.Count == 0) { return; }
+
+            Point pt = lsvZapasySkupina.PointToClient(new Point(e.X, e.Y));
+            ListViewItem itemDrag = lsvZapasySkupina.GetItemAt(pt.X, pt.Y);
+
+            if (itemDrag == null) { return; }
+
+            int itemDragIndex = itemDrag.Index;
+            ListViewItem[] select = new ListViewItem[lsvZapasySkupina.SelectedItems.Count];
+
+            for (int i = 0; i < lsvZapasySkupina.SelectedItems.Count; i++)
+            {
+                select[i] = lsvZapasySkupina.SelectedItems[i];
+            }
+
+            for (int i = 0; i < select.GetLength(0); i++)
+            {
+                ListViewItem item = select[i];
+                int itemIndex = itemDragIndex;
+
+                if (itemIndex == item.Index) { return; }
+
+                if (item.Index < itemIndex) { itemIndex++; }
+                else { itemIndex = itemDragIndex + 1; }
+
+                ListViewItem insertItem = (ListViewItem)item.Clone();
+                lsvZapasySkupina.Items.Insert(itemIndex, insertItem);
+                lsvZapasySkupina.Items.Remove(item);
+            }
+        }
+
+        private void lsvZapasySkupina_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.Move;
+        }
+
+        private void lsvZapasySkupina_ItemDrag(object sender, ItemDragEventArgs e)
+        {
+            lsvZapasySkupina.DoDragDrop(lsvZapasySkupina.SelectedItems, DragDropEffects.Move);
         }
     }
 }

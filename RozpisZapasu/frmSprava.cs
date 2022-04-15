@@ -14,9 +14,6 @@ namespace RozpisZapasu
     public partial class frmSprava : Form
     {
         int volba = 0;
-        List<string> hriste = new List<string>();
-        List<string> skupiny = new List<string>();
-        List<(string, int, bool)> tymy = new List<(string, int, bool)>();
 
         public frmSprava(string titulek,int volba)
         {
@@ -46,21 +43,22 @@ namespace RozpisZapasu
                 //načtení souboru
                 if (File.Exists(Application.StartupPath + "\\tymy.xml"))
                 {
-                    tymy = ZpracovaniXML.NacteniTymu(Application.StartupPath + "\\tymy.xml");
+                    ZpracovaniPrehledu.seznamTymu = ZpracovaniXML.NacteniTymu(Application.StartupPath + "\\tymy.xml");
 
-                    for (int i = 0; i < tymy.Count; i++)
+                    for (int i = 0; i < ZpracovaniPrehledu.seznamTymu.Count; i++)
                     {
                         ListViewItem lvi;
 
-                        lvi = new ListViewItem(tymy[i].Item1);
-                        lvi.SubItems.Add(tymy[i].Item2.ToString());
-                        lvi.SubItems.Add(tymy[i].Item3.ToString());
+                        lvi = new ListViewItem(ZpracovaniPrehledu.seznamTymu[i].Item1);
+                        lvi.SubItems.Add(ZpracovaniPrehledu.seznamTymu[i].Item2.ToString());
+                        lvi.SubItems.Add(ZpracovaniPrehledu.seznamTymu[i].Item3.ToString());
 
                         lsvPolozky.Items.Add(lvi);
                     }
                 }
                 else
                 {
+                    ZpracovaniPrehledu.seznamTymu = new List<(string, int, bool)>();
                     MessageBox.Show("Soubor týmů nenalezen", "Upozornění", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
             }
@@ -73,15 +71,16 @@ namespace RozpisZapasu
                 //načtení souboru
                 if (File.Exists(Application.StartupPath + "\\hriste.xml"))
                 {
-                    hriste = ZpracovaniXML.NacteniHrist(Application.StartupPath + "\\hriste.xml");
+                    ZpracovaniPrehledu.seznamHrist = ZpracovaniXML.NacteniHrist(Application.StartupPath + "\\hriste.xml");
 
-                    for (int i = 0; i < hriste.Count; i++)
+                    for (int i = 0; i < ZpracovaniPrehledu.seznamHrist.Count; i++)
                     {
-                        lsvPolozky.Items.Add(hriste[i]);
+                        lsvPolozky.Items.Add(ZpracovaniPrehledu.seznamHrist[i]);
                     }
                 }
                 else
                 {
+                    ZpracovaniPrehledu.seznamHrist = new List<string>();
                     MessageBox.Show("Soubor hřišť nenalezen", "Upozornění", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
             }
@@ -94,15 +93,16 @@ namespace RozpisZapasu
                 //načtení souboru
                 if (File.Exists(Application.StartupPath + "\\skupiny.xml"))
                 {
-                    skupiny = ZpracovaniXML.NacteniSkupin(Application.StartupPath + "\\skupiny.xml");
+                    ZpracovaniPrehledu.seznamSkupin = ZpracovaniXML.NacteniSkupin(Application.StartupPath + "\\skupiny.xml");
 
-                    for (int i = 0; i < skupiny.Count; i++)
+                    for (int i = 0; i < ZpracovaniPrehledu.seznamSkupin.Count; i++)
                     {
-                        lsvPolozky.Items.Add(skupiny[i]);
+                        lsvPolozky.Items.Add(ZpracovaniPrehledu.seznamSkupin[i]);
                     }
                 }
                 else
                 {
+                    ZpracovaniPrehledu.seznamSkupin = new List<string>();
                     MessageBox.Show("Soubor skupin nenalezen", "Upozornění", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
             }
@@ -263,15 +263,15 @@ namespace RozpisZapasu
             if (volba == 1)
             {
                 //vyčištění seznamu
-                tymy.Clear();
+                ZpracovaniPrehledu.seznamTymu.Clear();
 
                 //naplnění seznamu
                 for (int i = 0; i < lsvPolozky.Items.Count; i++)
                 {
-                    tymy.Add((lsvPolozky.Items[i].Text, int.Parse(lsvPolozky.Items[i].SubItems[1].Text), bool.Parse(lsvPolozky.Items[i].SubItems[2].Text)));
+                    ZpracovaniPrehledu.seznamTymu.Add((lsvPolozky.Items[i].Text, int.Parse(lsvPolozky.Items[i].SubItems[1].Text), bool.Parse(lsvPolozky.Items[i].SubItems[2].Text)));
                 }
 
-                ZpracovaniXML.UlozeniTymu(Application.StartupPath + "\\tymy.xml", tymy);
+                ZpracovaniXML.UlozeniTymu(Application.StartupPath + "\\tymy.xml", ZpracovaniPrehledu.seznamTymu);
                 MessageBox.Show("Soubor týmů byl uložen", "Informace", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
             }
@@ -279,15 +279,15 @@ namespace RozpisZapasu
             else if (volba == 2)
             {
                 //vyčištění seznamu
-                hriste.Clear();
+                ZpracovaniPrehledu.seznamHrist.Clear();
 
                 //naplnění seznamu
                 for (int i = 0; i < lsvPolozky.Items.Count; i++)
                 {
-                    hriste.Add(lsvPolozky.Items[i].Text);
+                    ZpracovaniPrehledu.seznamHrist.Add(lsvPolozky.Items[i].Text);
                 }
 
-                ZpracovaniXML.UlozeniHrist(Application.StartupPath + "\\hriste.xml", hriste);
+                ZpracovaniXML.UlozeniHrist(Application.StartupPath + "\\hriste.xml", ZpracovaniPrehledu.seznamHrist);
                 MessageBox.Show("Soubor hřišť byl uložen", "Informace", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
             }
@@ -295,15 +295,15 @@ namespace RozpisZapasu
             else if (volba == 3)
             {
                 //vyčištění seznamu
-                skupiny.Clear();
+                ZpracovaniPrehledu.seznamSkupin.Clear();
 
                 //naplnění seznamu
                 for (int i = 0; i < lsvPolozky.Items.Count; i++)
                 {
-                    skupiny.Add(lsvPolozky.Items[i].Text);
+                    ZpracovaniPrehledu.seznamSkupin.Add(lsvPolozky.Items[i].Text);
                 }
 
-                ZpracovaniXML.UlozeniSkupin(Application.StartupPath + "\\skupiny.xml", skupiny);
+                ZpracovaniXML.UlozeniSkupin(Application.StartupPath + "\\skupiny.xml", ZpracovaniPrehledu.seznamSkupin);
                 MessageBox.Show("Soubor skupin byl uložen", "Informace", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
             }

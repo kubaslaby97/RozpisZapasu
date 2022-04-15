@@ -81,6 +81,7 @@
     <Compile Include="Skupina.cs" />
     <Compile Include="Turnaj.cs" />
     <Compile Include="Validator.cs" />
+    <Compile Include="ZpracovaniPrehledu.cs" />
     <Compile Include="ZpracovaniTurnaje.cs" />
     <Compile Include="ZpracovaniXML.cs" />
     <EmbeddedResource Include="frmHlavni.resx">

@@ -12,37 +12,30 @@ namespace RozpisZapasu
 {
     public partial class frmTurnaj : Form
     {
-        List<(string, int, bool)> seznamTymu = new List<(string, int, bool)>();
-        List<string> seznamHrist = new List<string>();
-        List<string> seznamSkupin = new List<string>();
-        List<(string, int, bool)> vybraneTymy = new List<(string, int, bool)>();
-        List<string> vybranaHriste = new List<string>();
-        List<string> vybraneSkupiny = new List<string>();
-        Color barva = new Color();
 
-        public frmTurnaj(List<(string, int, bool)> seznamTymu,List<string> seznamHrist, List<string> seznamSkupin)
+        public frmTurnaj()
         {
             InitializeComponent();
-            this.seznamHrist = seznamHrist;
-            this.seznamSkupin = seznamSkupin;
-            this.seznamTymu = seznamTymu;
         }
 
         private void frmTurnaj_Load(object sender, EventArgs e)
         {
-            for (int i = 0; i < seznamTymu.Count; i++)
+            ZpracovaniPrehledu.vybranaHriste = new List<string>();
+            ZpracovaniPrehledu.vybraneTymy = new List<(string, int, bool)>();
+            ZpracovaniPrehledu.vybraneSkupiny = new List<string>();
+            for (int i = 0; i < ZpracovaniPrehledu.seznamTymu.Count; i++)
             {
-                clbTymy.Items.Add(seznamTymu[i].Item1);
+                clbTymy.Items.Add(ZpracovaniPrehledu.seznamTymu[i].Item1);
             }
 
-            for (int i = 0; i < seznamHrist.Count; i++)
+            for (int i = 0; i < ZpracovaniPrehledu.seznamHrist.Count; i++)
             {
-                clbHriste.Items.Add(seznamHrist[i]);
+                clbHriste.Items.Add(ZpracovaniPrehledu.seznamHrist[i]);
             }
 
-            for (int i = 0; i < seznamSkupin.Count; i++)
+            for (int i = 0; i < ZpracovaniPrehledu.seznamSkupin.Count; i++)
             {
-                clbSkupiny.Items.Add(seznamSkupin[i]);
+                clbSkupiny.Items.Add(ZpracovaniPrehledu.seznamSkupin[i]);
             }
         }
 
@@ -53,7 +46,7 @@ namespace RozpisZapasu
             {
                 if (clbHriste.GetItemChecked(i) == true)
                 {
-                    vybranaHriste.Add(clbHriste.Items[i].ToString());
+                    ZpracovaniPrehledu.vybranaHriste.Add(clbHriste.Items[i].ToString());
                 }
             }
 
@@ -62,20 +55,20 @@ namespace RozpisZapasu
             {
                 if (clbSkupiny.GetItemChecked(i) == true)
                 {
-                    vybraneSkupiny.Add(clbSkupiny.Items[i].ToString());
+                    ZpracovaniPrehledu.vybraneSkupiny.Add(clbSkupiny.Items[i].ToString());
                 }
             }
 
             //naplnění seznamu vybraných týmů
-            for (int i = 0; i < seznamTymu.Count; i++)
+            for (int i = 0; i < ZpracovaniPrehledu.seznamTymu.Count; i++)
             {
                 for (int j = 0; j < clbTymy.Items.Count; j++)
                 {
                     if (clbTymy.GetItemChecked(j) == true)
                     {
-                        if (clbTymy.Items[j].ToString().Contains(seznamTymu[i].Item1))
+                        if (clbTymy.Items[j].ToString().Contains(ZpracovaniPrehledu.seznamTymu[i].Item1))
                         {
-                            vybraneTymy.Add((seznamTymu[i].Item1, seznamTymu[i].Item2, seznamTymu[i].Item3));
+                            ZpracovaniPrehledu.vybraneTymy.Add((ZpracovaniPrehledu.seznamTymu[i].Item1, ZpracovaniPrehledu.seznamTymu[i].Item2, ZpracovaniPrehledu.seznamTymu[i].Item3));
                         }
                     }
                 }
@@ -95,35 +88,10 @@ namespace RozpisZapasu
             ColorDialog cd = new ColorDialog();
             if (cd.ShowDialog() == DialogResult.OK)
             {
-                barva = cd.Color;
-                picBarvaZapasu.BackColor = barva;
-                lblUkazka.BackColor = barva;
+                ZpracovaniPrehledu.barva = cd.Color;
+                picBarvaZapasu.BackColor = ZpracovaniPrehledu.barva;
+                lblUkazka.BackColor = ZpracovaniPrehledu.barva;
             }
-        }
-
-
-        //vrátí vybrané týmy
-        public List<(string, int, bool)> VybraneTymy()
-        {
-            return vybraneTymy;
-        }
-
-        //vrátí vybraná hřiště
-        public List<string> VybranaHriste()
-        {
-            return vybranaHriste;
-        }
-
-        //vrátí vybrané skupiny
-        public List<string> VybraneSkupiny()
-        {
-            return vybraneSkupiny;
-        }
-
-        //barva pozadí přehledu zápasů
-        public Color BarvaPrehledu()
-        {
-            return barva;
         }
     }
 }

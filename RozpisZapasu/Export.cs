@@ -11,75 +11,158 @@ namespace RozpisZapasu
 {
     public static class Export
     {
+        public static string vybranyExport { get; set; }
         /// <summary>
         /// Export dokumentu ve formátu MS Excel
         /// </summary>
         /// <param name="nazev">nazev dokumentu</param>
-        /// <param name="barva">definice barvy výplně tabulek</param>
         /// <param name="tymy">vstupní seznam týmů</param>
         /// <param name="hristeZapasy">zápasy na hřištích</param>
         /// <param name="skupinyZapasy">zápasy ve skupinách</param>
-        public static void UlozitExcel(string nazev, System.Drawing.Color barva, List<string> tymy, List<(int, string, string)> hristeZapasy, List<(int, string, string)> skupinyZapasy)
+        public static void UlozitExcel(string nazev, List<string> tymy, List<(int, string, string)> hristeZapasy, List<(int, string, string)> skupinyZapasy)
         {
-            using (SpreadsheetDocument doc = SpreadsheetDocument.Create(nazev, SpreadsheetDocumentType.Workbook))
+            if (vybranyExport == "Křížová tabulka")
             {
-                VytvoritObsah(doc, barva, tymy, hristeZapasy, skupinyZapasy);
+                using (SpreadsheetDocument doc = SpreadsheetDocument.Create(nazev, SpreadsheetDocumentType.Workbook))
+                {
+                    VytvoritObsahKrizova(doc, tymy);
+                }
+            }
+            else if (vybranyExport == "Klasická tabulka")
+            {
+                using (SpreadsheetDocument doc = SpreadsheetDocument.Create(nazev, SpreadsheetDocumentType.Workbook))
+                {
+                    VytvoritObsahKlasicka(doc, tymy);
+                }
+            }
+            else if (vybranyExport == "Skupinový turnaj")
+            {
+                using (SpreadsheetDocument doc = SpreadsheetDocument.Create(nazev, SpreadsheetDocumentType.Workbook))
+                {
+                    VytvoritObsahSkupiny(doc, skupinyZapasy);
+                }
+            }
+            else if (vybranyExport == "Každý s každým")
+            {
+                using (SpreadsheetDocument doc = SpreadsheetDocument.Create(nazev, SpreadsheetDocumentType.Workbook))
+                {
+                    VytvoritObsahHriste(doc, hristeZapasy);
+                }
             }
         }
         /// <summary>
-        /// Tvorba obsahu dokumentu
+        /// Tvorba obsahu dokumentu Křížová tabulka
         /// </summary>
         /// <param name="doc">dokument</param>
-        /// <param name="barva">definice barvy výplně tabulek</param>
         /// <param name="tymy">vstupní seznam týmů</param>
-        /// <param name="hristeZapasy">zápasy na hřištích</param>
-        /// <param name="skupinyZapasy">zápasy ve skupinách</param>
-        private static void VytvoritObsah(SpreadsheetDocument doc, System.Drawing.Color barva, List<string> tymy, List<(int, string, string)> hristeZapasy, List<(int, string, string)> skupinyZapasy)
+        private static void VytvoritObsahKrizova(SpreadsheetDocument doc, List<string> tymy)
         {
-            //vytvoření listů
+            //vytvoření listu
             WorkbookPart wbPart = doc.AddWorkbookPart();
-            Listy(wbPart);
-
-            //obsah listů
-            WorksheetPart wsPart1 = wbPart.AddNewPart<WorksheetPart>("rId1");
-            KrizovaTabulka(wsPart1, tymy);
-
-            WorksheetPart wsPart2 = wbPart.AddNewPart<WorksheetPart>("rId2");
-            KlasickaTabulka(wsPart2, tymy);
-
-            WorksheetPart wsPart3 = wbPart.AddNewPart<WorksheetPart>("rId3");
-            ZapasyHriste(wsPart3, hristeZapasy);
-
-            WorksheetPart wsPart4 = wbPart.AddNewPart<WorksheetPart>("rId4");
-            ZapasySkupina(wsPart4, skupinyZapasy);
-
-            //Přidání stylu
-            WorkbookStylesPart stylePart = wbPart.AddNewPart<WorkbookStylesPart>("rId5");
-            stylePart.Stylesheet = GenerateStylesheet(barva);
-            stylePart.Stylesheet.Save();
-        }
-        /// <summary>
-        /// Definice listů v sešitu
-        /// </summary>
-        /// <param name="wbPart">část sešit</param>
-        private static void Listy(WorkbookPart wbPart)
-        {
             Workbook wb = new Workbook();
 
             Sheets sheets = new Sheets();
-            Sheet sheet1 = new Sheet() { Name = "Křížová tabulka", SheetId = (UInt32Value)1U, Id = "rId1" };
-            Sheet sheet2 = new Sheet() { Name = "Klasická tabulka", SheetId = (UInt32Value)2U, Id = "rId2" };
-            Sheet sheet3 = new Sheet() { Name = "Turnaje na hřištích", SheetId = (UInt32Value)3U, Id = "rId3" };
-            Sheet sheet4 = new Sheet() { Name = "Skupinový turnaj", SheetId = (UInt32Value)4U, Id = "rId4" };
+            Sheet sheet = new Sheet() { Name = "Křížová tabulka", SheetId = (UInt32Value)1U, Id = "rId1" };
 
-            sheets.Append(sheet1);
-            sheets.Append(sheet2);
-            sheets.Append(sheet3);
-            sheets.Append(sheet4);
+            sheets.Append(sheet);
 
             wb.Append(sheets);
             wbPart.Workbook = wb;
+
+            //obsah listu
+            WorksheetPart wsPart = wbPart.AddNewPart<WorksheetPart>("rId1");
+            KrizovaTabulka(wsPart, tymy);
+
+            //Přidání stylu
+            WorkbookStylesPart stylePart = wbPart.AddNewPart<WorkbookStylesPart>("rId5");
+            stylePart.Stylesheet = GenerateStylesheet();
+            stylePart.Stylesheet.Save();
         }
+        /// <summary>
+        /// Tvorba obsahu dokumentu Klasická tabulka
+        /// </summary>
+        /// <param name="doc">dokument</param>
+        /// <param name="tymy">vstupní seznam týmů</param>
+        private static void VytvoritObsahKlasicka(SpreadsheetDocument doc, List<string> tymy)
+        {
+            //vytvoření listu
+            WorkbookPart wbPart = doc.AddWorkbookPart();
+            Workbook wb = new Workbook();
+
+            Sheets sheets = new Sheets();
+            Sheet sheet = new Sheet() { Name = "Klasická tabulka", SheetId = (UInt32Value)1U, Id = "rId1" };
+
+            sheets.Append(sheet);
+
+            wb.Append(sheets);
+            wbPart.Workbook = wb;
+
+            //obsah listu
+            WorksheetPart wsPart = wbPart.AddNewPart<WorksheetPart>("rId1");
+            KlasickaTabulka(wsPart, tymy);
+
+            //Přidání stylu
+            WorkbookStylesPart stylePart = wbPart.AddNewPart<WorkbookStylesPart>("rId2");
+            stylePart.Stylesheet = GenerateStylesheet();
+            stylePart.Stylesheet.Save();
+        }
+        /// <summary>
+        /// Tvorba obsahu dokumentu Skupinový turnaj
+        /// </summary>
+        /// <param name="doc">dokument</param>
+        /// <param name="skupinyZapasy">zápasy ve skupinách</param>
+        private static void VytvoritObsahSkupiny(SpreadsheetDocument doc, List<(int, string, string)> skupinyZapasy)
+        {
+            //vytvoření listu
+            WorkbookPart wbPart = doc.AddWorkbookPart();
+            Workbook wb = new Workbook();
+
+            Sheets sheets = new Sheets();
+            Sheet sheet = new Sheet() { Name = "Skupinový turnaj", SheetId = (UInt32Value)1U, Id = "rId1" };
+
+            sheets.Append(sheet);
+
+            wb.Append(sheets);
+            wbPart.Workbook = wb;
+
+            //obsah listu
+            WorksheetPart wsPart = wbPart.AddNewPart<WorksheetPart>("rId1");
+            ZapasySkupina(wsPart, skupinyZapasy);
+
+            //Přidání stylu
+            WorkbookStylesPart stylePart = wbPart.AddNewPart<WorkbookStylesPart>("rId2");
+            stylePart.Stylesheet = GenerateStylesheet();
+            stylePart.Stylesheet.Save();
+        }
+        /// <summary>
+        /// Tvorba obsahu dokumentu Každý s každým
+        /// </summary>
+        /// <param name="doc">dokument</param>
+        /// <param name="hristeZapasy">zápasy na hřištích</param>
+        private static void VytvoritObsahHriste(SpreadsheetDocument doc, List<(int, string, string)> hristeZapasy)
+        {
+            //vytvoření listu
+            WorkbookPart wbPart = doc.AddWorkbookPart();
+            Workbook wb = new Workbook();
+
+            Sheets sheets = new Sheets();
+            Sheet sheet = new Sheet() { Name = "Turnaje na hřištích", SheetId = (UInt32Value)1U, Id = "rId1" };
+
+            sheets.Append(sheet);
+
+            wb.Append(sheets);
+            wbPart.Workbook = wb;
+
+            //obsah listu
+            WorksheetPart wsPart = wbPart.AddNewPart<WorksheetPart>("rId1");
+            ZapasyHriste(wsPart, hristeZapasy);
+
+            //Přidání stylu
+            WorkbookStylesPart stylePart = wbPart.AddNewPart<WorkbookStylesPart>("rId2");
+            stylePart.Stylesheet = GenerateStylesheet();
+            stylePart.Stylesheet.Save();
+        }
+
         /// <summary>
         /// Provede zápis do listu Křížová tabulka
         /// </summary>
@@ -254,7 +337,7 @@ namespace RozpisZapasu
                         cell.CellValue = new CellValue(hlavicka[sloupec]);
                         cell.DataType = CellValues.String;
                         cell.StyleIndex = 2;
-                        
+
                     }
                     //vyplnění zbytku
                     else if (radek > 1)
@@ -365,9 +448,8 @@ namespace RozpisZapasu
         /// <summary>
         /// vytvoří styly, které lze aplikovat do listů
         /// </summary>
-        /// <param name="barva">definice barvy výplně</param>
         /// <returns>Vrátí styly</returns>
-        private static Stylesheet GenerateStylesheet(System.Drawing.Color barva)
+        private static Stylesheet GenerateStylesheet()
         {
             Stylesheet styleSheet = null;
 
@@ -387,7 +469,7 @@ namespace RozpisZapasu
                 {
                     Rgb = new HexBinaryValue()
                     {
-                        Value = barva.R.ToString("X2") + barva.G.ToString("X2") + barva.B.ToString("X2")
+                        Value = ZpracovaniPrehledu.barva.R.ToString("X2") + ZpracovaniPrehledu.barva.G.ToString("X2") + ZpracovaniPrehledu.barva.B.ToString("X2")
                     }
                 })
                 { PatternType = PatternValues.Solid })); // Index 2 - výplň
@@ -446,7 +528,7 @@ namespace RozpisZapasu
                     ApplyBorder = true,
                     Alignment = new Alignment { TextRotation = (UInt32Value)90U }
                 } // Index 5 - normální písmo, orientace textu 90 stupňů a tenké ohraničení
-                );       
+                );
 
             styleSheet = new Stylesheet(fonts, fills, borders, cellFormats);
 

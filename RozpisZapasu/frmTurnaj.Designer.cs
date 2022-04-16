@@ -87,7 +87,7 @@ namespace RozpisZapasu
             // btnOK
             // 
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOK.Location = new System.Drawing.Point(307, 271);
+            this.btnOK.Location = new System.Drawing.Point(221, 270);
             this.btnOK.Margin = new System.Windows.Forms.Padding(2);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(80, 25);
@@ -99,7 +99,7 @@ namespace RozpisZapasu
             // btnStorno
             // 
             this.btnStorno.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnStorno.Location = new System.Drawing.Point(220, 271);
+            this.btnStorno.Location = new System.Drawing.Point(305, 270);
             this.btnStorno.Margin = new System.Windows.Forms.Padding(2);
             this.btnStorno.Name = "btnStorno";
             this.btnStorno.Size = new System.Drawing.Size(80, 25);
@@ -188,6 +188,8 @@ namespace RozpisZapasu
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmTurnaj";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Parametry turnaje";
             this.Load += new System.EventHandler(this.frmTurnaj_Load);

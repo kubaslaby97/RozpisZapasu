@@ -30,8 +30,8 @@ namespace RozpisZapasu
             InitializeComponent();
         }
 
-        //export do Excelu
-        private void btnExcel_Click(object sender, EventArgs e)
+        //export
+        private void btnExport_Click(object sender, EventArgs e)
         {
             if (File.Exists(souborTymy))
             {
@@ -41,30 +41,42 @@ namespace RozpisZapasu
                 }
                 else
                 {
-                    SaveFileDialog sfd = new SaveFileDialog();
-                    sfd.Filter = "Sešit aplikace MS Excel (verze 2007 a vyšší)|*.xlsx";
-                    sfd.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-                    sfd.Title = "Export do Excelu";
-                    if (sfd.ShowDialog() == DialogResult.OK)
+                    using (frmExport form = new frmExport())
                     {
-                        //kontrola zda je soubor používán
-                        if (!SouborPouzivan(sfd.FileName))
-                        {
-                            Export.UlozitExcel(sfd.FileName, ZpracovaniPrehledu.barva, ZpracovaniPrehledu.NazvyTymu(), hristeZapasy, skupinyZapasy);
+                        form.ShowDialog();
 
-                            if (VychoziAplikace(sfd.FileName.Split('.').Last()) == "")
-                            {
-                                MessageBox.Show("Soubor nelze otevřít, protože není k němu přidružena žádná aplikace", "Chyba při otevírání", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            }
-                            else
-                            {
-                                //otevření souboru
-                                Process.Start(sfd.FileName);
-                            }
+                        if (Export.vybranyExport == null || Export.vybranyExport == "")
+                        {
+                            MessageBox.Show("Není vybrána položka k exportu", "Upozornění", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         }
                         else
                         {
-                            MessageBox.Show("Soubor je používán", "Upozornění", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                            SaveFileDialog sfd = new SaveFileDialog();
+                            sfd.Filter = "Sešit aplikace MS Excel (verze 2007 a vyšší)|*.xlsx";
+                            sfd.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                            sfd.Title = "Export přehledu " + Export.vybranyExport;
+                            if (sfd.ShowDialog() == DialogResult.OK)
+                            {
+                                //kontrola zda je soubor používán
+                                if (!SouborPouzivan(sfd.FileName))
+                                {
+                                    Export.UlozitExcel(sfd.FileName, ZpracovaniPrehledu.NazvyTymu(), hristeZapasy, skupinyZapasy);
+
+                                    if (VychoziAplikace(sfd.FileName.Split('.').Last()) == "")
+                                    {
+                                        MessageBox.Show("Soubor nelze otevřít, protože není k němu přidružena žádná aplikace", "Chyba při otevírání", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    }
+                                    else
+                                    {
+                                        //otevření souboru
+                                        Process.Start(sfd.FileName);
+                                    }
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Soubor je používán", "Upozornění", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                                }
+                            }
                         }
                     }
                 }

@@ -30,7 +30,7 @@ namespace RozpisZapasu
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmHlavni));
-            this.btnExcel = new System.Windows.Forms.Button();
+            this.btnExport = new System.Windows.Forms.Button();
             this.btnSpravaTymu = new System.Windows.Forms.Button();
             this.btnSpravaHrist = new System.Windows.Forms.Button();
             this.btnSpravaSkupin = new System.Windows.Forms.Button();
@@ -78,16 +78,16 @@ namespace RozpisZapasu
             this.tableTymySkupiny.SuspendLayout();
             this.SuspendLayout();
             // 
-            // btnExcel
+            // btnExport
             // 
-            this.btnExcel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnExcel.Location = new System.Drawing.Point(113, 3);
-            this.btnExcel.Name = "btnExcel";
-            this.btnExcel.Size = new System.Drawing.Size(103, 26);
-            this.btnExcel.TabIndex = 0;
-            this.btnExcel.Text = "Export do Excelu";
-            this.btnExcel.UseVisualStyleBackColor = true;
-            this.btnExcel.Click += new System.EventHandler(this.btnExcel_Click);
+            this.btnExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnExport.Location = new System.Drawing.Point(113, 3);
+            this.btnExport.Name = "btnExport";
+            this.btnExport.Size = new System.Drawing.Size(103, 26);
+            this.btnExport.TabIndex = 0;
+            this.btnExport.Text = "Export přehledu";
+            this.btnExport.UseVisualStyleBackColor = true;
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
             // 
             // btnSpravaTymu
             // 
@@ -331,7 +331,7 @@ namespace RozpisZapasu
             // flowTlacitkaOstatni
             // 
             this.flowTlacitkaOstatni.Controls.Add(this.btnUlozit);
-            this.flowTlacitkaOstatni.Controls.Add(this.btnExcel);
+            this.flowTlacitkaOstatni.Controls.Add(this.btnExport);
             this.flowTlacitkaOstatni.Controls.Add(this.btnVytvoritTurnaj);
             this.flowTlacitkaOstatni.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowTlacitkaOstatni.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
@@ -464,7 +464,7 @@ namespace RozpisZapasu
 
         #endregion
 
-        private System.Windows.Forms.Button btnExcel;
+        private System.Windows.Forms.Button btnExport;
         private System.Windows.Forms.Button btnSpravaTymu;
         private System.Windows.Forms.Button btnSpravaHrist;
         private System.Windows.Forms.Button btnSpravaSkupin;

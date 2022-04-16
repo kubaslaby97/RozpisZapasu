@@ -45,7 +45,7 @@ namespace RozpisZapasu
                     {
                         form.ShowDialog();
 
-                        if (Export.vybranyExport == null || Export.vybranyExport == "")
+                        if (Export.VybranyExport == null || Export.VybranyExport == "")
                         {
                             MessageBox.Show("Není vybrána položka k exportu", "Upozornění", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         }
@@ -54,13 +54,13 @@ namespace RozpisZapasu
                             SaveFileDialog sfd = new SaveFileDialog();
                             sfd.Filter = "Sešit aplikace MS Excel (verze 2007 a vyšší)|*.xlsx";
                             sfd.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-                            sfd.Title = "Export přehledu " + Export.vybranyExport;
+                            sfd.Title = "Export přehledu " + Export.VybranyExport;
                             if (sfd.ShowDialog() == DialogResult.OK)
                             {
                                 //kontrola zda je soubor používán
                                 if (!SouborPouzivan(sfd.FileName))
                                 {
-                                    Export.UlozitExcel(sfd.FileName, ZpracovaniPrehledu.NazvyTymu(), hristeZapasy, skupinyZapasy);
+                                    Export.UlozitExcel(sfd.FileName, skupinyTymy, hristeZapasy, skupinyZapasy);
 
                                     if (VychoziAplikace(sfd.FileName.Split('.').Last()) == "")
                                     {
@@ -110,9 +110,9 @@ namespace RozpisZapasu
         {
             if (File.Exists(souborTymy) || File.Exists(souborHriste) || File.Exists(souborSkupiny))
             {
-                ZpracovaniPrehledu.seznamTymu = ZpracovaniXML.NacteniTymu(souborTymy);
-                ZpracovaniPrehledu.seznamHrist = ZpracovaniXML.NacteniHrist(souborHriste);
-                ZpracovaniPrehledu.seznamSkupin = ZpracovaniXML.NacteniSkupin(souborSkupiny);
+                ZpracovaniPrehledu.SeznamTymu = ZpracovaniXML.NacteniTymu(souborTymy);
+                ZpracovaniPrehledu.SeznamHrist = ZpracovaniXML.NacteniHrist(souborHriste);
+                ZpracovaniPrehledu.SeznamSkupin = ZpracovaniXML.NacteniSkupin(souborSkupiny);
 
                 //Zobrazení zápasů v ListView
                 if (MessageBox.Show("Přejete si přepsat aktuální rozřazení týmů?", "Upozornění", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
@@ -122,13 +122,13 @@ namespace RozpisZapasu
                         {
                             if (form.ShowDialog() == DialogResult.OK)
                             {
-                                hristeZapasy = ZpracovaniTurnaje.VyslednyRozpis(1, ZpracovaniPrehledu.vybraneTymy, ZpracovaniPrehledu.vybranaHriste, ZpracovaniPrehledu.vybraneSkupiny);
-                                skupinyZapasy = ZpracovaniTurnaje.VyslednyRozpis(2, ZpracovaniPrehledu.vybraneTymy, ZpracovaniPrehledu.vybranaHriste, ZpracovaniPrehledu.vybraneSkupiny);
+                                hristeZapasy = ZpracovaniTurnaje.VyslednyRozpis(1, ZpracovaniPrehledu.VybraneTymy, ZpracovaniPrehledu.VybranaHriste, ZpracovaniPrehledu.VybraneSkupiny);
+                                skupinyZapasy = ZpracovaniTurnaje.VyslednyRozpis(2, ZpracovaniPrehledu.VybraneTymy, ZpracovaniPrehledu.VybranaHriste, ZpracovaniPrehledu.VybraneSkupiny);
 
                                 ZpracovaniPrehledu.ZobrazitZapasy(hristeZapasy, lsvZapasyHriste);
                                 ZpracovaniPrehledu.ZobrazitZapasy(skupinyZapasy,  lsvZapasySkupina);
 
-                                skupinyTymy = ZpracovaniTurnaje.TymyVeSkupine(ZpracovaniPrehledu.vybraneTymy, ZpracovaniPrehledu.vybraneSkupiny);
+                                skupinyTymy = ZpracovaniTurnaje.TymyVeSkupine(ZpracovaniPrehledu.VybraneTymy, ZpracovaniPrehledu.VybraneSkupiny);
                                 ZpracovaniPrehledu.ZobrazitSkupiny(skupinyTymy, lsvSkupinyTymy);
                             }
                         }

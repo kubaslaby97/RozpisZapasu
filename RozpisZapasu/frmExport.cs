@@ -19,7 +19,7 @@ namespace RozpisZapasu
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            Export.vybranyExport = cmbExport.Text;
+            Export.VybranyExport = cmbExport.Text;
         }
     }
 }

@@ -20,22 +20,22 @@ namespace RozpisZapasu
 
         private void frmTurnaj_Load(object sender, EventArgs e)
         {
-            ZpracovaniPrehledu.vybranaHriste = new List<string>();
-            ZpracovaniPrehledu.vybraneTymy = new List<(string, int, bool)>();
-            ZpracovaniPrehledu.vybraneSkupiny = new List<string>();
-            for (int i = 0; i < ZpracovaniPrehledu.seznamTymu.Count; i++)
+            ZpracovaniPrehledu.VybranaHriste = new List<string>();
+            ZpracovaniPrehledu.VybraneTymy = new List<(string, int, bool)>();
+            ZpracovaniPrehledu.VybraneSkupiny = new List<string>();
+            for (int i = 0; i < ZpracovaniPrehledu.SeznamTymu.Count; i++)
             {
-                clbTymy.Items.Add(ZpracovaniPrehledu.seznamTymu[i].Item1);
+                clbTymy.Items.Add(ZpracovaniPrehledu.SeznamTymu[i].Item1);
             }
 
-            for (int i = 0; i < ZpracovaniPrehledu.seznamHrist.Count; i++)
+            for (int i = 0; i < ZpracovaniPrehledu.SeznamHrist.Count; i++)
             {
-                clbHriste.Items.Add(ZpracovaniPrehledu.seznamHrist[i]);
+                clbHriste.Items.Add(ZpracovaniPrehledu.SeznamHrist[i]);
             }
 
-            for (int i = 0; i < ZpracovaniPrehledu.seznamSkupin.Count; i++)
+            for (int i = 0; i < ZpracovaniPrehledu.SeznamSkupin.Count; i++)
             {
-                clbSkupiny.Items.Add(ZpracovaniPrehledu.seznamSkupin[i]);
+                clbSkupiny.Items.Add(ZpracovaniPrehledu.SeznamSkupin[i]);
             }
         }
 
@@ -46,7 +46,7 @@ namespace RozpisZapasu
             {
                 if (clbHriste.GetItemChecked(i) == true)
                 {
-                    ZpracovaniPrehledu.vybranaHriste.Add(clbHriste.Items[i].ToString());
+                    ZpracovaniPrehledu.VybranaHriste.Add(clbHriste.Items[i].ToString());
                 }
             }
 
@@ -55,20 +55,20 @@ namespace RozpisZapasu
             {
                 if (clbSkupiny.GetItemChecked(i) == true)
                 {
-                    ZpracovaniPrehledu.vybraneSkupiny.Add(clbSkupiny.Items[i].ToString());
+                    ZpracovaniPrehledu.VybraneSkupiny.Add(clbSkupiny.Items[i].ToString());
                 }
             }
 
             //naplnění seznamu vybraných týmů
-            for (int i = 0; i < ZpracovaniPrehledu.seznamTymu.Count; i++)
+            for (int i = 0; i < ZpracovaniPrehledu.SeznamTymu.Count; i++)
             {
                 for (int j = 0; j < clbTymy.Items.Count; j++)
                 {
                     if (clbTymy.GetItemChecked(j) == true)
                     {
-                        if (clbTymy.Items[j].ToString().Contains(ZpracovaniPrehledu.seznamTymu[i].Item1))
+                        if (clbTymy.Items[j].ToString().Contains(ZpracovaniPrehledu.SeznamTymu[i].Item1))
                         {
-                            ZpracovaniPrehledu.vybraneTymy.Add((ZpracovaniPrehledu.seznamTymu[i].Item1, ZpracovaniPrehledu.seznamTymu[i].Item2, ZpracovaniPrehledu.seznamTymu[i].Item3));
+                            ZpracovaniPrehledu.VybraneTymy.Add((ZpracovaniPrehledu.SeznamTymu[i].Item1, ZpracovaniPrehledu.SeznamTymu[i].Item2, ZpracovaniPrehledu.SeznamTymu[i].Item3));
                         }
                     }
                 }
@@ -88,9 +88,9 @@ namespace RozpisZapasu
             ColorDialog cd = new ColorDialog();
             if (cd.ShowDialog() == DialogResult.OK)
             {
-                ZpracovaniPrehledu.barva = cd.Color;
-                picBarvaZapasu.BackColor = ZpracovaniPrehledu.barva;
-                lblUkazka.BackColor = ZpracovaniPrehledu.barva;
+                ZpracovaniPrehledu.Barva = cd.Color;
+                picBarvaZapasu.BackColor = ZpracovaniPrehledu.Barva;
+                lblUkazka.BackColor = ZpracovaniPrehledu.Barva;
             }
         }
     }

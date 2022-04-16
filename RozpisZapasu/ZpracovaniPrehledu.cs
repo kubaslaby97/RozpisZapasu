@@ -10,13 +10,13 @@ namespace RozpisZapasu
 {
     public static class ZpracovaniPrehledu
     {
-        public static Color barva { get; set; }
-        public static List<(string, int, bool)> seznamTymu { get; set; }
-        public static List<(string, int, bool)> vybraneTymy { get; set; }
-        public static List<string> seznamHrist { get; set; }
-        public static List<string> vybranaHriste { get; set; }
-        public static List<string> seznamSkupin { get; set; }
-        public static List<string> vybraneSkupiny { get; set; }
+        public static Color Barva { get; set; }
+        public static List<(string, int, bool)> SeznamTymu { get; set; }
+        public static List<(string, int, bool)> VybraneTymy { get; set; }
+        public static List<string> SeznamHrist { get; set; }
+        public static List<string> VybranaHriste { get; set; }
+        public static List<string> SeznamSkupin { get; set; }
+        public static List<string> VybraneSkupiny { get; set; }
 
         /// <summary>
         /// Rozřazené zápasy vloží do ListView pro případnou kontrolu před exportem do Excelu
@@ -45,7 +45,7 @@ namespace RozpisZapasu
             //vybarvení položek
             for (int i = 0; i < listView.Items.Count; i += 2)
             {
-                listView.Items[i].BackColor = barva;
+                listView.Items[i].BackColor = Barva;
             }
         }
 
@@ -71,7 +71,7 @@ namespace RozpisZapasu
             //vybarvení položek
             for (int i = 0; i < listView.Items.Count; i += 2)
             {
-                listView.Items[i].BackColor = barva;
+                listView.Items[i].BackColor = Barva;
             }
         }
 
@@ -98,9 +98,9 @@ namespace RozpisZapasu
         {
             List<string> list = new List<string>();
 
-            for (int i = 0; i < vybraneTymy.Count; i++)
+            for (int i = 0; i < VybraneTymy.Count; i++)
             {
-                list.Add(vybraneTymy[i].Item1);
+                list.Add(VybraneTymy[i].Item1);
             }
 
             return list;

@@ -57,7 +57,7 @@ namespace RozpisZapasu
 
                             //titulek dialogu v závislosti na vybraném typu exportu
                             if (Export.VybranyExport == "Tabulky pro danou skupinu")
-                                sfd.Title = "Export tabulek skupiny" + Export.VybranaSkupina;
+                                sfd.Title = "Export tabulek skupiny " + Export.VybranaSkupina;
                             else
                                 sfd.Title = "Export přehledu " + Export.VybranyExport;
 

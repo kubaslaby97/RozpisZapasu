@@ -20,6 +20,12 @@ namespace RozpisZapasu
         private void btnOK_Click(object sender, EventArgs e)
         {
             Export.VybranyExport = cmbExport.Text;
+            Export.VybranaSkupina = cmbSkupiny.Text;
+        }
+
+        private void frmExport_Load(object sender, EventArgs e)
+        {
+            cmbSkupiny.DataSource = ZpracovaniPrehledu.VybraneSkupiny;
         }
     }
 }

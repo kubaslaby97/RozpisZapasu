@@ -54,7 +54,13 @@ namespace RozpisZapasu
                             SaveFileDialog sfd = new SaveFileDialog();
                             sfd.Filter = "Sešit aplikace MS Excel (verze 2007 a vyšší)|*.xlsx";
                             sfd.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-                            sfd.Title = "Export přehledu " + Export.VybranyExport;
+
+                            //titulek dialogu v závislosti na vybraném typu exportu
+                            if (Export.VybranyExport == "Tabulky pro danou skupinu")
+                                sfd.Title = "Export tabulek skupiny" + Export.VybranaSkupina;
+                            else
+                                sfd.Title = "Export přehledu " + Export.VybranyExport;
+
                             if (sfd.ShowDialog() == DialogResult.OK)
                             {
                                 //kontrola zda je soubor používán

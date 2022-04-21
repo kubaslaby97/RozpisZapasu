@@ -24,32 +24,33 @@ namespace RozpisZapasu
         {
             if (VybranyExport == "Tabulky pro danou skupinu")
             {
-                List<string> listTymu = new List<string>();
-                List<(int, string, string)> listZapasuSkupin = new List<(int, string, string)>();
-
-                //týmy vybrané skupiny
-                for (int i = 0; i < skupinyTymy.Count; i++)
-                {
-                    if (skupinyTymy[i].Item2.Contains(VybranaSkupina))
-                    {
-                        listTymu.Add(skupinyTymy[i].Item1);
-                    }
-
-                }
-                
-                //zápasy vybrané skupiny
-                for (int i = 0; i < skupinyZapasy.Count; i++)
-                {
-                    if (skupinyZapasy[i].Item3.Contains(VybranaSkupina))
-                    {
-                        listZapasuSkupin.Add((i + 1, skupinyZapasy[i].Item2, skupinyZapasy[i].Item3));
-                    }
-
-                }
-
                 using (SpreadsheetDocument doc = SpreadsheetDocument.Create(nazev, SpreadsheetDocumentType.Workbook))
                 {
-                    VytvoritObsahSkupiny(doc, listTymu, listZapasuSkupin);
+                    VytvoritObsahSkupiny(doc, ListTymu(skupinyTymy), ListZapasuSkupin(skupinyZapasy));
+                }
+            }
+            else if (VybranyExport == "Každý s každým")
+            {
+                using (SpreadsheetDocument doc = SpreadsheetDocument.Create(nazev, SpreadsheetDocumentType.Workbook))
+                {
+                    VytvoritObsah(doc, hristeZapasy);
+                }
+            }
+        }
+        /// <summary>
+        /// Export dokumentu ve formátu MS Excel s podporou maker
+        /// </summary>
+        /// <param name="nazev">nazev dokumentu</param>
+        /// <param name="skupinyTymy">vstupní seznam skupin a týmů v nich obsažených</param>
+        /// <param name="hristeZapasy">zápasy na hřištích</param>
+        /// <param name="skupinyZapasy">zápasy ve skupinách</param>
+        public static void UlozitExcelMakra(string nazev, List<(string, string)> skupinyTymy, List<(int, string, string)> hristeZapasy, List<(int, string, string)> skupinyZapasy)
+        {
+            if (VybranyExport == "Tabulky pro danou skupinu")
+            {
+                using (SpreadsheetDocument doc = SpreadsheetDocument.Create(nazev, SpreadsheetDocumentType.MacroEnabledWorkbook))
+                {
+                    VytvoritObsahSkupiny(doc, ListTymu(skupinyTymy), ListZapasuSkupin(skupinyZapasy));
                 }
             }
             else if (VybranyExport == "Každý s každým")
@@ -543,6 +544,37 @@ namespace RozpisZapasu
                     pole.Add(kolekce[i].Item3);
             }
             return pole.Max(polozka => polozka.Length);
+        }
+
+        private static List<string> ListTymu(List<(string, string)> skupinyTymy)
+        {
+            List<string> listTymu = new List<string>();
+            for (int i = 0; i < skupinyTymy.Count; i++)
+            {
+                if (skupinyTymy[i].Item2.Contains(VybranaSkupina))
+                {
+                    listTymu.Add(skupinyTymy[i].Item1);
+                }
+
+            }
+            return listTymu;
+        }
+
+        private static List<(int, string, string)> ListZapasuSkupin(List<(int, string, string)> skupinyZapasy)
+        {
+            List<(int, string, string)> listZapasuSkupin = new List<(int, string, string)>();
+
+            //zápasy vybrané skupiny
+            for (int i = 0; i < skupinyZapasy.Count; i++)
+            {
+                if (skupinyZapasy[i].Item3.Contains(VybranaSkupina))
+                {
+                    listZapasuSkupin.Add((i + 1, skupinyZapasy[i].Item2, skupinyZapasy[i].Item3));
+                }
+
+            }
+
+            return listZapasuSkupin;
         }
     }
 }

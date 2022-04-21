@@ -52,7 +52,7 @@ namespace RozpisZapasu
                         else
                         {
                             SaveFileDialog sfd = new SaveFileDialog();
-                            sfd.Filter = "Sešit aplikace MS Excel (verze 2007 a vyšší)|*.xlsx";
+                            sfd.Filter = "Sešit aplikace MS Excel (verze 2007 a vyšší)|*.xlsx|Sešit aplikace MS Excel (verze 2007 a vyšší) s podporou maker|*.xlsm";
                             sfd.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 
                             //titulek dialogu v závislosti na vybraném typu exportu

@@ -57,17 +57,32 @@ namespace RozpisZapasu
 
                             //titulek dialogu v závislosti na vybraném typu exportu
                             if (Export.VybranyExport == "Tabulky pro danou skupinu")
+                            {
                                 sfd.Title = "Export tabulek skupiny " + Export.VybranaSkupina;
+                            }
                             else
+                            {
                                 sfd.Title = "Export přehledu " + Export.VybranyExport;
+                            }  
 
                             if (sfd.ShowDialog() == DialogResult.OK)
                             {
                                 //kontrola zda je soubor používán
                                 if (!SouborPouzivan(sfd.FileName))
                                 {
-                                    Export.UlozitExcel(sfd.FileName, skupinyTymy, hristeZapasy, skupinyZapasy);
+                                    //zvolení typu souboru
+                                    if (sfd.FilterIndex == 1)
+                                    {
+                                        Export.UlozitExcel(sfd.FileName, skupinyTymy, hristeZapasy, skupinyZapasy);
+                                    }  
+                                    else if (sfd.FilterIndex == 2)
+                                    {
+                                        Export.UlozitExcelMakra(sfd.FileName, skupinyTymy, hristeZapasy, skupinyZapasy);
+                                        //vložení VBA kódu
+                                        //Export.PropisDat(sfd.FileName)
+                                    }
 
+                                    //ověření, zda existuje výchozí aplikace pro otevření souboru
                                     if (VychoziAplikace(sfd.FileName.Split('.').Last()) == "")
                                     {
                                         MessageBox.Show("Soubor nelze otevřít, protože není k němu přidružena žádná aplikace", "Chyba při otevírání", MessageBoxButtons.OK, MessageBoxIcon.Error);

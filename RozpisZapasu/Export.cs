@@ -55,7 +55,7 @@ namespace RozpisZapasu
             }
             else if (VybranyExport == "Každý s každým")
             {
-                using (SpreadsheetDocument doc = SpreadsheetDocument.Create(nazev, SpreadsheetDocumentType.Workbook))
+                using (SpreadsheetDocument doc = SpreadsheetDocument.Create(nazev, SpreadsheetDocumentType.MacroEnabledWorkbook))
                 {
                     VytvoritObsah(doc, hristeZapasy);
                 }

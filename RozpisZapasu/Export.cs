@@ -73,17 +73,17 @@ namespace RozpisZapasu
             Listy(wbPart);
 
             //obsah listů
-            WorksheetPart wsPart1 = wbPart.AddNewPart<WorksheetPart>("rId1");
+            WorksheetPart wsPart1 = wbPart.AddNewPart<WorksheetPart>("rId2");
             KrizovaTabulka(wsPart1, tymy);
 
-            WorksheetPart wsPart2 = wbPart.AddNewPart<WorksheetPart>("rId2");
+            WorksheetPart wsPart2 = wbPart.AddNewPart<WorksheetPart>("rId3");
             KlasickaTabulka(wsPart2, tymy);
 
-            WorksheetPart wsPart4 = wbPart.AddNewPart<WorksheetPart>("rId3");
+            WorksheetPart wsPart4 = wbPart.AddNewPart<WorksheetPart>("rId4");
             ZapasySkupina(wsPart4, skupinyZapasy);
 
             //Přidání stylu
-            WorkbookStylesPart stylePart = wbPart.AddNewPart<WorkbookStylesPart>("rId4");
+            WorkbookStylesPart stylePart = wbPart.AddNewPart<WorkbookStylesPart>("rId5");
             stylePart.Stylesheet = GenerateStylesheet();
             stylePart.Stylesheet.Save();
         }
@@ -96,9 +96,9 @@ namespace RozpisZapasu
             Workbook wb = new Workbook();
 
             Sheets sheets = new Sheets();
-            Sheet sheet1 = new Sheet() { Name = "Křížová tabulka", SheetId = (UInt32Value)1U, Id = "rId1" };
-            Sheet sheet2 = new Sheet() { Name = "Klasická tabulka", SheetId = (UInt32Value)2U, Id = "rId2" };
-            Sheet sheet3 = new Sheet() { Name = "Skupinový turnaj", SheetId = (UInt32Value)3U, Id = "rId3" };
+            Sheet sheet1 = new Sheet() { Name = "Křížová tabulka", SheetId = (UInt32Value)1U, Id = "rId2" };
+            Sheet sheet2 = new Sheet() { Name = "Klasická tabulka", SheetId = (UInt32Value)2U, Id = "rId3" };
+            Sheet sheet3 = new Sheet() { Name = "Skupinový turnaj", SheetId = (UInt32Value)3U, Id = "rId4" };
 
             sheets.Append(sheet1);
             sheets.Append(sheet2);
@@ -322,7 +322,7 @@ namespace RozpisZapasu
             Workbook wb = new Workbook();
 
             Sheets sheets = new Sheets();
-            Sheet sheet = new Sheet() { Name = "Turnaje na hřištích", SheetId = (UInt32Value)1U, Id = "rId1" };
+            Sheet sheet = new Sheet() { Name = "Turnaje na hřištích", SheetId = (UInt32Value)1U, Id = "rId2" };
 
             sheets.Append(sheet);
 
@@ -330,11 +330,11 @@ namespace RozpisZapasu
             wbPart.Workbook = wb;
 
             //obsah listu
-            WorksheetPart wsPart = wbPart.AddNewPart<WorksheetPart>("rId1");
+            WorksheetPart wsPart = wbPart.AddNewPart<WorksheetPart>("rId2");
             ZapasyHriste(wsPart, hristeZapasy);
 
             //Přidání stylu
-            WorkbookStylesPart stylePart = wbPart.AddNewPart<WorkbookStylesPart>("rId2");
+            WorkbookStylesPart stylePart = wbPart.AddNewPart<WorkbookStylesPart>("rId3");
             stylePart.Stylesheet = GenerateStylesheet();
             stylePart.Stylesheet.Save();
         }

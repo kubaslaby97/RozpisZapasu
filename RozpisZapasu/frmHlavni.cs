@@ -78,8 +78,12 @@ namespace RozpisZapasu
                                     else if (sfd.FilterIndex == 2)
                                     {
                                         Export.UlozitExcelMakra(sfd.FileName, skupinyTymy, hristeZapasy, skupinyZapasy);
+
                                         //vložení VBA části
-                                        //VBA.PropisDatTymuSkupiny(sfd.FileName);
+                                        if(Export.VybranyExport== "Tabulky pro danou skupinu")
+                                        {
+                                            //VBA.PropisDatTymuSkupiny(sfd.FileName);
+                                        }
                                     }
 
                                     //ověření, zda existuje výchozí aplikace pro otevření souboru

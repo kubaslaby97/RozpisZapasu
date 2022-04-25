@@ -14,21 +14,47 @@ namespace RozpisZapasu
     {
         public static void PropisDatTymuSkupiny(string soubor)
         {
-            using (SpreadsheetDocument doc = SpreadsheetDocument.Open(soubor, true))
+            /*using (SpreadsheetDocument doc = SpreadsheetDocument.Open(soubor, true))
             {
-                string kodVBA = "Private Sub Workbook_Open()\nMsgBox \"Ahoj\"\nEnd Sub";  //base 64 encoded data from reflection code
+                //kód VBA
+                string kodVBA = "Private Sub Workbook_Open()\nMsgBox \"Ahoj\"\nEnd Sub";
 
+                //vytvoření části VBA v souboru XLSM
                 VbaProjectPart vbaPart = doc.WorkbookPart.AddNewPart<VbaProjectPart>("rId1");
+
+                //naplnění daty
                 Stream data = GetBinaryDataStream(Base64Encode(kodVBA));
                 vbaPart.FeedData(data);
                 data.Close();
+            }*/
+            using (SpreadsheetDocument ssDoc = SpreadsheetDocument.Open("makra.xlsm", false))
+            {
+                WorkbookPart wbPart = ssDoc.WorkbookPart;
+                MemoryStream ms = new MemoryStream();
+                CopyStream(ssDoc.WorkbookPart.VbaProjectPart.GetStream(), ms);
 
-                WorkbookProperties wbProps = new WorkbookProperties();
-                wbProps.CodeName = "ThisWorkbook";
+                using (SpreadsheetDocument ssDoc2 = SpreadsheetDocument.Open(soubor, true))
+                {
+                    VbaProjectPart vbaPart = ssDoc2.WorkbookPart.AddNewPart<VbaProjectPart>("rId1");
+                    Stream stream = vbaPart.GetStream();
+                    ms.WriteTo(stream);
+                }
             }
         }
 
-        private static Stream GetBinaryDataStream(string base64String)
+        public static void CopyStream(Stream input, Stream output)
+        {
+            byte[] buffer = new byte[short.MaxValue + 1];
+            while (true)
+            {
+                int read = input.Read(buffer, 0, buffer.Length);
+                if (read <= 0)
+                    return;
+                output.Write(buffer, 0, read);
+            }
+        }
+
+        /*private static Stream GetBinaryDataStream(string base64String)
         {
             return new MemoryStream(Convert.FromBase64String(base64String));
         }
@@ -37,6 +63,6 @@ namespace RozpisZapasu
         {
             var plainTextBytes = Encoding.UTF8.GetBytes(plainText);
             return Convert.ToBase64String(plainTextBytes);
-        }
+        }*/
     }
 }

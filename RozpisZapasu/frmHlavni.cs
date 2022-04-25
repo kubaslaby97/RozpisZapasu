@@ -82,7 +82,7 @@ namespace RozpisZapasu
                                         //vložení VBA části
                                         if(Export.VybranyExport== "Tabulky pro danou skupinu")
                                         {
-                                            //VBA.PropisDatTymuSkupiny(sfd.FileName);
+                                            VBA.PropisDatTymuSkupiny(sfd.FileName);
                                         }
                                     }
 

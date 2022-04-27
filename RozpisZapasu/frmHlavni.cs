@@ -41,67 +41,43 @@ namespace RozpisZapasu
                 }
                 else
                 {
-                    using (frmExport form = new frmExport())
+                    SaveFileDialog sfd = new SaveFileDialog();
+                    sfd.Filter = "Sešit aplikace MS Excel (verze 2007 a vyšší)|*.xlsx|Sešit aplikace MS Excel (verze 2007 a vyšší) s podporou maker|*.xlsm";
+                    sfd.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                    sfd.Title = "Export přehledu";
+
+                    if (sfd.ShowDialog() == DialogResult.OK)
                     {
-                        form.ShowDialog();
-
-                        if (Export.VybranyExport == null || Export.VybranyExport == "")
+                        //kontrola zda je soubor používán
+                        if (!SouborPouzivan(sfd.FileName))
                         {
-                            MessageBox.Show("Není vybrána položka k exportu", "Upozornění", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                        }
-                        else
-                        {
-                            SaveFileDialog sfd = new SaveFileDialog();
-                            sfd.Filter = "Sešit aplikace MS Excel (verze 2007 a vyšší)|*.xlsx|Sešit aplikace MS Excel (verze 2007 a vyšší) s podporou maker|*.xlsm";
-                            sfd.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-
-                            //titulek dialogu v závislosti na vybraném typu exportu
-                            if (Export.VybranyExport == "Tabulky pro danou skupinu")
+                            //zvolení typu souboru
+                            if (sfd.FilterIndex == 1)
                             {
-                                sfd.Title = "Export tabulek skupiny " + Export.VybranaSkupina;
+                                Export.UlozitExcel(sfd.FileName, skupinyTymy, hristeZapasy, skupinyZapasy);
+                            }
+                            else if (sfd.FilterIndex == 2)
+                            {
+                                Export.UlozitExcelMakra(sfd.FileName, skupinyTymy, hristeZapasy, skupinyZapasy);
+
+                                //vložení VBA části
+                                VBA.PropisDatTymuSkupiny(sfd.FileName);
+                            }
+
+                            //ověření, zda existuje výchozí aplikace pro otevření souboru
+                            if (VychoziAplikace(sfd.FileName.Split('.').Last()) == "")
+                            {
+                                MessageBox.Show("Soubor nelze otevřít, protože není k němu přidružena žádná aplikace", "Chyba při otevírání", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
                             else
                             {
-                                sfd.Title = "Export přehledu " + Export.VybranyExport;
-                            }  
-
-                            if (sfd.ShowDialog() == DialogResult.OK)
-                            {
-                                //kontrola zda je soubor používán
-                                if (!SouborPouzivan(sfd.FileName))
-                                {
-                                    //zvolení typu souboru
-                                    if (sfd.FilterIndex == 1)
-                                    {
-                                        Export.UlozitExcel(sfd.FileName, skupinyTymy, hristeZapasy, skupinyZapasy);
-                                    }  
-                                    else if (sfd.FilterIndex == 2)
-                                    {
-                                        Export.UlozitExcelMakra(sfd.FileName, skupinyTymy, hristeZapasy, skupinyZapasy);
-
-                                        //vložení VBA části
-                                        if(Export.VybranyExport== "Tabulky pro danou skupinu")
-                                        {
-                                            VBA.PropisDatTymuSkupiny(sfd.FileName);
-                                        }
-                                    }
-
-                                    //ověření, zda existuje výchozí aplikace pro otevření souboru
-                                    if (VychoziAplikace(sfd.FileName.Split('.').Last()) == "")
-                                    {
-                                        MessageBox.Show("Soubor nelze otevřít, protože není k němu přidružena žádná aplikace", "Chyba při otevírání", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                    }
-                                    else
-                                    {
-                                        //otevření souboru
-                                        Process.Start(sfd.FileName);
-                                    }
-                                }
-                                else
-                                {
-                                    MessageBox.Show("Soubor je používán", "Upozornění", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                                }
+                                //otevření souboru
+                                Process.Start(sfd.FileName);
                             }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Soubor je používán", "Upozornění", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         }
                     }
                 }

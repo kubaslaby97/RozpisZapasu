@@ -36,7 +36,7 @@ namespace RozpisZapasu
         /// <param name="skupinyZapasy">zápasy ve skupinách</param>
         public static void UlozitExcelMakra(string nazev, List<(string, string)> skupinyTymy, List<(int, string, string)> hristeZapasy, List<(int, string, string)> skupinyZapasy)
         {
-            using (SpreadsheetDocument doc = SpreadsheetDocument.Create(nazev, SpreadsheetDocumentType.Workbook))
+            using (SpreadsheetDocument doc = SpreadsheetDocument.Create(nazev, SpreadsheetDocumentType.MacroEnabledWorkbook))
             {
                 VytvoritObsah(doc, skupinyTymy, hristeZapasy, skupinyZapasy);
             }

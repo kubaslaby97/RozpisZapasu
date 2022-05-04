@@ -81,7 +81,6 @@
     <Compile Include="Skupina.cs" />
     <Compile Include="Turnaj.cs" />
     <Compile Include="Validator.cs" />
-    <Compile Include="VBA.cs" />
     <Compile Include="ZpracovaniPrehledu.cs" />
     <Compile Include="ZpracovaniTurnaje.cs" />
     <Compile Include="ZpracovaniXML.cs" />
@@ -113,6 +112,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="sablonyExcel\sablona.xltm" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

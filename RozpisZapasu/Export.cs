@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,9 +37,17 @@ namespace RozpisZapasu
         /// <param name="skupinyZapasy">zápasy ve skupinách</param>
         public static void UlozitExcelMakra(string nazev, List<(string, string)> skupinyTymy, List<(int, string, string)> hristeZapasy, List<(int, string, string)> skupinyZapasy)
         {
-            using (SpreadsheetDocument doc = SpreadsheetDocument.Create(nazev, SpreadsheetDocumentType.MacroEnabledWorkbook))
+            byte[] byteArray = File.ReadAllBytes("sablonyExcel\\sablona.xltm");
+            using (MemoryStream stream = new MemoryStream())
             {
-                VytvoritObsah(doc, skupinyTymy, hristeZapasy, skupinyZapasy);
+                stream.Write(byteArray, 0, (int)byteArray.Length);
+                using (SpreadsheetDocument doc = SpreadsheetDocument.Open(stream, true))
+                {
+                    //změna typu dokumentu
+                    doc.ChangeDocumentType(SpreadsheetDocumentType.MacroEnabledWorkbook);
+                    //VytvoritObsah(doc, skupinyTymy, hristeZapasy, skupinyZapasy);
+                }
+                File.WriteAllBytes(nazev, stream.ToArray());
             }
         }
         private static void VytvoritObsah(SpreadsheetDocument doc, List<(string,string)> skupinyTymy, List<(int, string, string)> hristeZapasy, List<(int, string, string)> skupinyZapasy)

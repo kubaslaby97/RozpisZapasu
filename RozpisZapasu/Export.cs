@@ -45,10 +45,50 @@ namespace RozpisZapasu
                 {
                     //změna typu dokumentu
                     doc.ChangeDocumentType(SpreadsheetDocumentType.MacroEnabledWorkbook);
-                    //VytvoritObsah(doc, skupinyTymy, hristeZapasy, skupinyZapasy);
+                    VytvoritObsah2(doc, skupinyTymy, hristeZapasy, skupinyZapasy);
                 }
                 File.WriteAllBytes(nazev, stream.ToArray());
             }
+        }
+        private static WorksheetPart NalezeniListu(SpreadsheetDocument document, string sheetName)
+        {
+            IEnumerable<Sheet> sheets =
+               document.WorkbookPart.Workbook.GetFirstChild<Sheets>().
+               Elements<Sheet>().Where(s => s.Name == sheetName);
+
+            if (sheets?.Count() == 0)
+            {
+                // The specified worksheet does not exist.
+
+                return null;
+            }
+
+            string relationshipId = sheets?.First().Id.Value;
+
+            WorksheetPart worksheetPart = (WorksheetPart)document.WorkbookPart.GetPartById(relationshipId);
+
+            return worksheetPart;
+        }
+        private static void VytvoritObsah2(SpreadsheetDocument doc, List<(string, string)> skupinyTymy, List<(int, string, string)> hristeZapasy, List<(int, string, string)> skupinyZapasy)
+        {
+
+            //obsah listů
+            WorksheetPart wsPart1 = NalezeniListu(doc, "Křížová tabulka");
+            KrizovaTabulka(wsPart1, ListTymu(skupinyTymy));
+
+            WorksheetPart wsPart2 = NalezeniListu(doc, "Klasická tabulka");
+            KlasickaTabulka(wsPart2, ListTymu(skupinyTymy));
+
+            WorksheetPart wsPart3 = NalezeniListu(doc, "Každý s každým");
+            ZapasyHriste(wsPart3, hristeZapasy);
+
+            WorksheetPart wsPart4 = NalezeniListu(doc, "Skupinový turnaj");
+            ZapasySkupina(wsPart4, skupinyZapasy);
+
+            //Přidání stylu
+            WorkbookStylesPart stylePart = doc.WorkbookPart.WorkbookStylesPart;
+            stylePart.Stylesheet = GenerateStylesheet();
+            stylePart.Stylesheet.Save();
         }
         private static void VytvoritObsah(SpreadsheetDocument doc, List<(string,string)> skupinyTymy, List<(int, string, string)> hristeZapasy, List<(int, string, string)> skupinyZapasy)
         {
@@ -491,7 +531,7 @@ namespace RozpisZapasu
         /// </summary>
         /// <param name="kolekce">vstupní kolekce</param>
         /// <param name="volbaPoradi">volba pořadí položky v kolekci</param>
-        /// <returns></returns>
+        /// <returns>vrací písmeno odpovídající číslu sloupce</returns>
         private static int NejdelsiRetezec(List<(int, string, string)> kolekce, int volbaPoradi)
         {
             List<string> pole = new List<string>();

@@ -50,39 +50,21 @@ namespace RozpisZapasu
                 File.WriteAllBytes(nazev, stream.ToArray());
             }
         }
-        private static WorksheetPart NalezeniListu(SpreadsheetDocument document, string sheetName)
-        {
-            IEnumerable<Sheet> sheets =
-               document.WorkbookPart.Workbook.GetFirstChild<Sheets>().
-               Elements<Sheet>().Where(s => s.Name == sheetName);
-
-            if (sheets?.Count() == 0)
-            {
-                // The specified worksheet does not exist.
-
-                return null;
-            }
-
-            string relationshipId = sheets?.First().Id.Value;
-
-            WorksheetPart worksheetPart = (WorksheetPart)document.WorkbookPart.GetPartById(relationshipId);
-
-            return worksheetPart;
-        }
         private static void VytvoritObsah2(SpreadsheetDocument doc, List<(string, string)> skupinyTymy, List<(int, string, string)> hristeZapasy, List<(int, string, string)> skupinyZapasy)
         {
+            WorkbookPart wbPart = doc.WorkbookPart;
 
             //obsah listů
-            WorksheetPart wsPart1 = NalezeniListu(doc, "Křížová tabulka");
+            WorksheetPart wsPart1 = (WorksheetPart)wbPart.GetPartById(doc.WorkbookPart.Workbook.Descendants<Sheet>().First(s => s.Name.Equals("Křížová tabulka")).Id);
             KrizovaTabulka(wsPart1, ListTymu(skupinyTymy));
 
-            WorksheetPart wsPart2 = NalezeniListu(doc, "Klasická tabulka");
+            WorksheetPart wsPart2 = (WorksheetPart)wbPart.GetPartById(doc.WorkbookPart.Workbook.Descendants<Sheet>().First(s => s.Name.Equals("Klasická tabulka")).Id);
             KlasickaTabulka(wsPart2, ListTymu(skupinyTymy));
 
-            WorksheetPart wsPart3 = NalezeniListu(doc, "Každý s každým");
+            WorksheetPart wsPart3 = (WorksheetPart)wbPart.GetPartById(doc.WorkbookPart.Workbook.Descendants<Sheet>().First(s => s.Name.Equals("Každý s každým")).Id);
             ZapasyHriste(wsPart3, hristeZapasy);
 
-            WorksheetPart wsPart4 = NalezeniListu(doc, "Skupinový turnaj");
+            WorksheetPart wsPart4 = (WorksheetPart)wbPart.GetPartById(doc.WorkbookPart.Workbook.Descendants<Sheet>().First(s => s.Name.Equals("Skupinový turnaj")).Id);
             ZapasySkupina(wsPart4, skupinyZapasy);
 
             //Přidání stylu

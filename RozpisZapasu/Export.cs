@@ -50,7 +50,7 @@ namespace RozpisZapasu
                     using (SpreadsheetDocument doc = SpreadsheetDocument.Open(stream, true))
                     {
                         //změna typu dokumentu
-                        doc.ChangeDocumentType(SpreadsheetDocumentType.MacroEnabledWorkbook);
+                        doc.ChangeDocumentType(SpreadsheetDocumentType.Workbook);
                         VytvoritObsah(doc, skupinyTymy, hristeZapasy, skupinyZapasy);
                     }
                     File.WriteAllBytes(nazev, stream.ToArray());

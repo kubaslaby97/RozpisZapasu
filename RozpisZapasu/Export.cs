@@ -18,39 +18,47 @@ namespace RozpisZapasu
         /// Export dokumentu ve formátu MS Excel
         /// </summary>
         /// <param name="nazev">nazev dokumentu</param>
+        /// <param name="makra">podpora maker (*.xlsm)</param>
         /// <param name="skupinyTymy">vstupní seznam skupin a týmů v nich obsažených</param>
         /// <param name="hristeZapasy">zápasy na hřištích</param>
         /// <param name="skupinyZapasy">zápasy ve skupinách</param>
-        public static void UlozitExcel(string nazev, List<(string, string)> skupinyTymy, List<(int, string, string)> hristeZapasy, List<(int, string, string)> skupinyZapasy)
+        public static void UlozitExcel(string nazev, bool makra, List<(string, string)> skupinyTymy, List<(int, string, string)> hristeZapasy, List<(int, string, string)> skupinyZapasy)
         {
-            using (SpreadsheetDocument doc = SpreadsheetDocument.Create(nazev, SpreadsheetDocumentType.Workbook))
+            byte[] byteArray;
+
+            if (makra == true)
             {
-                VytvoritObsah(doc, skupinyTymy, hristeZapasy, skupinyZapasy);
-            }
-        }
-        /// <summary>
-        /// Export dokumentu ve formátu MS Excel s podporou maker
-        /// </summary>
-        /// <param name="nazev">nazev dokumentu</param>
-        /// <param name="skupinyTymy">vstupní seznam skupin a týmů v nich obsažených</param>
-        /// <param name="hristeZapasy">zápasy na hřištích</param>
-        /// <param name="skupinyZapasy">zápasy ve skupinách</param>
-        public static void UlozitExcelMakra(string nazev, List<(string, string)> skupinyTymy, List<(int, string, string)> hristeZapasy, List<(int, string, string)> skupinyZapasy)
-        {
-            byte[] byteArray = File.ReadAllBytes("sablonyExcel\\sablona.xltm");
-            using (MemoryStream stream = new MemoryStream())
-            {
-                stream.Write(byteArray, 0, (int)byteArray.Length);
-                using (SpreadsheetDocument doc = SpreadsheetDocument.Open(stream, true))
+                byteArray = File.ReadAllBytes("sablonyExcel\\sablona.xltm");
+                using (MemoryStream stream = new MemoryStream())
                 {
-                    //změna typu dokumentu
-                    doc.ChangeDocumentType(SpreadsheetDocumentType.MacroEnabledWorkbook);
-                    VytvoritObsah2(doc, skupinyTymy, hristeZapasy, skupinyZapasy);
+                    stream.Write(byteArray, 0, (int)byteArray.Length);
+                    using (SpreadsheetDocument doc = SpreadsheetDocument.Open(stream, true))
+                    {
+                        //změna typu dokumentu
+                        doc.ChangeDocumentType(SpreadsheetDocumentType.MacroEnabledWorkbook);
+                        VytvoritObsah(doc, skupinyTymy, hristeZapasy, skupinyZapasy);
+                    }
+                    File.WriteAllBytes(nazev, stream.ToArray());
                 }
-                File.WriteAllBytes(nazev, stream.ToArray());
+            }
+            else
+            {
+                byteArray = File.ReadAllBytes("sablonyExcel\\sablona.xltx");
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    stream.Write(byteArray, 0, (int)byteArray.Length);
+                    using (SpreadsheetDocument doc = SpreadsheetDocument.Open(stream, true))
+                    {
+                        //změna typu dokumentu
+                        doc.ChangeDocumentType(SpreadsheetDocumentType.MacroEnabledWorkbook);
+                        VytvoritObsah(doc, skupinyTymy, hristeZapasy, skupinyZapasy);
+                    }
+                    File.WriteAllBytes(nazev, stream.ToArray());
+                }
             }
         }
-        private static void VytvoritObsah2(SpreadsheetDocument doc, List<(string, string)> skupinyTymy, List<(int, string, string)> hristeZapasy, List<(int, string, string)> skupinyZapasy)
+
+        private static void VytvoritObsah(SpreadsheetDocument doc, List<(string, string)> skupinyTymy, List<(int, string, string)> hristeZapasy, List<(int, string, string)> skupinyZapasy)
         {
             WorkbookPart wbPart = doc.WorkbookPart;
 
@@ -68,56 +76,11 @@ namespace RozpisZapasu
             ZapasySkupina(wsPart4, skupinyZapasy);
 
             //Přidání stylu
-            WorkbookStylesPart stylePart = doc.WorkbookPart.WorkbookStylesPart;
+            /*WorkbookStylesPart stylePart = doc.WorkbookPart.WorkbookStylesPart;
             stylePart.Stylesheet = GenerateStylesheet();
-            stylePart.Stylesheet.Save();
+            stylePart.Stylesheet.Save();*/
         }
-        private static void VytvoritObsah(SpreadsheetDocument doc, List<(string,string)> skupinyTymy, List<(int, string, string)> hristeZapasy, List<(int, string, string)> skupinyZapasy)
-        {
-            //vytvoření listů
-            WorkbookPart wbPart = doc.AddWorkbookPart();
-            Listy(wbPart);
-
-            //obsah listů
-            WorksheetPart wsPart1 = wbPart.AddNewPart<WorksheetPart>("rId2");
-            KrizovaTabulka(wsPart1, ListTymu(skupinyTymy));
-
-            WorksheetPart wsPart2 = wbPart.AddNewPart<WorksheetPart>("rId3");
-            KlasickaTabulka(wsPart2, ListTymu(skupinyTymy));
-
-            WorksheetPart wsPart3 = wbPart.AddNewPart<WorksheetPart>("rId4");
-            ZapasyHriste(wsPart3, hristeZapasy);
-
-            WorksheetPart wsPart4 = wbPart.AddNewPart<WorksheetPart>("rId5");
-            ZapasySkupina(wsPart4, skupinyZapasy);
-
-            //Přidání stylu
-            WorkbookStylesPart stylePart = wbPart.AddNewPart<WorkbookStylesPart>("rId6");
-            stylePart.Stylesheet = GenerateStylesheet();
-            stylePart.Stylesheet.Save();
-        }
-        /// <summary>
-        /// Definice listů v sešitu
-        /// </summary>
-        /// <param name="wbPart">část sešit</param>
-        private static void Listy(WorkbookPart wbPart)
-        {
-            Workbook wb = new Workbook();
-
-            Sheets sheets = new Sheets();
-            Sheet sheet1 = new Sheet() { Name = "Křížová tabulka", SheetId = (UInt32Value)1U, Id = "rId2" };
-            Sheet sheet2 = new Sheet() { Name = "Klasická tabulka", SheetId = (UInt32Value)2U, Id = "rId3" };
-            Sheet sheet3 = new Sheet() { Name = "Turnaje na hřištích", SheetId = (UInt32Value)3U, Id = "rId4" };
-            Sheet sheet4 = new Sheet() { Name = "Skupinový turnaj", SheetId = (UInt32Value)4U, Id = "rId5" };
-
-            sheets.Append(sheet1);
-            sheets.Append(sheet2);
-            sheets.Append(sheet3);
-            sheets.Append(sheet4);
-
-            wb.Append(sheets);
-            wbPart.Workbook = wb;
-        }
+       
         /// <summary>
         /// Provede zápis do listu Křížová tabulka
         /// </summary>
@@ -126,13 +89,13 @@ namespace RozpisZapasu
         private static void KrizovaTabulka(WorksheetPart wsPart, List<string> tymy)
         {
             string[] hlavicka = new string[] { "Body", "Skóre", "Pořadí" };
-            Worksheet ws = new Worksheet();
+            Worksheet ws = wsPart.Worksheet;
             Columns cols = new Columns();
             Column col = new Column() { Min = (UInt32Value)1U, Max = (UInt32Value)1U, Width = tymy.Max(tym => tym.Length), CustomWidth = true };
             cols.Append(col);
             ws.Append(cols);
 
-            SheetData sd = new SheetData();
+            SheetData sd = ws.GetFirstChild<SheetData>();
 
             for (int radek = 0; radek < tymy.Count + 1; radek++)
             {
@@ -143,14 +106,14 @@ namespace RozpisZapasu
                     Cell cell = new Cell()
                     {
                         DataType = CellValues.String,
-                        StyleIndex = 1,
+                        //StyleIndex = 1,
                     };
                     row.Append(cell);
                     //vybarvení
                     if (radek == sloupec)
                     {
                         cell.DataType = CellValues.String;
-                        cell.StyleIndex = 2;
+                        //cell.StyleIndex = 2;
                     }
                     //vyplnění týmů
                     else if (sloupec < tymy.Count + 1)
@@ -160,14 +123,14 @@ namespace RozpisZapasu
                         {
                             cell.CellValue = new CellValue(tymy[sloupec - 1]);
                             cell.DataType = CellValues.String;
-                            cell.StyleIndex = 4;
+                            //cell.StyleIndex = 4;
                         }
                         //týmy ve sloupci
                         else if (radek > 0 && sloupec == 0)
                         {
                             cell.CellValue = new CellValue(tymy[radek - 1]);
                             cell.DataType = CellValues.String;
-                            cell.StyleIndex = 2;
+                            //cell.StyleIndex = 2;
                         }
                     }
                     //vyplnění hlavičky vedle týmů
@@ -177,14 +140,12 @@ namespace RozpisZapasu
                         {
                             cell.CellValue = new CellValue(hlavicka[sloupec - (tymy.Count + 1)]);
                             cell.DataType = CellValues.String;
-                            cell.StyleIndex = 5;
+                            //cell.StyleIndex = 5;
                         }
                     }
                 }
                 sd.Append(row);
             }
-            ws.Append(sd);
-            wsPart.Worksheet = ws;
         }
         /// <summary>
         /// Provede zápis do listu Klasická tabulka
@@ -194,13 +155,13 @@ namespace RozpisZapasu
         private static void KlasickaTabulka(WorksheetPart wsPart, List<string> tymy)
         {
             string[] hlavicka = new string[] { "Pořadí", "Tým", "Zápasy", "Výhry", "Remízy", "Prohry", "Skóre", "Body" };
-            Worksheet ws = new Worksheet();
+            Worksheet ws = wsPart.Worksheet;
             Columns cols = new Columns();
             Column col = new Column() { Min = (UInt32Value)2U, Max = (UInt32Value)2U, Width = tymy.Max(tym => tym.Length), CustomWidth = true };
             cols.Append(col);
             ws.Append(cols);
 
-            SheetData sd = new SheetData();
+            SheetData sd = ws.GetFirstChild<SheetData>();
 
             for (int radek = 0; radek < tymy.Count + 1; radek++)
             {
@@ -211,7 +172,7 @@ namespace RozpisZapasu
                     Cell cell = new Cell()
                     {
                         DataType = CellValues.String,
-                        StyleIndex = 1,
+                        //StyleIndex = 1,
                     };
                     row.Append(cell);
                     //vyplnění hlavičky
@@ -219,7 +180,7 @@ namespace RozpisZapasu
                     {
                         cell.CellValue = new CellValue(hlavicka[sloupec]);
                         cell.DataType = CellValues.String;
-                        cell.StyleIndex = 2;
+                        //cell.StyleIndex = 2;
                     }
 
                     else if (radek > 0)
@@ -241,8 +202,6 @@ namespace RozpisZapasu
                 }
                 sd.Append(row);
             }
-            ws.Append(sd);
-            wsPart.Worksheet = ws;
         }
         /// <summary>
         /// Provede zápis do listu Skupinový turnaj
@@ -252,7 +211,7 @@ namespace RozpisZapasu
         private static void ZapasySkupina(WorksheetPart wsPart, List<(int, string, string)> skupinyZapasy)
         {
             string[] hlavicka = new string[] { "Kolo", "Zápas", "Skupina", "Skóre" };
-            Worksheet ws = new Worksheet();
+            Worksheet ws = wsPart.Worksheet;
             Columns cols = new Columns();
             Column col = new Column() { Min = (UInt32Value)2U, Max = (UInt32Value)2U, Width = NejdelsiRetezec(skupinyZapasy, 2), CustomWidth = true };
             Column col1 = new Column() { Min = (UInt32Value)3U, Max = (UInt32Value)3U, Width = NejdelsiRetezec(skupinyZapasy, 3), CustomWidth = true };
@@ -260,7 +219,7 @@ namespace RozpisZapasu
             cols.Append(col1);
             ws.Append(cols);
 
-            SheetData sd = new SheetData();
+            SheetData sd = ws.GetFirstChild<SheetData>();
             MergeCells mergeCells = new MergeCells();
             MergeCell mergeCell = new MergeCell();
 
@@ -273,7 +232,7 @@ namespace RozpisZapasu
                     Cell cell = new Cell()
                     {
                         DataType = CellValues.String,
-                        StyleIndex = 1,
+                        //StyleIndex = 1,
                     };
                     row.Append(cell);
                     //perioda
@@ -281,7 +240,7 @@ namespace RozpisZapasu
                     {
                         cell.CellValue = new CellValue("1.perioda");
                         cell.DataType = CellValues.String;
-                        cell.StyleIndex = 2;
+                        //cell.StyleIndex = 2;
                         //sloučení buňek
                         mergeCell.Reference = new StringValue(SloupecNaZnak(1) + (radek + 1) + ":" + SloupecNaZnak(hlavicka.Length) + (radek + 1));
                     }
@@ -290,7 +249,7 @@ namespace RozpisZapasu
                     {
                         cell.CellValue = new CellValue(hlavicka[sloupec]);
                         cell.DataType = CellValues.String;
-                        cell.StyleIndex = 2;
+                        //cell.StyleIndex = 2;
                     }
                     //vyplnění zbytku
                     else if (radek > 1)
@@ -314,8 +273,6 @@ namespace RozpisZapasu
                 }
                 sd.Append(row);
             }
-            ws.Append(sd);
-            wsPart.Worksheet = ws;
 
             ws.InsertAfter(mergeCells, ws.Elements<SheetData>().First());
             mergeCells.Append(mergeCell);
@@ -329,7 +286,7 @@ namespace RozpisZapasu
         private static void ZapasyHriste(WorksheetPart wsPart, List<(int, string, string)> hristeZapasy)
         {
             string[] hlavicka = new string[] { "Kolo", "Zápas", "Hřiště", "Skóre" };
-            Worksheet ws = new Worksheet();
+            Worksheet ws = wsPart.Worksheet;
             Columns cols = new Columns();
             Column col = new Column() { Min = (UInt32Value)2U, Max = (UInt32Value)2U, Width = NejdelsiRetezec(hristeZapasy, 2), CustomWidth = true };
             Column col1 = new Column() { Min = (UInt32Value)3U, Max = (UInt32Value)3U, Width = NejdelsiRetezec(hristeZapasy, 3), CustomWidth = true };
@@ -337,7 +294,7 @@ namespace RozpisZapasu
             cols.Append(col1);
             ws.Append(cols);
 
-            SheetData sd = new SheetData();
+            SheetData sd = ws.GetFirstChild<SheetData>();
             MergeCells mergeCells = new MergeCells();
             MergeCell mergeCell = new MergeCell();
 
@@ -350,7 +307,7 @@ namespace RozpisZapasu
                     Cell cell = new Cell()
                     {
                         DataType = CellValues.String,
-                        StyleIndex = 1,
+                        //StyleIndex = 1,
                     };
                     row.Append(cell);
 
@@ -359,7 +316,7 @@ namespace RozpisZapasu
                     {
                         cell.CellValue = new CellValue("1.perioda");
                         cell.DataType = CellValues.String;
-                        cell.StyleIndex = 2;
+                        //cell.StyleIndex = 2;
                         //sloučení buňek
                         mergeCell.Reference = new StringValue(SloupecNaZnak(1) + (radek + 1) + ":" + SloupecNaZnak(hlavicka.Length) + (radek + 1));
                     }
@@ -368,7 +325,7 @@ namespace RozpisZapasu
                     {
                         cell.CellValue = new CellValue(hlavicka[sloupec]);
                         cell.DataType = CellValues.String;
-                        cell.StyleIndex = 2;
+                        //cell.StyleIndex = 2;
 
                     }
                     //vyplnění zbytku
@@ -393,8 +350,6 @@ namespace RozpisZapasu
                 }
                 sd.Append(row);
             }
-            ws.Append(sd);
-            wsPart.Worksheet = ws;
 
             ws.InsertAfter(mergeCells, ws.Elements<SheetData>().First());
             mergeCells.Append(mergeCell);

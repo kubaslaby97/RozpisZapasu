@@ -90,12 +90,11 @@ namespace RozpisZapasu
         {
             string[] hlavicka = new string[] { "Body", "Skóre", "Pořadí" };
             Worksheet ws = wsPart.Worksheet;
-            /*Columns cols = new Columns();
+            SheetData sd = ws.GetFirstChild<SheetData>();
+
+            Columns cols = ws.InsertBefore(new Columns(), sd);
             Column col = new Column() { Min = (UInt32Value)1U, Max = (UInt32Value)1U, Width = tymy.Max(tym => tym.Length), CustomWidth = true };
             cols.Append(col);
-            ws.Append(cols);*/
-
-            SheetData sd = ws.GetFirstChild<SheetData>();
 
             for (int radek = 0; radek < tymy.Count + 1; radek++)
             {
@@ -164,14 +163,11 @@ namespace RozpisZapasu
         {
             string[] hlavicka = new string[] { "Pořadí", "Tým", "Zápasy", "Výhry", "Remízy", "Prohry", "Skóre", "Body" };
             Worksheet ws = wsPart.Worksheet;
+            SheetData sd = ws.GetFirstChild<SheetData>();
 
-            //dělá problémy
-            /*Columns cols = new Columns();
+            Columns cols = ws.InsertBefore(new Columns(), sd);
             Column col = new Column() { Min = (UInt32Value)2U, Max = (UInt32Value)2U, Width = tymy.Max(tym => tym.Length), CustomWidth = true };
             cols.Append(col);
-            ws.Append(cols);*/
-
-            SheetData sd = ws.GetFirstChild<SheetData>();
 
             for (int radek = 0; radek < tymy.Count + 1; radek++)
             {
@@ -218,14 +214,14 @@ namespace RozpisZapasu
         {
             string[] hlavicka = new string[] { "Kolo", "Zápas", "Skupina", "Skóre" };
             Worksheet ws = wsPart.Worksheet;
-            /*Columns cols = new Columns();
+            SheetData sd = ws.GetFirstChild<SheetData>();
+
+            Columns cols = ws.InsertBefore(new Columns(), sd);
             Column col = new Column() { Min = (UInt32Value)2U, Max = (UInt32Value)2U, Width = NejdelsiRetezec(skupinyZapasy, 2), CustomWidth = true };
             Column col1 = new Column() { Min = (UInt32Value)3U, Max = (UInt32Value)3U, Width = NejdelsiRetezec(skupinyZapasy, 3), CustomWidth = true };
             cols.Append(col);
             cols.Append(col1);
-            ws.Append(cols);*/
 
-            SheetData sd = ws.GetFirstChild<SheetData>();
             MergeCells mergeCells = new MergeCells();
             MergeCell mergeCell = new MergeCell();
 
@@ -295,14 +291,14 @@ namespace RozpisZapasu
         {
             string[] hlavicka = new string[] { "Kolo", "Zápas", "Hřiště", "Skóre" };
             Worksheet ws = wsPart.Worksheet;
-            /*Columns cols = new Columns();
+            SheetData sd = ws.GetFirstChild<SheetData>();
+
+            Columns cols = ws.InsertBefore(new Columns(), sd);
             Column col = new Column() { Min = (UInt32Value)2U, Max = (UInt32Value)2U, Width = NejdelsiRetezec(hristeZapasy, 2), CustomWidth = true };
             Column col1 = new Column() { Min = (UInt32Value)3U, Max = (UInt32Value)3U, Width = NejdelsiRetezec(hristeZapasy, 3), CustomWidth = true };
             cols.Append(col);
             cols.Append(col1);
-            ws.Append(cols);*/
 
-            SheetData sd = ws.GetFirstChild<SheetData>();
             MergeCells mergeCells = new MergeCells();
             MergeCell mergeCell = new MergeCell();
 

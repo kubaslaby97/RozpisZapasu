@@ -76,9 +76,9 @@ namespace RozpisZapasu
             ZapasySkupina(wsPart4, skupinyZapasy);
 
             //Přidání stylu
-            /*WorkbookStylesPart stylePart = doc.WorkbookPart.WorkbookStylesPart;
+            WorkbookStylesPart stylePart = doc.WorkbookPart.WorkbookStylesPart;
             stylePart.Stylesheet = GenerateStylesheet();
-            stylePart.Stylesheet.Save();*/
+            stylePart.Stylesheet.Save();
         }
        
         /// <summary>
@@ -110,7 +110,7 @@ namespace RozpisZapasu
                         cell.DataType = CellValues.String;
                         cell.CellReference = SloupecNaZnak(sloupec + 1) + (radek + 1).ToString();
                         cell.CellValue = new CellValue("X");
-                        //cell.StyleIndex = 2;
+                        cell.StyleIndex = 2;
                         row.Append(cell);
                     }
                     //vyplnění týmů
@@ -123,7 +123,7 @@ namespace RozpisZapasu
                             cell.CellValue = new CellValue(tymy[sloupec - 1]);
                             cell.CellReference = SloupecNaZnak(sloupec + 1) + (radek + 1).ToString();
                             cell.DataType = CellValues.String;
-                            //cell.StyleIndex = 4;
+                            cell.StyleIndex = 4;
                             row.Append(cell);
                         }
                         //týmy ve sloupci
@@ -133,7 +133,7 @@ namespace RozpisZapasu
                             cell.CellValue = new CellValue(tymy[radek - 1]);
                             cell.CellReference = SloupecNaZnak(sloupec + 1) + (radek + 1).ToString();
                             cell.DataType = CellValues.String;
-                            //cell.StyleIndex = 2;
+                            cell.StyleIndex = 2;
                             row.Append(cell);
                         }
                     }
@@ -146,7 +146,7 @@ namespace RozpisZapasu
                             cell.CellValue = new CellValue(hlavicka[sloupec - (tymy.Count + 1)]);
                             cell.CellReference = SloupecNaZnak(sloupec + 1) + (radek + 1).ToString();
                             cell.DataType = CellValues.String;
-                            //cell.StyleIndex = 5;
+                            cell.StyleIndex = 5;
                             row.Append(cell);
                         }
                     }
@@ -180,7 +180,7 @@ namespace RozpisZapasu
                     {
                         cell = new Cell();
                         cell.DataType = CellValues.String;
-                        //StyleIndex = 2,
+                        cell.StyleIndex = 2;
                         cell.CellReference = SloupecNaZnak(sloupec + 1) + (radek + 1).ToString();
                         cell.CellValue = new CellValue(hlavicka[sloupec]);
                         row.Append(cell);
@@ -189,14 +189,14 @@ namespace RozpisZapasu
                     {
                         cell = new Cell();
                         cell.DataType = CellValues.Number;
-                        //StyleIndex = 1,
+                        cell.StyleIndex = 1;
                         cell.CellReference = SloupecNaZnak(1) + (radek + 1).ToString();
                         cell.CellValue = new CellValue(radek + 1);
                         row.Append(cell);
 
                         cell = new Cell();
                         cell.DataType = CellValues.String;
-                        //StyleIndex = 1,
+                        cell.StyleIndex = 1;
                         cell.CellReference = SloupecNaZnak(2) + (radek + 1).ToString();
                         cell.CellValue = new CellValue(tymy[radek - 1]);
                         row.Append(cell);
@@ -238,7 +238,7 @@ namespace RozpisZapasu
                         cell = new Cell();
                         cell.CellValue = new CellValue("1.perioda");
                         cell.DataType = CellValues.String;
-                        //cell.StyleIndex = 2;
+                        cell.StyleIndex = 2;
                         //sloučení buňek
                         mergeCell.Reference = new StringValue(SloupecNaZnak(1) + (radek + 1) + ":" + SloupecNaZnak(hlavicka.Length) + (radek + 1));
                         row.Append(cell);
@@ -250,7 +250,7 @@ namespace RozpisZapasu
                         cell.CellValue = new CellValue(hlavicka[sloupec]);
                         cell.CellReference = SloupecNaZnak(sloupec + 1) + (radek + 1).ToString();
                         cell.DataType = CellValues.String;
-                        //cell.StyleIndex = 2;
+                        cell.StyleIndex = 2;
                         row.Append(cell);
                     }
                     //vyplnění zbytku

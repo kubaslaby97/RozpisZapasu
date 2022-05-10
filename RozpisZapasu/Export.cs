@@ -112,32 +112,43 @@ namespace RozpisZapasu
                         cell.StyleIndex = 2;
                         row.Append(cell);
                     }
-                    //vyplnění týmů
-                    else if (sloupec < tymy.Count + 1)
+                    else
                     {
-                        //týmy v řádku
-                        if (radek == 0 && sloupec > 0)
+                        //vyplnění týmů
+                        if (sloupec < tymy.Count + 1)
                         {
-                            cell = new Cell();
-                            cell.CellValue = new CellValue(tymy[sloupec - 1]);
-                            cell.CellReference = SloupecNaZnak(sloupec + 1) + (radek + 1).ToString();
-                            cell.DataType = CellValues.String;
-                            cell.StyleIndex = 4;
-                            row.Append(cell);
-                        }
-                        //týmy ve sloupci
-                        else if (radek > 0 && sloupec == 0)
-                        {
-                            cell = new Cell();
-                            cell.CellValue = new CellValue(tymy[radek - 1]);
-                            cell.CellReference = SloupecNaZnak(sloupec + 1) + (radek + 1).ToString();
-                            cell.DataType = CellValues.String;
-                            cell.StyleIndex = 2;
-                            row.Append(cell);
+                            //týmy v řádku
+                            if (radek == 0 && sloupec > 0)
+                            {
+                                cell = new Cell();
+                                cell.CellValue = new CellValue(tymy[sloupec - 1]);
+                                cell.CellReference = SloupecNaZnak(sloupec + 1) + (radek + 1).ToString();
+                                cell.DataType = CellValues.String;
+                                cell.StyleIndex = 4;
+                                row.Append(cell);
+                            }
+                            //týmy ve sloupci
+                            else if (radek > 0 && sloupec == 0)
+                            {
+                                cell = new Cell();
+                                cell.CellValue = new CellValue(tymy[radek - 1]);
+                                cell.CellReference = SloupecNaZnak(sloupec + 1) + (radek + 1).ToString();
+                                cell.DataType = CellValues.String;
+                                cell.StyleIndex = 2;
+                                row.Append(cell);
+                            }
+                            //ohraničení zbytku v tabulce
+                            else if (radek > 0 & sloupec > 0)
+                            {
+                                cell = new Cell();
+                                cell.CellReference = SloupecNaZnak(sloupec + 1) + (radek + 1).ToString();
+                                cell.StyleIndex = 1;
+                                row.Append(cell);
+                            }
                         }
                     }
                     //vyplnění hlavičky vedle týmů
-                    else if (sloupec >= tymy.Count + 1)
+                    if (sloupec >= tymy.Count + 1)
                     {
                         if (radek == 0)
                         {
@@ -146,6 +157,14 @@ namespace RozpisZapasu
                             cell.CellReference = SloupecNaZnak(sloupec + 1) + (radek + 1).ToString();
                             cell.DataType = CellValues.String;
                             cell.StyleIndex = 5;
+                            row.Append(cell);
+                        }
+                        //ohraničení zbytku pod hlavičkou
+                        else if (radek > 0)
+                        {
+                            cell = new Cell();
+                            cell.CellReference = SloupecNaZnak(sloupec + 1) + (radek + 1).ToString();
+                            cell.StyleIndex = 1;
                             row.Append(cell);
                         }
                     }
@@ -207,12 +226,14 @@ namespace RozpisZapasu
                             cell.StyleIndex = 1;
                             row.Append(cell);
                         }
-                        /*else if (sloupec > 1)
+                        //ohraničení zbytku
+                        else if (sloupec > 1)
                         {
                             cell = new Cell();
+                            cell.CellReference = SloupecNaZnak(sloupec + 1) + (radek + 1).ToString();
                             cell.StyleIndex = 1;
                             row.Append(cell);
-                        }*/
+                        }
                     }
                     sd.Append(row);
                 }
@@ -273,18 +294,26 @@ namespace RozpisZapasu
                         cell.CellValue = new CellValue(skupinyZapasy[radek - 2].Item1);
                         cell.CellReference = SloupecNaZnak(1) + (radek + 1).ToString();
                         cell.DataType = CellValues.Number;
+                        cell.StyleIndex = 1;
                         row.Append(cell);
 
                         cell = new Cell();
                         cell.CellValue = new CellValue(skupinyZapasy[radek - 2].Item2);
                         cell.CellReference = SloupecNaZnak(2) + (radek + 1).ToString();
                         cell.DataType = CellValues.String;
+                        cell.StyleIndex = 1;
                         row.Append(cell);
 
                         cell = new Cell();
                         cell.CellValue = new CellValue(skupinyZapasy[radek - 2].Item3);
                         cell.CellReference = SloupecNaZnak(3) + (radek + 1).ToString();
                         cell.DataType = CellValues.String;
+                        cell.StyleIndex = 1;
+                        row.Append(cell);
+
+                        cell = new Cell();
+                        cell.CellReference = SloupecNaZnak(4) + (radek + 1).ToString();
+                        cell.StyleIndex = 1;
                         row.Append(cell);
                     }
                     sd.Append(row);
@@ -350,18 +379,26 @@ namespace RozpisZapasu
                         cell.CellValue = new CellValue(hristeZapasy[radek - 2].Item1);
                         cell.CellReference = SloupecNaZnak(1) + (radek + 1).ToString();
                         cell.DataType = CellValues.Number;
+                        cell.StyleIndex = 1;
                         row.Append(cell);
 
                         cell = new Cell();
                         cell.CellValue = new CellValue(hristeZapasy[radek - 2].Item2);
                         cell.CellReference = SloupecNaZnak(2) + (radek + 1).ToString();
                         cell.DataType = CellValues.String;
+                        cell.StyleIndex = 1;
                         row.Append(cell);
 
                         cell = new Cell();
                         cell.CellValue = new CellValue(hristeZapasy[radek - 2].Item3);
                         cell.CellReference = SloupecNaZnak(3) + (radek + 1).ToString();
                         cell.DataType = CellValues.String;
+                        cell.StyleIndex = 1;
+                        row.Append(cell);
+
+                        cell = new Cell();
+                        cell.CellReference = SloupecNaZnak(4) + (radek + 1).ToString();
+                        cell.StyleIndex = 1;
                         row.Append(cell);
                     }
                     sd.Append(row);

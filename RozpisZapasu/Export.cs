@@ -90,30 +90,29 @@ namespace RozpisZapasu
         {
             string[] hlavicka = new string[] { "Body", "Skóre", "Pořadí" };
             Worksheet ws = wsPart.Worksheet;
-            Columns cols = new Columns();
+            /*Columns cols = new Columns();
             Column col = new Column() { Min = (UInt32Value)1U, Max = (UInt32Value)1U, Width = tymy.Max(tym => tym.Length), CustomWidth = true };
             cols.Append(col);
-            ws.Append(cols);
+            ws.Append(cols);*/
 
             SheetData sd = ws.GetFirstChild<SheetData>();
 
             for (int radek = 0; radek < tymy.Count + 1; radek++)
             {
-                Row row = new Row();
                 for (int sloupec = 0; sloupec < tymy.Count + hlavicka.Length + 1; sloupec++)
                 {
-                    //ohraničení tabulky
-                    Cell cell = new Cell()
-                    {
-                        DataType = CellValues.String,
-                        //StyleIndex = 1,
-                    };
-                    row.Append(cell);
+                    Row row = new Row() { RowIndex = (UInt32)(radek + 1) };
+                    Cell cell;
+
                     //vybarvení
                     if (radek == sloupec)
                     {
+                        cell = new Cell();
                         cell.DataType = CellValues.String;
+                        cell.CellReference = SloupecNaZnak(sloupec + 1) + (radek + 1).ToString();
+                        cell.CellValue = new CellValue("X");
                         //cell.StyleIndex = 2;
+                        row.Append(cell);
                     }
                     //vyplnění týmů
                     else if (sloupec < tymy.Count + 1)
@@ -121,16 +120,22 @@ namespace RozpisZapasu
                         //týmy v řádku
                         if (radek == 0 && sloupec > 0)
                         {
+                            cell = new Cell();
                             cell.CellValue = new CellValue(tymy[sloupec - 1]);
+                            cell.CellReference = SloupecNaZnak(sloupec + 1) + (radek + 1).ToString();
                             cell.DataType = CellValues.String;
                             //cell.StyleIndex = 4;
+                            row.Append(cell);
                         }
                         //týmy ve sloupci
                         else if (radek > 0 && sloupec == 0)
                         {
+                            cell = new Cell();
                             cell.CellValue = new CellValue(tymy[radek - 1]);
+                            cell.CellReference = SloupecNaZnak(sloupec + 1) + (radek + 1).ToString();
                             cell.DataType = CellValues.String;
                             //cell.StyleIndex = 2;
+                            row.Append(cell);
                         }
                     }
                     //vyplnění hlavičky vedle týmů
@@ -138,13 +143,16 @@ namespace RozpisZapasu
                     {
                         if (radek == 0)
                         {
+                            cell = new Cell();
                             cell.CellValue = new CellValue(hlavicka[sloupec - (tymy.Count + 1)]);
+                            cell.CellReference = SloupecNaZnak(sloupec + 1) + (radek + 1).ToString();
                             cell.DataType = CellValues.String;
                             //cell.StyleIndex = 5;
+                            row.Append(cell);
                         }
                     }
+                    sd.Append(row);
                 }
-                sd.Append(row);
             }
         }
         /// <summary>
@@ -156,51 +164,49 @@ namespace RozpisZapasu
         {
             string[] hlavicka = new string[] { "Pořadí", "Tým", "Zápasy", "Výhry", "Remízy", "Prohry", "Skóre", "Body" };
             Worksheet ws = wsPart.Worksheet;
-            Columns cols = new Columns();
+
+            //dělá problémy
+            /*Columns cols = new Columns();
             Column col = new Column() { Min = (UInt32Value)2U, Max = (UInt32Value)2U, Width = tymy.Max(tym => tym.Length), CustomWidth = true };
             cols.Append(col);
-            ws.Append(cols);
+            ws.Append(cols);*/
 
             SheetData sd = ws.GetFirstChild<SheetData>();
 
             for (int radek = 0; radek < tymy.Count + 1; radek++)
             {
-                Row row = new Row();
                 for (int sloupec = 0; sloupec < hlavicka.Length; sloupec++)
                 {
-                    //ohraničení
-                    Cell cell = new Cell()
-                    {
-                        DataType = CellValues.String,
-                        //StyleIndex = 1,
-                    };
-                    row.Append(cell);
-                    //vyplnění hlavičky
+                    Row row = new Row() { RowIndex = (UInt32)(radek + 1) };
+                    Cell cell;
+
                     if (radek == 0)
                     {
-                        cell.CellValue = new CellValue(hlavicka[sloupec]);
+                        cell = new Cell();
                         cell.DataType = CellValues.String;
-                        //cell.StyleIndex = 2;
+                        //StyleIndex = 2,
+                        cell.CellReference = SloupecNaZnak(sloupec + 1) + (radek + 1).ToString();
+                        cell.CellValue = new CellValue(hlavicka[sloupec]);
+                        row.Append(cell);
                     }
-
-                    else if (radek > 0)
+                    else if(radek > 0)
                     {
-                        //vyplnění pořadí
-                        if (sloupec == 0)
-                        {
-                            cell.CellValue = new CellValue(radek);
-                            cell.DataType = CellValues.Number;
-                        }
-                        //vyplnění týmů
-                        else if (sloupec == 1)
-                        {
-                            cell.CellValue = new CellValue(tymy[radek - 1]);
-                            cell.DataType = CellValues.String;
-                        }
-                    }
+                        cell = new Cell();
+                        cell.DataType = CellValues.Number;
+                        //StyleIndex = 1,
+                        cell.CellReference = SloupecNaZnak(1) + (radek + 1).ToString();
+                        cell.CellValue = new CellValue(radek + 1);
+                        row.Append(cell);
 
+                        cell = new Cell();
+                        cell.DataType = CellValues.String;
+                        //StyleIndex = 1,
+                        cell.CellReference = SloupecNaZnak(2) + (radek + 1).ToString();
+                        cell.CellValue = new CellValue(tymy[radek - 1]);
+                        row.Append(cell);
+                    }
+                    sd.Append(row);
                 }
-                sd.Append(row);
             }
         }
         /// <summary>
@@ -212,12 +218,12 @@ namespace RozpisZapasu
         {
             string[] hlavicka = new string[] { "Kolo", "Zápas", "Skupina", "Skóre" };
             Worksheet ws = wsPart.Worksheet;
-            Columns cols = new Columns();
+            /*Columns cols = new Columns();
             Column col = new Column() { Min = (UInt32Value)2U, Max = (UInt32Value)2U, Width = NejdelsiRetezec(skupinyZapasy, 2), CustomWidth = true };
             Column col1 = new Column() { Min = (UInt32Value)3U, Max = (UInt32Value)3U, Width = NejdelsiRetezec(skupinyZapasy, 3), CustomWidth = true };
             cols.Append(col);
             cols.Append(col1);
-            ws.Append(cols);
+            ws.Append(cols);*/
 
             SheetData sd = ws.GetFirstChild<SheetData>();
             MergeCells mergeCells = new MergeCells();
@@ -225,53 +231,55 @@ namespace RozpisZapasu
 
             for (int radek = 0; radek < skupinyZapasy.Count + 2; radek++)
             {
-                Row row = new Row();
                 for (int sloupec = 0; sloupec < hlavicka.Length; sloupec++)
                 {
-                    //ohraničení tabulky
-                    Cell cell = new Cell()
-                    {
-                        DataType = CellValues.String,
-                        //StyleIndex = 1,
-                    };
-                    row.Append(cell);
+                    Row row = new Row { RowIndex = (UInt32)(radek + 1) };
+                    Cell cell;
+
                     //perioda
                     if (radek == 0 && sloupec == 0)
                     {
+                        cell = new Cell();
                         cell.CellValue = new CellValue("1.perioda");
                         cell.DataType = CellValues.String;
                         //cell.StyleIndex = 2;
                         //sloučení buňek
                         mergeCell.Reference = new StringValue(SloupecNaZnak(1) + (radek + 1) + ":" + SloupecNaZnak(hlavicka.Length) + (radek + 1));
+                        row.Append(cell);
                     }
                     //vyplnění hlavičky
                     else if (radek == 1)
                     {
+                        cell = new Cell();
                         cell.CellValue = new CellValue(hlavicka[sloupec]);
+                        cell.CellReference = SloupecNaZnak(sloupec + 1) + (radek + 1).ToString();
                         cell.DataType = CellValues.String;
                         //cell.StyleIndex = 2;
+                        row.Append(cell);
                     }
                     //vyplnění zbytku
                     else if (radek > 1)
                     {
-                        if (sloupec == 0)
-                        {
-                            cell.CellValue = new CellValue(skupinyZapasy[radek - 2].Item1);
-                            cell.DataType = CellValues.Number;
-                        }
-                        else if (sloupec == 1)
-                        {
-                            cell.CellValue = new CellValue(skupinyZapasy[radek - 2].Item2);
-                            cell.DataType = CellValues.String;
-                        }
-                        else if (sloupec == 2)
-                        {
-                            cell.CellValue = new CellValue(skupinyZapasy[radek - 2].Item3);
-                            cell.DataType = CellValues.String;
-                        }
+                        cell = new Cell();
+                        cell.CellValue = new CellValue(skupinyZapasy[radek - 2].Item1);
+                        cell.CellReference = SloupecNaZnak(1) + (radek + 1).ToString();
+                        cell.DataType = CellValues.Number;
+                        row.Append(cell);
+
+                        cell = new Cell();
+                        cell.CellValue = new CellValue(skupinyZapasy[radek - 2].Item2);
+                        cell.CellReference = SloupecNaZnak(2) + (radek + 1).ToString();
+                        cell.DataType = CellValues.String;
+                        row.Append(cell);
+
+                        cell = new Cell();
+                        cell.CellValue = new CellValue(skupinyZapasy[radek - 2].Item3);
+                        cell.CellReference = SloupecNaZnak(3) + (radek + 1).ToString();
+                        cell.DataType = CellValues.String;
+                        row.Append(cell);
                     }
+                    sd.Append(row);
                 }
-                sd.Append(row);
             }
 
             ws.InsertAfter(mergeCells, ws.Elements<SheetData>().First());
@@ -287,12 +295,12 @@ namespace RozpisZapasu
         {
             string[] hlavicka = new string[] { "Kolo", "Zápas", "Hřiště", "Skóre" };
             Worksheet ws = wsPart.Worksheet;
-            Columns cols = new Columns();
+            /*Columns cols = new Columns();
             Column col = new Column() { Min = (UInt32Value)2U, Max = (UInt32Value)2U, Width = NejdelsiRetezec(hristeZapasy, 2), CustomWidth = true };
             Column col1 = new Column() { Min = (UInt32Value)3U, Max = (UInt32Value)3U, Width = NejdelsiRetezec(hristeZapasy, 3), CustomWidth = true };
             cols.Append(col);
             cols.Append(col1);
-            ws.Append(cols);
+            ws.Append(cols);*/
 
             SheetData sd = ws.GetFirstChild<SheetData>();
             MergeCells mergeCells = new MergeCells();
@@ -300,55 +308,55 @@ namespace RozpisZapasu
 
             for (int radek = 0; radek < hristeZapasy.Count + 2; radek++)
             {
-                Row row = new Row();
                 for (int sloupec = 0; sloupec < hlavicka.Length; sloupec++)
                 {
-                    //ohraničení tabulky
-                    Cell cell = new Cell()
-                    {
-                        DataType = CellValues.String,
-                        //StyleIndex = 1,
-                    };
-                    row.Append(cell);
+                    Row row = new Row { RowIndex = (UInt32)(radek + 1) };
+                    Cell cell;
 
                     //perioda
                     if (radek == 0 && sloupec == 0)
                     {
+                        cell = new Cell();
                         cell.CellValue = new CellValue("1.perioda");
                         cell.DataType = CellValues.String;
                         //cell.StyleIndex = 2;
                         //sloučení buňek
                         mergeCell.Reference = new StringValue(SloupecNaZnak(1) + (radek + 1) + ":" + SloupecNaZnak(hlavicka.Length) + (radek + 1));
+                        row.Append(cell);
                     }
                     //vyplnění hlavičky
                     else if (radek == 1)
                     {
+                        cell = new Cell();
                         cell.CellValue = new CellValue(hlavicka[sloupec]);
+                        cell.CellReference = SloupecNaZnak(sloupec + 1) + (radek + 1).ToString();
                         cell.DataType = CellValues.String;
                         //cell.StyleIndex = 2;
-
+                        row.Append(cell);
                     }
                     //vyplnění zbytku
                     else if (radek > 1)
                     {
-                        if (sloupec == 0)
-                        {
-                            cell.CellValue = new CellValue(hristeZapasy[radek - 2].Item1);
-                            cell.DataType = CellValues.Number;
-                        }
-                        else if (sloupec == 1)
-                        {
-                            cell.CellValue = new CellValue(hristeZapasy[radek - 2].Item2);
-                            cell.DataType = CellValues.String;
-                        }
-                        else if (sloupec == 2)
-                        {
-                            cell.CellValue = new CellValue(hristeZapasy[radek - 2].Item3);
-                            cell.DataType = CellValues.String;
-                        }
+                        cell = new Cell();
+                        cell.CellValue = new CellValue(hristeZapasy[radek - 2].Item1);
+                        cell.CellReference = SloupecNaZnak(1) + (radek + 1).ToString();
+                        cell.DataType = CellValues.Number;
+                        row.Append(cell);
+
+                        cell = new Cell();
+                        cell.CellValue = new CellValue(hristeZapasy[radek - 2].Item2);
+                        cell.CellReference = SloupecNaZnak(2) + (radek + 1).ToString();
+                        cell.DataType = CellValues.String;
+                        row.Append(cell);
+
+                        cell = new Cell();
+                        cell.CellValue = new CellValue(hristeZapasy[radek - 2].Item3);
+                        cell.CellReference = SloupecNaZnak(3) + (radek + 1).ToString();
+                        cell.DataType = CellValues.String;
+                        row.Append(cell);
                     }
+                    sd.Append(row);
                 }
-                sd.Append(row);
             }
 
             ws.InsertAfter(mergeCells, ws.Elements<SheetData>().First());

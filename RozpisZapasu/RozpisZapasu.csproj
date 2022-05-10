@@ -113,6 +113,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <None Include="sablonyExcel\sablona.xltm" />
+    <None Include="sablonyExcel\sablona.xltx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -96,11 +96,14 @@ namespace RozpisZapasu
             Column col = new Column() { Min = (UInt32Value)1U, Max = (UInt32Value)1U, Width = tymy.Max(tym => tym.Length), CustomWidth = true };
             cols.Append(col);
 
+            //počátek tabulky
+            int offset = 0;
+
             for (int radek = 0; radek < tymy.Count + 1; radek++)
             {
                 for (int sloupec = 0; sloupec < tymy.Count + hlavicka.Length + 1; sloupec++)
                 {
-                    Row row = new Row { RowIndex = (UInt32)(radek + 1) };
+                    Row row = new Row { RowIndex = (UInt32)(radek + offset + 1) };
                     Cell cell;
 
                     //vybarvení
@@ -108,7 +111,7 @@ namespace RozpisZapasu
                     {
                         cell = new Cell();
                         cell.DataType = CellValues.String;
-                        cell.CellReference = SloupecNaZnak(sloupec + 1) + (radek + 1).ToString();
+                        cell.CellReference = SloupecNaZnak(sloupec + 1) + (radek + offset + 1).ToString();
                         cell.StyleIndex = 2;
                         row.Append(cell);
                     }
@@ -122,7 +125,7 @@ namespace RozpisZapasu
                             {
                                 cell = new Cell();
                                 cell.CellValue = new CellValue(tymy[sloupec - 1]);
-                                cell.CellReference = SloupecNaZnak(sloupec + 1) + (radek + 1).ToString();
+                                cell.CellReference = SloupecNaZnak(sloupec + 1) + (radek + offset + 1).ToString();
                                 cell.DataType = CellValues.String;
                                 cell.StyleIndex = 4;
                                 row.Append(cell);
@@ -132,7 +135,7 @@ namespace RozpisZapasu
                             {
                                 cell = new Cell();
                                 cell.CellValue = new CellValue(tymy[radek - 1]);
-                                cell.CellReference = SloupecNaZnak(sloupec + 1) + (radek + 1).ToString();
+                                cell.CellReference = SloupecNaZnak(sloupec + 1) + (radek + offset + 1).ToString();
                                 cell.DataType = CellValues.String;
                                 cell.StyleIndex = 2;
                                 row.Append(cell);
@@ -141,7 +144,7 @@ namespace RozpisZapasu
                             else if (radek > 0 & sloupec > 0)
                             {
                                 cell = new Cell();
-                                cell.CellReference = SloupecNaZnak(sloupec + 1) + (radek + 1).ToString();
+                                cell.CellReference = SloupecNaZnak(sloupec + 1) + (radek + offset + 1).ToString();
                                 cell.StyleIndex = 1;
                                 row.Append(cell);
                             }
@@ -154,7 +157,7 @@ namespace RozpisZapasu
                         {
                             cell = new Cell();
                             cell.CellValue = new CellValue(hlavicka[sloupec - (tymy.Count + 1)]);
-                            cell.CellReference = SloupecNaZnak(sloupec + 1) + (radek + 1).ToString();
+                            cell.CellReference = SloupecNaZnak(sloupec + 1) + (radek + offset + 1).ToString();
                             cell.DataType = CellValues.String;
                             cell.StyleIndex = 5;
                             row.Append(cell);
@@ -163,7 +166,7 @@ namespace RozpisZapasu
                         else if (radek > 0)
                         {
                             cell = new Cell();
-                            cell.CellReference = SloupecNaZnak(sloupec + 1) + (radek + 1).ToString();
+                            cell.CellReference = SloupecNaZnak(sloupec + 1) + (radek + offset + 1).ToString();
                             cell.StyleIndex = 1;
                             row.Append(cell);
                         }
@@ -187,11 +190,14 @@ namespace RozpisZapasu
             Column col = new Column() { Min = (UInt32Value)2U, Max = (UInt32Value)2U, Width = tymy.Max(tym => tym.Length), CustomWidth = true };
             cols.Append(col);
 
+            //počátek tabulky
+            int offset = 0;
+
             for (int radek = 0; radek < tymy.Count + 1; radek++)
             {
                 for (int sloupec = 0; sloupec < hlavicka.Length; sloupec++)
                 {
-                    Row row = new Row { RowIndex = (UInt32)(radek + 1) };
+                    Row row = new Row { RowIndex = (UInt32)(radek + offset + 1) };
                     Cell cell;
 
                     //vyplnění hlavičky
@@ -199,7 +205,7 @@ namespace RozpisZapasu
                     {
                         cell = new Cell();
                         cell.CellValue = new CellValue(hlavicka[sloupec]);
-                        cell.CellReference = SloupecNaZnak(sloupec + 1) + (radek + 1).ToString();
+                        cell.CellReference = SloupecNaZnak(sloupec + 1) + (radek + offset + 1).ToString();
                         cell.DataType = CellValues.String;
                         cell.StyleIndex = 2;
                         row.Append(cell);
@@ -211,7 +217,7 @@ namespace RozpisZapasu
                         {
                             cell = new Cell();
                             cell.CellValue = new CellValue(radek);
-                            cell.CellReference = SloupecNaZnak(sloupec + 1) + (radek + 1).ToString();
+                            cell.CellReference = SloupecNaZnak(sloupec + 1) + (radek + offset + 1).ToString();
                             cell.DataType = CellValues.Number;
                             cell.StyleIndex = 1;
                             row.Append(cell);
@@ -221,7 +227,7 @@ namespace RozpisZapasu
                         {
                             cell = new Cell();
                             cell.CellValue = new CellValue(tymy[radek - 1]);
-                            cell.CellReference = SloupecNaZnak(sloupec + 1) + (radek + 1).ToString();
+                            cell.CellReference = SloupecNaZnak(sloupec + 1) + (radek + offset + 1).ToString();
                             cell.DataType = CellValues.String;
                             cell.StyleIndex = 1;
                             row.Append(cell);
@@ -230,7 +236,7 @@ namespace RozpisZapasu
                         else if (sloupec > 1)
                         {
                             cell = new Cell();
-                            cell.CellReference = SloupecNaZnak(sloupec + 1) + (radek + 1).ToString();
+                            cell.CellReference = SloupecNaZnak(sloupec + 1) + (radek + offset + 1).ToString();
                             cell.StyleIndex = 1;
                             row.Append(cell);
                         }
@@ -259,11 +265,14 @@ namespace RozpisZapasu
             MergeCells mergeCells = new MergeCells();
             MergeCell mergeCell = new MergeCell();
 
+            //počátek tabulky
+            int offset = 0;
+
             for (int radek = 0; radek < skupinyZapasy.Count + 2; radek++)
             {
                 for (int sloupec = 0; sloupec < hlavicka.Length; sloupec++)
                 {
-                    Row row = new Row { RowIndex = (UInt32)(radek + 1) };
+                    Row row = new Row { RowIndex = (UInt32)(radek + offset + 1) };
                     Cell cell;
 
                     //perioda
@@ -274,7 +283,7 @@ namespace RozpisZapasu
                         cell.DataType = CellValues.String;
                         cell.StyleIndex = 2;
                         //sloučení buňek
-                        mergeCell.Reference = new StringValue(SloupecNaZnak(1) + (radek + 1) + ":" + SloupecNaZnak(hlavicka.Length) + (radek + 1));
+                        mergeCell.Reference = new StringValue(SloupecNaZnak(1) + (radek + offset + 1) + ":" + SloupecNaZnak(hlavicka.Length) + (radek + offset + 1));
                         row.Append(cell);
                     }
                     //vyplnění hlavičky
@@ -282,7 +291,7 @@ namespace RozpisZapasu
                     {
                         cell = new Cell();
                         cell.CellValue = new CellValue(hlavicka[sloupec]);
-                        cell.CellReference = SloupecNaZnak(sloupec + 1) + (radek + 1).ToString();
+                        cell.CellReference = SloupecNaZnak(sloupec + 1) + (radek + offset + 1).ToString();
                         cell.DataType = CellValues.String;
                         cell.StyleIndex = 2;
                         row.Append(cell);
@@ -292,27 +301,27 @@ namespace RozpisZapasu
                     {
                         cell = new Cell();
                         cell.CellValue = new CellValue(skupinyZapasy[radek - 2].Item1);
-                        cell.CellReference = SloupecNaZnak(1) + (radek + 1).ToString();
+                        cell.CellReference = SloupecNaZnak(1) + (radek + offset + 1).ToString();
                         cell.DataType = CellValues.Number;
                         cell.StyleIndex = 1;
                         row.Append(cell);
 
                         cell = new Cell();
                         cell.CellValue = new CellValue(skupinyZapasy[radek - 2].Item2);
-                        cell.CellReference = SloupecNaZnak(2) + (radek + 1).ToString();
+                        cell.CellReference = SloupecNaZnak(2) + (radek + offset + 1).ToString();
                         cell.DataType = CellValues.String;
                         cell.StyleIndex = 1;
                         row.Append(cell);
 
                         cell = new Cell();
                         cell.CellValue = new CellValue(skupinyZapasy[radek - 2].Item3);
-                        cell.CellReference = SloupecNaZnak(3) + (radek + 1).ToString();
+                        cell.CellReference = SloupecNaZnak(3) + (radek + offset + 1).ToString();
                         cell.DataType = CellValues.String;
                         cell.StyleIndex = 1;
                         row.Append(cell);
 
                         cell = new Cell();
-                        cell.CellReference = SloupecNaZnak(4) + (radek + 1).ToString();
+                        cell.CellReference = SloupecNaZnak(4) + (radek + offset + 1).ToString();
                         cell.StyleIndex = 1;
                         row.Append(cell);
                     }

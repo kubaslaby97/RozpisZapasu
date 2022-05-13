@@ -359,7 +359,7 @@ namespace RozpisZapasu
                         sd.Append(row);
                     }
                 }
-                offset += skupinyZapasy.Count + 4;
+                offset += zapasySkupiny.Count + 4;
 
                 //vyčištění seznamu zápasů dané skupiny
                 zapasySkupiny.Clear();

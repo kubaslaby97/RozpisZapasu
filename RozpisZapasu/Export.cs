@@ -88,7 +88,7 @@ namespace RozpisZapasu
         /// <param name="skupinyTymy">vstupní seznam skupin a týmů v nich obsažených</param>
         private static void KrizovaTabulka(WorksheetPart wsPart, List<(string, string)> skupinyTymy)
         {
-            string[] hlavicka = new string[] { "Body", "Skóre", "Pořadí" };
+            string[] hlavicka = new string[] { "Míče", "Sety", "Body" };
             
             List<string> tymy = ListNazvu(1, skupinyTymy, null);
             List<string> skupiny = ListNazvu(3, skupinyTymy, null);
@@ -277,7 +277,7 @@ namespace RozpisZapasu
         /// <param name="skupinyTymy">vstupní seznam skupin a týmů v nich obsažených</param>
         private static void ZapasySkupina(WorksheetPart wsPart, List<(int, string, string)> skupinyZapasy, List<(string, string)> skupinyTymy)
         {
-            string[] hlavicka = new string[] { "Kolo", "Zápas", "Skupina", "Skóre" };
+            string[] hlavicka = new string[] { "Kolo", "Zápas", "Skóre" };
             List<string> skupiny = ListNazvu(3, skupinyTymy, null);
             List<(int, string, string)> zapasySkupiny;
 
@@ -286,12 +286,7 @@ namespace RozpisZapasu
 
             Columns cols = ws.InsertBefore(new Columns(), sd);
             Column col = new Column() { Min = (UInt32Value)2U, Max = (UInt32Value)2U, Width = NejdelsiRetezec(skupinyZapasy, 2), CustomWidth = true };
-            Column col1 = new Column() { Min = (UInt32Value)3U, Max = (UInt32Value)3U, Width = NejdelsiRetezec(skupinyZapasy, 3), CustomWidth = true };
             cols.Append(col);
-            cols.Append(col1);
-
-            MergeCells mergeCells = new MergeCells();
-            MergeCell mergeCell = new MergeCell();
 
             //počátek tabulky
             int offset = 0;
@@ -308,15 +303,12 @@ namespace RozpisZapasu
                         Row row = new Row { RowIndex = (UInt32)(radek + offset + 1) };
                         Cell cell;
 
-                        //perioda
-                        if (radek == 0 && sloupec == 0)
+                        //skupina
+                        if (radek == 0)
                         {
                             cell = new Cell();
-                            cell.CellValue = new CellValue("1.perioda");
+                            cell.CellValue = new CellValue("Skupina: " + skupiny[i]);
                             cell.DataType = CellValues.String;
-                            cell.StyleIndex = 2;
-                            //sloučení buňek
-                            mergeCell.Reference = new StringValue(SloupecNaZnak(1) + (radek + offset + 1) + ":" + SloupecNaZnak(hlavicka.Length) + (radek + offset + 1));
                             row.Append(cell);
                         }
                         //vyplnění hlavičky
@@ -347,14 +339,7 @@ namespace RozpisZapasu
                             row.Append(cell);
 
                             cell = new Cell();
-                            cell.CellValue = new CellValue(zapasySkupiny[radek - 2].Item3);
                             cell.CellReference = SloupecNaZnak(3) + (radek + offset + 1).ToString();
-                            cell.DataType = CellValues.String;
-                            cell.StyleIndex = 1;
-                            row.Append(cell);
-
-                            cell = new Cell();
-                            cell.CellReference = SloupecNaZnak(4) + (radek + offset + 1).ToString();
                             cell.StyleIndex = 1;
                             row.Append(cell);
                         }
@@ -366,10 +351,6 @@ namespace RozpisZapasu
                 //vyčištění seznamu zápasů dané skupiny
                 zapasySkupiny.Clear();
             }
-
-            ws.InsertAfter(mergeCells, ws.Elements<SheetData>().First());
-            mergeCells.Append(mergeCell);
-            ws.Save();
         }
         /// <summary>
         /// Provede zápis do listu Každý s každým
@@ -401,10 +382,9 @@ namespace RozpisZapasu
                     Cell cell;
 
                     //perioda
-                    if (radek == 0 && sloupec == 0)
+                    if (radek == 0)
                     {
                         cell = new Cell();
-                        cell.CellValue = new CellValue("1.perioda");
                         cell.DataType = CellValues.String;
                         cell.StyleIndex = 2;
                         //sloučení buňek
@@ -426,12 +406,7 @@ namespace RozpisZapasu
                         else if (sloupec >= hlavicka.Length && sloupec < hlavicka.Length + pocetSetu)
                         {
                             cell = new Cell();
-
-                            //for (int i = 0; i < pocetSetu; i++)
-                            //{
                             cell.CellValue = new CellValue(" .set");
-                            //}
-
                             cell.CellReference = SloupecNaZnak(sloupec + 1) + (radek + 1).ToString();
                             cell.DataType = CellValues.String;
                             cell.StyleIndex = 2;
@@ -451,7 +426,7 @@ namespace RozpisZapasu
                     else if (radek > 1)
                     {
                         cell = new Cell();
-                        cell.CellValue = new CellValue(hristeZapasy[radek - 2].Item1);
+                        cell.CellValue = new CellValue(radek - 1);
                         cell.CellReference = SloupecNaZnak(1) + (radek + 1).ToString();
                         cell.DataType = CellValues.Number;
                         cell.StyleIndex = 1;

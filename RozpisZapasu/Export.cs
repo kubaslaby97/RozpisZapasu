@@ -64,16 +64,16 @@ namespace RozpisZapasu
 
             //obsah listů
             WorksheetPart wsPart1 = (WorksheetPart)wbPart.GetPartById(doc.WorkbookPart.Workbook.Descendants<Sheet>().First(s => s.Name.Equals("Křížová tabulka")).Id);
-            KrizovaTabulka(wsPart1, ListTymu(skupinyTymy));
+            KrizovaTabulka(wsPart1, skupinyTymy);
 
             WorksheetPart wsPart2 = (WorksheetPart)wbPart.GetPartById(doc.WorkbookPart.Workbook.Descendants<Sheet>().First(s => s.Name.Equals("Klasická tabulka")).Id);
-            KlasickaTabulka(wsPart2, ListTymu(skupinyTymy));
+            KlasickaTabulka(wsPart2, skupinyTymy);
 
             WorksheetPart wsPart3 = (WorksheetPart)wbPart.GetPartById(doc.WorkbookPart.Workbook.Descendants<Sheet>().First(s => s.Name.Equals("Každý s každým")).Id);
             ZapasyHriste(wsPart3, hristeZapasy);
 
             WorksheetPart wsPart4 = (WorksheetPart)wbPart.GetPartById(doc.WorkbookPart.Workbook.Descendants<Sheet>().First(s => s.Name.Equals("Skupinový turnaj")).Id);
-            ZapasySkupina(wsPart4, skupinyZapasy);
+            ZapasySkupina(wsPart4, skupinyZapasy, skupinyTymy);
 
             //Přidání stylu
             WorkbookStylesPart stylePart = doc.WorkbookPart.WorkbookStylesPart;
@@ -86,9 +86,12 @@ namespace RozpisZapasu
         /// </summary>
         /// <param name="wsPart">část list</param>
         /// <param name="tymy">vstupní seznam týmů</param>
-        private static void KrizovaTabulka(WorksheetPart wsPart, List<string> tymy)
+        private static void KrizovaTabulka(WorksheetPart wsPart, List<(string, string)> skupinyTymy)
         {
             string[] hlavicka = new string[] { "Body", "Skóre", "Pořadí" };
+            List<string> tymy = ListNazvu(1, skupinyTymy, null);
+            List<string> skupiny = ListNazvu(3, skupinyTymy, null);
+
             Worksheet ws = wsPart.Worksheet;
             SheetData sd = ws.GetFirstChild<SheetData>();
 
@@ -99,8 +102,12 @@ namespace RozpisZapasu
             //počátek tabulky
             int offset = 0;
 
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < skupiny.Count; i++)
             {
+                //vyčištění seznamu týmů a zápis týmů dané skupiny
+                tymy.Clear();
+                tymy = ListNazvu(2, skupinyTymy, skupiny[i]);
+                //zápis tabulky
                 for (int radek = 0; radek < tymy.Count + 1; radek++)
                 {
                     for (int sloupec = 0; sloupec < tymy.Count + hlavicka.Length + 1; sloupec++)
@@ -176,6 +183,7 @@ namespace RozpisZapasu
                         sd.Append(row);
                     }
                 }
+                //přičtení offsetu
                 offset += tymy.Count + 3;
             }
         }
@@ -184,9 +192,12 @@ namespace RozpisZapasu
         /// </summary>
         /// <param name="wsPart">část list</param>
         /// <param name="tymy">vstupní seznam týmů</param>
-        private static void KlasickaTabulka(WorksheetPart wsPart, List<string> tymy)
+        private static void KlasickaTabulka(WorksheetPart wsPart, List<(string, string)> skupinyTymy)
         {
             string[] hlavicka = new string[] { "Pořadí", "Tým", "Zápasy", "Výhry", "Remízy", "Prohry", "Skóre", "Body" };
+            List<string> tymy = ListNazvu(1, skupinyTymy, null);
+            List<string> skupiny = ListNazvu(3, skupinyTymy, null);
+
             Worksheet ws = wsPart.Worksheet;
             SheetData sd = ws.GetFirstChild<SheetData>();
 
@@ -196,9 +207,13 @@ namespace RozpisZapasu
 
             //počátek tabulky
             int offset = 0;
-
-            for (int i = 0; i < 3; i++)
+            
+            for (int i = 0; i < skupiny.Count; i++)
             {
+                //vyčištění seznamu týmů a zápis týmů dané skupiny
+                tymy.Clear();
+                tymy = ListNazvu(2, skupinyTymy, skupiny[i]);
+                //zápis tabulky
                 for (int radek = 0; radek < tymy.Count + 1; radek++)
                 {
                     for (int sloupec = 0; sloupec < hlavicka.Length; sloupec++)
@@ -258,9 +273,12 @@ namespace RozpisZapasu
         /// </summary>
         /// <param name="wsPart">část list</param>
         /// <param name="skupinyZapasy">zápasy ve skupinách</param>
-        private static void ZapasySkupina(WorksheetPart wsPart, List<(int, string, string)> skupinyZapasy)
+        private static void ZapasySkupina(WorksheetPart wsPart, List<(int, string, string)> skupinyZapasy, List<(string, string)> skupinyTymy)
         {
             string[] hlavicka = new string[] { "Kolo", "Zápas", "Skupina", "Skóre" };
+            List<string> skupiny = ListNazvu(3, skupinyTymy, null);
+            List<(int, string, string)> zapasySkupiny;
+
             Worksheet ws = wsPart.Worksheet;
             SheetData sd = ws.GetFirstChild<SheetData>();
 
@@ -276,9 +294,12 @@ namespace RozpisZapasu
             //počátek tabulky
             int offset = 0;
 
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < skupiny.Count; i++)
             {
-                for (int radek = 0; radek < skupinyZapasy.Count + 2; radek++)
+                //zápis zápasů dané skupiny
+                zapasySkupiny = ListZapasuSkupin(skupinyZapasy, skupiny[i]);
+                //zápis tabulky
+                for (int radek = 0; radek < zapasySkupiny.Count + 2; radek++)
                 {
                     for (int sloupec = 0; sloupec < hlavicka.Length; sloupec++)
                     {
@@ -310,21 +331,21 @@ namespace RozpisZapasu
                         else if (radek > 1)
                         {
                             cell = new Cell();
-                            cell.CellValue = new CellValue(skupinyZapasy[radek - 2].Item1);
+                            cell.CellValue = new CellValue(zapasySkupiny[radek - 2].Item1);
                             cell.CellReference = SloupecNaZnak(1) + (radek + offset + 1).ToString();
                             cell.DataType = CellValues.Number;
                             cell.StyleIndex = 1;
                             row.Append(cell);
 
                             cell = new Cell();
-                            cell.CellValue = new CellValue(skupinyZapasy[radek - 2].Item2);
+                            cell.CellValue = new CellValue(zapasySkupiny[radek - 2].Item2);
                             cell.CellReference = SloupecNaZnak(2) + (radek + offset + 1).ToString();
                             cell.DataType = CellValues.String;
                             cell.StyleIndex = 1;
                             row.Append(cell);
 
                             cell = new Cell();
-                            cell.CellValue = new CellValue(skupinyZapasy[radek - 2].Item3);
+                            cell.CellValue = new CellValue(zapasySkupiny[radek - 2].Item3);
                             cell.CellReference = SloupecNaZnak(3) + (radek + offset + 1).ToString();
                             cell.DataType = CellValues.String;
                             cell.StyleIndex = 1;
@@ -339,6 +360,9 @@ namespace RozpisZapasu
                     }
                 }
                 offset += skupinyZapasy.Count + 4;
+
+                //vyčištění seznamu zápasů dané skupiny
+                zapasySkupiny.Clear();
             }
 
             ws.InsertAfter(mergeCells, ws.Elements<SheetData>().First());
@@ -353,6 +377,7 @@ namespace RozpisZapasu
         private static void ZapasyHriste(WorksheetPart wsPart, List<(int, string, string)> hristeZapasy)
         {
             string[] hlavicka = new string[] { "Kolo", "Zápas", "Hřiště", "Skóre" };
+
             Worksheet ws = wsPart.Worksheet;
             SheetData sd = ws.GetFirstChild<SheetData>();
 
@@ -559,32 +584,46 @@ namespace RozpisZapasu
             return pole.Max(polozka => polozka.Length);
         }
 
-        private static List<string> ListTymu(List<(string, string)> skupinyTymy)
+        private static List<string> ListNazvu(int volba, List<(string, string)> skupinyTymy, string skupina)
         {
-            List<string> listTymu = new List<string>();
+            List<string> list = new List<string>();
             for (int i = 0; i < skupinyTymy.Count; i++)
             {
-                //if (skupinyTymy[i].Item2.Contains(VybranaSkupina))
-                //{
-                    listTymu.Add(skupinyTymy[i].Item1);
-                //}
-
+                //všechny týmy
+                if (volba == 1)
+                {
+                    list.Add(skupinyTymy[i].Item1);
+                }
+                //týmy vybrané skupiny
+                else if (volba == 2)
+                {
+                    if (skupinyTymy[i].Item2.Contains(skupina))
+                    {
+                        list.Add(skupinyTymy[i].Item1);
+                    }
+                }
+                //všechny skupiny
+                else if (volba == 3)
+                {
+                    list.Add(skupinyTymy[i].Item2);
+                    list = list.Distinct().ToList();
+                }
             }
-            return listTymu;
+            
+            return list;
         }
 
-        private static List<(int, string, string)> ListZapasuSkupin(List<(int, string, string)> skupinyZapasy)
+        private static List<(int, string, string)> ListZapasuSkupin(List<(int, string, string)> skupinyZapasy, string skupina)
         {
             List<(int, string, string)> listZapasuSkupin = new List<(int, string, string)>();
 
             //zápasy vybrané skupiny
             for (int i = 0; i < skupinyZapasy.Count; i++)
             {
-                if (skupinyZapasy[i].Item3.Contains(VybranaSkupina))
+                if (skupinyZapasy[i].Item3.Contains(skupina))
                 {
                     listZapasuSkupin.Add((i + 1, skupinyZapasy[i].Item2, skupinyZapasy[i].Item3));
                 }
-
             }
 
             return listZapasuSkupin;

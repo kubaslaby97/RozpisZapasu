@@ -54,11 +54,11 @@ namespace RozpisZapasu
                             //zvolení typu souboru
                             if (sfd.FilterIndex == 1)
                             {
-                                Export.UlozitExcel(sfd.FileName, false, skupinyTymy, hristeZapasy, skupinyZapasy);
+                                Export.UlozitExcel(sfd.FileName, false, skupinyTymy, hristeZapasy, skupinyZapasy, 3);
                             }
                             else if (sfd.FilterIndex == 2)
                             {
-                                Export.UlozitExcel(sfd.FileName, true, skupinyTymy, hristeZapasy, skupinyZapasy);
+                                Export.UlozitExcel(sfd.FileName, true, skupinyTymy, hristeZapasy, skupinyZapasy, 3);
                             }
 
                             //ověření, zda existuje výchozí aplikace pro otevření souboru

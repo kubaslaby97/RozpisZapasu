@@ -21,8 +21,8 @@ namespace RozpisZapasu
         string souborSkupiny = Application.StartupPath + "\\skupiny.xml";
 
         //deklarace seznamů
-        List<(int, string, string)> hristeZapasy = new List<(int, string, string)>();
-        List<(int, string, string)> skupinyZapasy = new List<(int, string, string)>();
+        List<(string, string)> hristeZapasy = new List<(string, string)>();
+        List<(string, string)> skupinyZapasy = new List<(string, string)>();
         List<(string, string)> skupinyTymy = new List<(string, string)>();
 
         public frmHlavni()
@@ -54,23 +54,27 @@ namespace RozpisZapasu
                             //zvolení typu souboru
                             if (sfd.FilterIndex == 1)
                             {
-                                Export.UlozitExcel(sfd.FileName, false, skupinyTymy, hristeZapasy, skupinyZapasy, 3);
+                                //ověření existence šablony
+                                if (File.Exists("sablona.xltx"))
+                                    Export.UlozitExcel(sfd.FileName, false, skupinyTymy, hristeZapasy, skupinyZapasy);
+                                else
+                                    MessageBox.Show("Nebyla nalezena šablona ve formátu MS Excel", "Chyba při exportu", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
                             else if (sfd.FilterIndex == 2)
                             {
-                                Export.UlozitExcel(sfd.FileName, true, skupinyTymy, hristeZapasy, skupinyZapasy, 3);
+                                //ověření existence šablony
+                                if (File.Exists("sablona.xltm"))
+                                    Export.UlozitExcel(sfd.FileName, true, skupinyTymy, hristeZapasy, skupinyZapasy);
+                                else
+                                    MessageBox.Show("Nebyla nalezena šablona ve formátu MS Excel s podporou maker", "Chyba při exportu", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
 
                             //ověření, zda existuje výchozí aplikace pro otevření souboru
                             if (VychoziAplikace(sfd.FileName.Split('.').Last()) == "")
-                            {
                                 MessageBox.Show("Soubor nelze otevřít, protože není k němu přidružena žádná aplikace", "Chyba při otevírání", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            }
                             else
-                            {
                                 //otevření souboru
                                 Process.Start(sfd.FileName);
-                            }
                         }
                         else
                         {

@@ -17,9 +17,9 @@ namespace RozpisZapasu
         /// <param name="hriste">vstupní seznam hřišť</param>
         /// <param name="skupiny">vstupní seznam skupin</param>
         /// <returns>vrátí výsledný seznam zápasů</returns>
-        public static List<(int, string, string)> VyslednyRozpis(int volba, List<(string, int, bool)> tymy, List<string> hriste, List<string> skupiny)
+        public static List<(string, string)> VyslednyRozpis(int volba, List<(string, int, bool)> tymy, List<string> hriste, List<string> skupiny)
         {
-            List<(int, string, string)> list = new List<(int, string, string)>();
+            List<(string, string)> list = new List<(string, string)>();
             List<(string, string)> zapasy = new List<(string, string)>();
 
             //hřiště
@@ -34,7 +34,7 @@ namespace RozpisZapasu
                 //naplnění výsledného rozpisu
                 for (int i = 0; i < zapasy.Count; i++)
                 {
-                    list.Add((i + 1, zapasy[i].Item1, zapasy[i].Item2));
+                    list.Add((zapasy[i].Item1, zapasy[i].Item2));
                 }
 
                 return list;
@@ -51,7 +51,7 @@ namespace RozpisZapasu
                 //naplnění výsledného rozpisu
                 for (int i = 0; i < zapasy.Count; i++)
                 {
-                    list.Add((i + 1, zapasy[i].Item1, zapasy[i].Item2));
+                    list.Add((zapasy[i].Item1, zapasy[i].Item2));
                 }
 
                 return list;
@@ -59,7 +59,7 @@ namespace RozpisZapasu
             //easter egg
             else
             {
-                list = new List<(int, string, string)> { (2021, "KI/PROJ", "PřF UJEP-SK Volejbal"), (2022, "Jan Jiřička", "Jakub Slabý-Jiří Vašák") };
+                list = new List<(string, string)> { ("KI/PROJ", "PřF UJEP-SK Volejbal"), ("Jan Jiřička", "Jakub Slabý-Jiří Vašák") };
                 return list;
             }
         }

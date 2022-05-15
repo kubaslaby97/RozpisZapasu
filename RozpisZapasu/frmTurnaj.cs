@@ -23,6 +23,7 @@ namespace RozpisZapasu
             ZpracovaniPrehledu.VybranaHriste = new List<string>();
             ZpracovaniPrehledu.VybraneTymy = new List<(string, int, bool)>();
             ZpracovaniPrehledu.VybraneSkupiny = new List<string>();
+
             for (int i = 0; i < ZpracovaniPrehledu.SeznamTymu.Count; i++)
             {
                 clbTymy.Items.Add(ZpracovaniPrehledu.SeznamTymu[i].Item1);
@@ -74,12 +75,16 @@ namespace RozpisZapasu
                 }
             }
 
+            //uložení počtu setů
+            Export.PocetSetu = Convert.ToInt32(numPocetSetu.Value);
+
             //zavření okna
             this.Close();
         }
 
         private void btnStorno_Click(object sender, EventArgs e)
         {
+            //zavření okna
             this.Close();
         }
 

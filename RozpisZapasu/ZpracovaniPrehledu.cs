@@ -23,21 +23,20 @@ namespace RozpisZapasu
         /// </summary>
         /// <param name="list">vstupní seznam zápasů</param>
         /// <param name="listView">zobrazení zápasů</param>
-        public static void ZobrazitZapasy(List<(int, string, string)> list, ListView listView)
+        public static void ZobrazitZapasy(List<(string, string)> list, ListView listView)
         {
             string polozka = "";
             listView.Items.Clear();
 
             for (int i = 0; i < list.Count; i++)
             {
-                polozka = list[i].Item2;
+                polozka = list[i].Item1;
 
                 ListViewItem lvi;
 
                 lvi = new ListViewItem(polozka.Split('-')); //domácí a hosté
 
-                lvi.SubItems.Add(list[i].Item3); //hřiště nebo skupina
-                lvi.SubItems.Add(list[i].Item1.ToString()); //kolo
+                lvi.SubItems.Add(list[i].Item2); //hřiště nebo skupina
 
                 listView.Items.Add(lvi);
             }
@@ -80,13 +79,13 @@ namespace RozpisZapasu
         /// </summary>
         /// <param name="list">výstupní seznam zápasů</param>
         /// <param name="listView">zobrazené zápasy</param>
-        public static void UlozitZapasy(List<(int, string, string)> list, ListView listView)
+        public static void UlozitZapasy(List<(string, string)> list, ListView listView)
         {
             list.Clear();
 
             for (int i = 0; i < listView.Items.Count; i++)
             {
-                list.Add((i + 1, String.Join("-", new string[] { listView.Items[i].SubItems[0].Text, listView.Items[i].SubItems[1].Text }), listView.Items[i].SubItems[2].Text));
+                list.Add((String.Join("-", new string[] { listView.Items[i].SubItems[0].Text, listView.Items[i].SubItems[1].Text }), listView.Items[i].SubItems[2].Text));
             }
         }
 

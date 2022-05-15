@@ -12,8 +12,7 @@ namespace RozpisZapasu
 {
     public static class Export
     {
-        public static string VybranyExport { get; set; }
-        public static string VybranaSkupina { get; set; }
+        public static int PocetSetu { get; set; }
         /// <summary>
         /// Export dokumentu ve formátu MS Excel
         /// </summary>
@@ -22,7 +21,7 @@ namespace RozpisZapasu
         /// <param name="skupinyTymy">vstupní seznam skupin a týmů v nich obsažených</param>
         /// <param name="hristeZapasy">zápasy na hřištích</param>
         /// <param name="skupinyZapasy">zápasy ve skupinách</param>
-        public static void UlozitExcel(string nazev, bool makra, List<(string, string)> skupinyTymy, List<(int, string, string)> hristeZapasy, List<(int, string, string)> skupinyZapasy, int pocetSetu)
+        public static void UlozitExcel(string nazev, bool makra, List<(string, string)> skupinyTymy, List<(string, string)> hristeZapasy, List<(string, string)> skupinyZapasy)
         {
             byte[] byteArray;
 
@@ -36,7 +35,7 @@ namespace RozpisZapasu
                     {
                         //změna typu dokumentu
                         doc.ChangeDocumentType(SpreadsheetDocumentType.MacroEnabledWorkbook);
-                        VytvoritObsah(doc, skupinyTymy, hristeZapasy, skupinyZapasy, pocetSetu);
+                        VytvoritObsah(doc, skupinyTymy, hristeZapasy, skupinyZapasy);
                     }
                     File.WriteAllBytes(nazev, stream.ToArray());
                 }
@@ -51,14 +50,14 @@ namespace RozpisZapasu
                     {
                         //změna typu dokumentu
                         doc.ChangeDocumentType(SpreadsheetDocumentType.Workbook);
-                        VytvoritObsah(doc, skupinyTymy, hristeZapasy, skupinyZapasy, pocetSetu);
+                        VytvoritObsah(doc, skupinyTymy, hristeZapasy, skupinyZapasy);
                     }
                     File.WriteAllBytes(nazev, stream.ToArray());
                 }
             }
         }
 
-        private static void VytvoritObsah(SpreadsheetDocument doc, List<(string, string)> skupinyTymy, List<(int, string, string)> hristeZapasy, List<(int, string, string)> skupinyZapasy, int pocetSetu)
+        private static void VytvoritObsah(SpreadsheetDocument doc, List<(string, string)> skupinyTymy, List<(string, string)> hristeZapasy, List<(string, string)> skupinyZapasy)
         {
             WorkbookPart wbPart = doc.WorkbookPart;
 
@@ -70,7 +69,7 @@ namespace RozpisZapasu
             KlasickaTabulka(wsPart2, skupinyTymy);
 
             WorksheetPart wsPart3 = (WorksheetPart)wbPart.GetPartById(doc.WorkbookPart.Workbook.Descendants<Sheet>().First(s => s.Name.Equals("Každý s každým")).Id);
-            ZapasyHriste(wsPart3, hristeZapasy,pocetSetu);
+            ZapasyHriste(wsPart3, hristeZapasy);
 
             WorksheetPart wsPart4 = (WorksheetPart)wbPart.GetPartById(doc.WorkbookPart.Workbook.Descendants<Sheet>().First(s => s.Name.Equals("Skupinový turnaj")).Id);
             ZapasySkupina(wsPart4, skupinyZapasy, skupinyTymy);
@@ -275,17 +274,17 @@ namespace RozpisZapasu
         /// <param name="wsPart">část list</param>
         /// <param name="skupinyZapasy">zápasy ve skupinách</param>
         /// <param name="skupinyTymy">vstupní seznam skupin a týmů v nich obsažených</param>
-        private static void ZapasySkupina(WorksheetPart wsPart, List<(int, string, string)> skupinyZapasy, List<(string, string)> skupinyTymy)
+        private static void ZapasySkupina(WorksheetPart wsPart, List<(string, string)> skupinyZapasy, List<(string, string)> skupinyTymy)
         {
             string[] hlavicka = new string[] { "Kolo", "Zápas", "Skóre" };
             List<string> skupiny = ListNazvu(3, skupinyTymy, null);
-            List<(int, string, string)> zapasySkupiny;
+            List<(string, string)> zapasySkupiny;
 
             Worksheet ws = wsPart.Worksheet;
             SheetData sd = ws.GetFirstChild<SheetData>();
 
             Columns cols = ws.InsertBefore(new Columns(), sd);
-            Column col = new Column() { Min = (UInt32Value)2U, Max = (UInt32Value)2U, Width = NejdelsiRetezec(skupinyZapasy, 2), CustomWidth = true };
+            Column col = new Column() { Min = (UInt32Value)2U, Max = (UInt32Value)2U, Width = NejdelsiRetezec(skupinyZapasy, 1), CustomWidth = true };
             cols.Append(col);
 
             //počátek tabulky
@@ -332,7 +331,7 @@ namespace RozpisZapasu
                             row.Append(cell);
 
                             cell = new Cell();
-                            cell.CellValue = new CellValue(zapasySkupiny[radek - 2].Item2);
+                            cell.CellValue = new CellValue(zapasySkupiny[radek - 2].Item1);
                             cell.CellReference = SloupecNaZnak(2) + (radek + offset + 1).ToString();
                             cell.DataType = CellValues.String;
                             cell.StyleIndex = 1;
@@ -358,7 +357,7 @@ namespace RozpisZapasu
         /// <param name="wsPart">část list</param>
         /// <param name="hristeZapasy">zápasy na hřištích</param>
         /// <param name="pocetSetu">počet setů</param>
-        private static void ZapasyHriste(WorksheetPart wsPart, List<(int, string, string)> hristeZapasy, int pocetSetu)
+        private static void ZapasyHriste(WorksheetPart wsPart, List<(string, string)> hristeZapasy)
         {
             string[] hlavicka = new string[] { "Kolo", "Zápas", "Hřiště", "Skóre" };
 
@@ -366,8 +365,8 @@ namespace RozpisZapasu
             SheetData sd = ws.GetFirstChild<SheetData>();
 
             Columns cols = ws.InsertBefore(new Columns(), sd);
-            Column col = new Column() { Min = (UInt32Value)2U, Max = (UInt32Value)2U, Width = NejdelsiRetezec(hristeZapasy, 2), CustomWidth = true };
-            Column col1 = new Column() { Min = (UInt32Value)3U, Max = (UInt32Value)3U, Width = NejdelsiRetezec(hristeZapasy, 3), CustomWidth = true };
+            Column col = new Column() { Min = (UInt32Value)2U, Max = (UInt32Value)2U, Width = NejdelsiRetezec(hristeZapasy, 1), CustomWidth = true };
+            Column col1 = new Column() { Min = (UInt32Value)3U, Max = (UInt32Value)3U, Width = NejdelsiRetezec(hristeZapasy, 2), CustomWidth = true };
             cols.Append(col);
             cols.Append(col1);
 
@@ -376,7 +375,7 @@ namespace RozpisZapasu
 
             for (int radek = 0; radek < hristeZapasy.Count + 2; radek++)
             {
-                for (int sloupec = 0; sloupec < hlavicka.Length + pocetSetu + 1; sloupec++)
+                for (int sloupec = 0; sloupec < hlavicka.Length + PocetSetu + 1; sloupec++)
                 {
                     Row row = new Row { RowIndex = (UInt32)(radek + 1) };
                     Cell cell;
@@ -388,7 +387,7 @@ namespace RozpisZapasu
                         cell.DataType = CellValues.String;
                         cell.StyleIndex = 2;
                         //sloučení buňek
-                        mergeCell.Reference = new StringValue(SloupecNaZnak(1) + (radek + 1) + ":" + SloupecNaZnak(hlavicka.Length + pocetSetu + 1) + (radek + 1));
+                        mergeCell.Reference = new StringValue(SloupecNaZnak(1) + (radek + 1) + ":" + SloupecNaZnak(hlavicka.Length + PocetSetu + 1) + (radek + 1));
                         row.Append(cell);
                     }
                     //vyplnění hlavičky
@@ -403,7 +402,7 @@ namespace RozpisZapasu
                             cell.StyleIndex = 2;
                             row.Append(cell);
                         }
-                        else if (sloupec >= hlavicka.Length && sloupec < hlavicka.Length + pocetSetu)
+                        else if (sloupec >= hlavicka.Length && sloupec < hlavicka.Length + PocetSetu)
                         {
                             cell = new Cell();
                             cell.CellValue = new CellValue(" .set");
@@ -412,7 +411,7 @@ namespace RozpisZapasu
                             cell.StyleIndex = 2;
                             row.Append(cell);
                         }
-                        else if (sloupec >= hlavicka.Length + pocetSetu)
+                        else if (sloupec >= hlavicka.Length + PocetSetu)
                         {
                             cell = new Cell();
                             cell.CellValue = new CellValue("Počet míčů");
@@ -433,14 +432,14 @@ namespace RozpisZapasu
                         row.Append(cell);
 
                         cell = new Cell();
-                        cell.CellValue = new CellValue(hristeZapasy[radek - 2].Item2);
+                        cell.CellValue = new CellValue(hristeZapasy[radek - 2].Item1);
                         cell.CellReference = SloupecNaZnak(2) + (radek + 1).ToString();
                         cell.DataType = CellValues.String;
                         cell.StyleIndex = 1;
                         row.Append(cell);
 
                         cell = new Cell();
-                        cell.CellValue = new CellValue(hristeZapasy[radek - 2].Item3);
+                        cell.CellValue = new CellValue(hristeZapasy[radek - 2].Item2);
                         cell.CellReference = SloupecNaZnak(3) + (radek + 1).ToString();
                         cell.DataType = CellValues.String;
                         cell.StyleIndex = 1;
@@ -577,17 +576,15 @@ namespace RozpisZapasu
         /// <param name="kolekce">vstupní kolekce</param>
         /// <param name="volbaPoradi">volba pořadí položky v kolekci</param>
         /// <returns>vrací písmeno odpovídající číslu sloupce</returns>
-        private static int NejdelsiRetezec(List<(int, string, string)> kolekce, int volbaPoradi)
+        private static int NejdelsiRetezec(List<(string, string)> kolekce, int volbaPoradi)
         {
             List<string> pole = new List<string>();
             for (int i = 0; i < kolekce.Count; i++)
             {
                 if (volbaPoradi == 1)
-                    pole.Add(kolekce[i].Item1.ToString());
+                    pole.Add(kolekce[i].Item1);
                 else if (volbaPoradi == 2)
-                    pole.Add(kolekce[i].Item2);
-                else if (volbaPoradi == 3)
-                    pole.Add(kolekce[i].Item3);
+                    pole.Add(kolekce[i].Item2); 
             }
             return pole.Max(polozka => polozka.Length);
         }
@@ -621,16 +618,16 @@ namespace RozpisZapasu
             return list;
         }
 
-        private static List<(int, string, string)> ListZapasuSkupin(List<(int, string, string)> skupinyZapasy, string skupina)
+        private static List<(string, string)> ListZapasuSkupin(List<(string, string)> skupinyZapasy, string skupina)
         {
-            List<(int, string, string)> listZapasuSkupin = new List<(int, string, string)>();
+            List<(string, string)> listZapasuSkupin = new List<(string, string)>();
 
             //zápasy vybrané skupiny
             for (int i = 0; i < skupinyZapasy.Count; i++)
             {
-                if (skupinyZapasy[i].Item3.Contains(skupina))
+                if (skupinyZapasy[i].Item2.Contains(skupina))
                 {
-                    listZapasuSkupin.Add((i + 1, skupinyZapasy[i].Item2, skupinyZapasy[i].Item3));
+                    listZapasuSkupin.Add((skupinyZapasy[i].Item1, skupinyZapasy[i].Item2));
                 }
             }
 

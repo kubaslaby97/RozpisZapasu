@@ -42,7 +42,10 @@ namespace RozpisZapasu
             this.btnBarvaZapasu = new System.Windows.Forms.Button();
             this.picBarvaZapasu = new System.Windows.Forms.PictureBox();
             this.lblUkazka = new System.Windows.Forms.Label();
+            this.lblPocetSetu = new System.Windows.Forms.Label();
+            this.numPocetSetu = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.picBarvaZapasu)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numPocetSetu)).BeginInit();
             this.SuspendLayout();
             // 
             // clbTymy
@@ -87,7 +90,7 @@ namespace RozpisZapasu
             // btnOK
             // 
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOK.Location = new System.Drawing.Point(221, 270);
+            this.btnOK.Location = new System.Drawing.Point(224, 282);
             this.btnOK.Margin = new System.Windows.Forms.Padding(2);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(80, 25);
@@ -99,7 +102,7 @@ namespace RozpisZapasu
             // btnStorno
             // 
             this.btnStorno.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnStorno.Location = new System.Drawing.Point(305, 270);
+            this.btnStorno.Location = new System.Drawing.Point(308, 282);
             this.btnStorno.Margin = new System.Windows.Forms.Padding(2);
             this.btnStorno.Name = "btnStorno";
             this.btnStorno.Size = new System.Drawing.Size(80, 25);
@@ -114,7 +117,7 @@ namespace RozpisZapasu
             this.clbHriste.Location = new System.Drawing.Point(11, 168);
             this.clbHriste.Margin = new System.Windows.Forms.Padding(2);
             this.clbHriste.Name = "clbHriste";
-            this.clbHriste.Size = new System.Drawing.Size(183, 124);
+            this.clbHriste.Size = new System.Drawing.Size(183, 139);
             this.clbHriste.TabIndex = 8;
             // 
             // clbSkupiny
@@ -129,7 +132,7 @@ namespace RozpisZapasu
             // lblBarvaPozadi
             // 
             this.lblBarvaPozadi.AutoSize = true;
-            this.lblBarvaPozadi.Location = new System.Drawing.Point(217, 196);
+            this.lblBarvaPozadi.Location = new System.Drawing.Point(210, 219);
             this.lblBarvaPozadi.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblBarvaPozadi.Name = "lblBarvaPozadi";
             this.lblBarvaPozadi.Size = new System.Drawing.Size(166, 13);
@@ -138,7 +141,7 @@ namespace RozpisZapasu
             // 
             // btnBarvaZapasu
             // 
-            this.btnBarvaZapasu.Location = new System.Drawing.Point(291, 212);
+            this.btnBarvaZapasu.Location = new System.Drawing.Point(284, 235);
             this.btnBarvaZapasu.Margin = new System.Windows.Forms.Padding(2);
             this.btnBarvaZapasu.Name = "btnBarvaZapasu";
             this.btnBarvaZapasu.Size = new System.Drawing.Size(74, 24);
@@ -149,7 +152,7 @@ namespace RozpisZapasu
             // 
             // picBarvaZapasu
             // 
-            this.picBarvaZapasu.Location = new System.Drawing.Point(219, 212);
+            this.picBarvaZapasu.Location = new System.Drawing.Point(212, 235);
             this.picBarvaZapasu.Margin = new System.Windows.Forms.Padding(2);
             this.picBarvaZapasu.Name = "picBarvaZapasu";
             this.picBarvaZapasu.Size = new System.Drawing.Size(68, 24);
@@ -159,17 +162,50 @@ namespace RozpisZapasu
             // lblUkazka
             // 
             this.lblUkazka.AutoSize = true;
-            this.lblUkazka.Location = new System.Drawing.Point(226, 218);
+            this.lblUkazka.Location = new System.Drawing.Point(220, 241);
             this.lblUkazka.Name = "lblUkazka";
             this.lblUkazka.Size = new System.Drawing.Size(44, 13);
             this.lblUkazka.TabIndex = 13;
             this.lblUkazka.Text = "Ukázka";
             // 
+            // lblPocetSetu
+            // 
+            this.lblPocetSetu.AutoSize = true;
+            this.lblPocetSetu.Location = new System.Drawing.Point(210, 168);
+            this.lblPocetSetu.Name = "lblPocetSetu";
+            this.lblPocetSetu.Size = new System.Drawing.Size(61, 13);
+            this.lblPocetSetu.TabIndex = 14;
+            this.lblPocetSetu.Text = "Počet setů:";
+            // 
+            // numPocetSetu
+            // 
+            this.numPocetSetu.Location = new System.Drawing.Point(212, 184);
+            this.numPocetSetu.Maximum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.numPocetSetu.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numPocetSetu.Name = "numPocetSetu";
+            this.numPocetSetu.Size = new System.Drawing.Size(145, 20);
+            this.numPocetSetu.TabIndex = 15;
+            this.numPocetSetu.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
             // frmTurnaj
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(396, 306);
+            this.ClientSize = new System.Drawing.Size(396, 322);
+            this.Controls.Add(this.numPocetSetu);
+            this.Controls.Add(this.lblPocetSetu);
             this.Controls.Add(this.lblUkazka);
             this.Controls.Add(this.picBarvaZapasu);
             this.Controls.Add(this.btnBarvaZapasu);
@@ -194,6 +230,7 @@ namespace RozpisZapasu
             this.Text = "Parametry turnaje";
             this.Load += new System.EventHandler(this.frmTurnaj_Load);
             ((System.ComponentModel.ISupportInitialize)(this.picBarvaZapasu)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numPocetSetu)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -213,5 +250,7 @@ namespace RozpisZapasu
         private System.Windows.Forms.Button btnBarvaZapasu;
         private System.Windows.Forms.PictureBox picBarvaZapasu;
         private System.Windows.Forms.Label lblUkazka;
+        private System.Windows.Forms.Label lblPocetSetu;
+        private System.Windows.Forms.NumericUpDown numPocetSetu;
     }
 }

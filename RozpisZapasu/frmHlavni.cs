@@ -55,7 +55,7 @@ namespace RozpisZapasu
                             if (sfd.FilterIndex == 1)
                             {
                                 //ověření existence šablony
-                                if (File.Exists("sablona.xltx"))
+                                if (File.Exists("sablonyExcel\\sablona.xltx"))
                                     Export.UlozitExcel(sfd.FileName, false, skupinyTymy, hristeZapasy, skupinyZapasy);
                                 else
                                     MessageBox.Show("Nebyla nalezena šablona ve formátu MS Excel", "Chyba při exportu", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -63,7 +63,7 @@ namespace RozpisZapasu
                             else if (sfd.FilterIndex == 2)
                             {
                                 //ověření existence šablony
-                                if (File.Exists("sablona.xltm"))
+                                if (File.Exists("sablonyExcel\\sablona.xltm"))
                                     Export.UlozitExcel(sfd.FileName, true, skupinyTymy, hristeZapasy, skupinyZapasy);
                                 else
                                     MessageBox.Show("Nebyla nalezena šablona ve formátu MS Excel s podporou maker", "Chyba při exportu", MessageBoxButtons.OK, MessageBoxIcon.Error);

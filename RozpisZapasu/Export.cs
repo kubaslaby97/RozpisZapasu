@@ -360,6 +360,10 @@ namespace RozpisZapasu
         private static void ZapasyHriste(WorksheetPart wsPart, List<(string, string)> hristeZapasy)
         {
             string[] hlavicka = new string[] { "Kolo", "Zápas", "Hřiště", "Skóre" };
+            //pole setů
+            string[] sety = new string[PocetSetu];
+            for (int i = 0; i < sety.Length; i++)
+                sety[i] = i + 1 + ". set";
 
             Worksheet ws = wsPart.Worksheet;
             SheetData sd = ws.GetFirstChild<SheetData>();
@@ -405,7 +409,7 @@ namespace RozpisZapasu
                         else if (sloupec >= hlavicka.Length && sloupec < hlavicka.Length + PocetSetu)
                         {
                             cell = new Cell();
-                            cell.CellValue = new CellValue(" .set");
+                            cell.CellValue = new CellValue(sety[sloupec - hlavicka.Length]);
                             cell.CellReference = SloupecNaZnak(sloupec + 1) + (radek + 1).ToString();
                             cell.DataType = CellValues.String;
                             cell.StyleIndex = 2;

@@ -12,7 +12,7 @@ namespace RozpisZapasu
 {
     public static class Export
     {
-        public static int PocetSetu { get; set; }
+        public static int VitezneSety { get; set; }
         /// <summary>
         /// Export dokumentu ve formátu MS Excel
         /// </summary>
@@ -361,7 +361,7 @@ namespace RozpisZapasu
         {
             string[] hlavicka = new string[] { "Kolo", "Zápas", "Hřiště", "Skóre" };
             //pole setů
-            string[] sety = new string[PocetSetu];
+            string[] sety = new string[(VitezneSety * 2) - 1];
             for (int i = 0; i < sety.Length; i++)
                 sety[i] = i + 1 + ". set";
 
@@ -379,7 +379,7 @@ namespace RozpisZapasu
 
             for (int radek = 0; radek < hristeZapasy.Count + 2; radek++)
             {
-                for (int sloupec = 0; sloupec < hlavicka.Length + PocetSetu + 1; sloupec++)
+                for (int sloupec = 0; sloupec < hlavicka.Length + sety.Length + 1; sloupec++)
                 {
                     Row row = new Row { RowIndex = (UInt32)(radek + 1) };
                     Cell cell;
@@ -391,7 +391,7 @@ namespace RozpisZapasu
                         cell.DataType = CellValues.String;
                         cell.StyleIndex = 2;
                         //sloučení buňek
-                        mergeCell.Reference = new StringValue(SloupecNaZnak(1) + (radek + 1) + ":" + SloupecNaZnak(hlavicka.Length + PocetSetu + 1) + (radek + 1));
+                        mergeCell.Reference = new StringValue(SloupecNaZnak(1) + (radek + 1) + ":" + SloupecNaZnak(hlavicka.Length + sety.Length + 1) + (radek + 1));
                         row.Append(cell);
                     }
                     //vyplnění hlavičky
@@ -406,7 +406,7 @@ namespace RozpisZapasu
                             cell.StyleIndex = 2;
                             row.Append(cell);
                         }
-                        else if (sloupec >= hlavicka.Length && sloupec < hlavicka.Length + PocetSetu)
+                        else if (sloupec >= hlavicka.Length && sloupec < hlavicka.Length + sety.Length)
                         {
                             cell = new Cell();
                             cell.CellValue = new CellValue(sety[sloupec - hlavicka.Length]);
@@ -415,7 +415,7 @@ namespace RozpisZapasu
                             cell.StyleIndex = 2;
                             row.Append(cell);
                         }
-                        else if (sloupec >= hlavicka.Length + PocetSetu)
+                        else if (sloupec >= hlavicka.Length + sety.Length)
                         {
                             cell = new Cell();
                             cell.CellValue = new CellValue("Počet míčů");
@@ -454,6 +454,7 @@ namespace RozpisZapasu
                         {
                             cell = new Cell();
                             cell.CellReference = SloupecNaZnak(sloupec + 1) + (radek + 1).ToString();
+                            cell.DataType = CellValues.String;
                             cell.StyleIndex = 1;
                             row.Append(cell);
                         }

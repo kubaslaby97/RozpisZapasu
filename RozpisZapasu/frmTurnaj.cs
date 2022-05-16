@@ -76,7 +76,7 @@ namespace RozpisZapasu
             }
 
             //uložení počtu setů
-            Export.PocetSetu = Convert.ToInt32(numPocetSetu.Value);
+            Export.VitezneSety = Convert.ToInt32(numVitezneSety.Value);
 
             //zavření okna
             this.Close();

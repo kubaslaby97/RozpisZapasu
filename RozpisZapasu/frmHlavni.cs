@@ -121,18 +121,16 @@ namespace RozpisZapasu
                 {
                     using (frmTurnaj form = new frmTurnaj())
                     {
+                        if (form.ShowDialog() == DialogResult.OK)
                         {
-                            if (form.ShowDialog() == DialogResult.OK)
-                            {
-                                hristeZapasy = ZpracovaniTurnaje.VyslednyRozpis(1, ZpracovaniPrehledu.VybraneTymy, ZpracovaniPrehledu.VybranaHriste, ZpracovaniPrehledu.VybraneSkupiny);
-                                skupinyZapasy = ZpracovaniTurnaje.VyslednyRozpis(2, ZpracovaniPrehledu.VybraneTymy, ZpracovaniPrehledu.VybranaHriste, ZpracovaniPrehledu.VybraneSkupiny);
+                            hristeZapasy = ZpracovaniTurnaje.VyslednyRozpis(1, ZpracovaniPrehledu.VybraneTymy, ZpracovaniPrehledu.VybranaHriste, ZpracovaniPrehledu.VybraneSkupiny);
+                            skupinyZapasy = ZpracovaniTurnaje.VyslednyRozpis(2, ZpracovaniPrehledu.VybraneTymy, ZpracovaniPrehledu.VybranaHriste, ZpracovaniPrehledu.VybraneSkupiny);
 
-                                ZpracovaniPrehledu.ZobrazitZapasy(hristeZapasy, lsvZapasyHriste);
-                                ZpracovaniPrehledu.ZobrazitZapasy(skupinyZapasy,  lsvZapasySkupina);
+                            ZpracovaniPrehledu.ZobrazitZapasy(hristeZapasy, lsvZapasyHriste);
+                            ZpracovaniPrehledu.ZobrazitZapasy(skupinyZapasy, lsvZapasySkupina);
 
-                                skupinyTymy = ZpracovaniTurnaje.TymyVeSkupine(ZpracovaniPrehledu.VybraneTymy, ZpracovaniPrehledu.VybraneSkupiny);
-                                ZpracovaniPrehledu.ZobrazitSkupiny(skupinyTymy, lsvSkupinyTymy);
-                            }
+                            skupinyTymy = ZpracovaniTurnaje.TymyVeSkupine(ZpracovaniPrehledu.VybraneTymy, ZpracovaniPrehledu.VybraneSkupiny);
+                            ZpracovaniPrehledu.ZobrazitSkupiny(skupinyTymy, lsvSkupinyTymy);
                         }
                     }
                 }

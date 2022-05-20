@@ -98,5 +98,24 @@ namespace RozpisZapasu
                 lblUkazka.BackColor = ZpracovaniPrehledu.Barva;
             }
         }
+
+        private void btnNaplnitSkupiny_Click(object sender, EventArgs e)
+        {
+            using (frmNaplneniSkupin form = new frmNaplneniSkupin())
+            {
+                if (form.ShowDialog() == DialogResult.OK)
+                { 
+                    //TODO: uložení seznamu skupin a týmů v nich obsažených
+                }
+            }
+        }
+
+        private void rbRucne_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbAutomaticky.Checked == true)
+                btnNaplnitSkupiny.Enabled = false;
+            else
+                btnNaplnitSkupiny.Enabled = true;
+        }
     }
 }

@@ -118,6 +118,13 @@ namespace RozpisZapasu
             return list;
         }
 
+        private static List<(string, string)> NaplneniSkupin(List<string> tymy, List<string> skupiny)
+        {
+            List<(string, string)> list = new List<(string, string)>();
+
+            return list;
+        }
+
         /// <summary>
         /// Výsledná metoda pro vytvoření časového rozpisu
         /// </summary>

@@ -17,6 +17,7 @@ namespace RozpisZapasu
         public static List<string> VybranaHriste { get; set; }
         public static List<string> SeznamSkupin { get; set; }
         public static List<string> VybraneSkupiny { get; set; }
+        public static List<(string,string)> SkupinyTymy { get; set; }
 
         /// <summary>
         /// Rozřazené zápasy vloží do ListView pro případnou kontrolu před exportem do Excelu
@@ -53,16 +54,16 @@ namespace RozpisZapasu
         /// </summary>
         /// <param name="list">vstupní seznam týmů ve skupinách</param>
         /// <param name="listView">zobrazení skupin a jejich členů</param>
-        public static void ZobrazitSkupiny(List<(string, string)> list, ListView listView)
+        public static void ZobrazitSkupiny(ListView listView)
         {
             listView.Items.Clear();
 
-            for (int i = 0; i < list.Count; i++)
+            for (int i = 0; i < SkupinyTymy.Count; i++)
             {
                 ListViewItem lvi;
 
-                lvi = new ListViewItem(list[i].Item1); //tým
-                lvi.SubItems.Add(list[i].Item2); //skupina
+                lvi = new ListViewItem(SkupinyTymy[i].Item1); //tým
+                lvi.SubItems.Add(SkupinyTymy[i].Item2); //skupina
 
                 listView.Items.Add(lvi);
             }

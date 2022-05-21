@@ -56,7 +56,7 @@ namespace RozpisZapasu
                             {
                                 //ověření existence šablony
                                 if (File.Exists("sablonyExcel\\sablona.xltx"))
-                                    Export.UlozitExcel(sfd.FileName, false, skupinyTymy, hristeZapasy, skupinyZapasy);
+                                    Export.UlozitExcel(sfd.FileName, false, ZpracovaniPrehledu.SkupinyTymy, hristeZapasy, skupinyZapasy);
                                 else
                                     MessageBox.Show("Nebyla nalezena šablona ve formátu MS Excel", "Chyba při exportu", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
@@ -64,7 +64,7 @@ namespace RozpisZapasu
                             {
                                 //ověření existence šablony
                                 if (File.Exists("sablonyExcel\\sablona.xltm"))
-                                    Export.UlozitExcel(sfd.FileName, true, skupinyTymy, hristeZapasy, skupinyZapasy);
+                                    Export.UlozitExcel(sfd.FileName, true, ZpracovaniPrehledu.SkupinyTymy, hristeZapasy, skupinyZapasy);
                                 else
                                     MessageBox.Show("Nebyla nalezena šablona ve formátu MS Excel s podporou maker", "Chyba při exportu", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
@@ -129,8 +129,8 @@ namespace RozpisZapasu
                             ZpracovaniPrehledu.ZobrazitZapasy(hristeZapasy, lsvZapasyHriste);
                             ZpracovaniPrehledu.ZobrazitZapasy(skupinyZapasy, lsvZapasySkupina);
 
-                            skupinyTymy = ZpracovaniTurnaje.TymyVeSkupine(ZpracovaniPrehledu.VybraneTymy, ZpracovaniPrehledu.VybraneSkupiny);
-                            ZpracovaniPrehledu.ZobrazitSkupiny(skupinyTymy, lsvSkupinyTymy);
+                            ZpracovaniPrehledu.SkupinyTymy = ZpracovaniTurnaje.TymyVeSkupine(ZpracovaniPrehledu.VybraneTymy, ZpracovaniPrehledu.VybraneSkupiny);
+                            ZpracovaniPrehledu.ZobrazitSkupiny(lsvSkupinyTymy);
                         }
                     }
                 }

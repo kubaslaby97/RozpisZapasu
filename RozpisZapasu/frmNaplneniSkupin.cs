@@ -20,12 +20,12 @@ namespace RozpisZapasu
 
         private void frmNaplneniSkupin_Load(object sender, EventArgs e)
         {
-            for (int i = 0; i < ZpracovaniPrehledu.SeznamTymu.Count; i++)
+            for (int i = 0; i < ZpracovaniPrehledu.VybraneTymy.Count; i++)
             {
-                clbTymy.Items.Add(ZpracovaniPrehledu.SeznamTymu[i].Item1);
+                clbTymy.Items.Add(ZpracovaniPrehledu.VybraneTymy[i].Item1);
             }
 
-            cmbSkupina.DataSource = ZpracovaniPrehledu.SeznamSkupin;
+            cmbSkupina.DataSource = ZpracovaniPrehledu.VybraneSkupiny;
         }
 
         private void btnUlozitSkupinu_Click(object sender, EventArgs e)

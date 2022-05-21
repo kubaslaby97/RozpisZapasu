@@ -78,8 +78,24 @@ namespace RozpisZapasu
             //uložení počtu setů
             Export.VitezneSety = Convert.ToInt32(numVitezneSety.Value);
 
-            //zavření okna
-            this.Close();
+            if (rbAutomaticky.Checked == true)
+            {
+                //zavření okna
+                this.Close();
+            }
+            else
+            {
+                using (frmNaplneniSkupin form = new frmNaplneniSkupin())
+                {
+                    if (form.ShowDialog() == DialogResult.OK)
+                    {
+                        //TODO: uložení seznamu skupin a týmů v nich obsažených
+                    }
+                }
+
+                //zavření okna
+                this.Close();
+            }
         }
 
         private void btnStorno_Click(object sender, EventArgs e)
@@ -97,25 +113,6 @@ namespace RozpisZapasu
                 picBarvaZapasu.BackColor = ZpracovaniPrehledu.Barva;
                 lblUkazka.BackColor = ZpracovaniPrehledu.Barva;
             }
-        }
-
-        private void btnNaplnitSkupiny_Click(object sender, EventArgs e)
-        {
-            using (frmNaplneniSkupin form = new frmNaplneniSkupin())
-            {
-                if (form.ShowDialog() == DialogResult.OK)
-                { 
-                    //TODO: uložení seznamu skupin a týmů v nich obsažených
-                }
-            }
-        }
-
-        private void rbRucne_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rbAutomaticky.Checked == true)
-                btnNaplnitSkupiny.Enabled = false;
-            else
-                btnNaplnitSkupiny.Enabled = true;
         }
     }
 }

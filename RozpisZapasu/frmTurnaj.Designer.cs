@@ -45,7 +45,6 @@ namespace RozpisZapasu
             this.lblVitezneSety = new System.Windows.Forms.Label();
             this.numVitezneSety = new System.Windows.Forms.NumericUpDown();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btnNaplnitSkupiny = new System.Windows.Forms.Button();
             this.rbAutomaticky = new System.Windows.Forms.RadioButton();
             this.rbRucne = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.picBarvaZapasu)).BeginInit();
@@ -95,7 +94,7 @@ namespace RozpisZapasu
             // btnOK
             // 
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOK.Location = new System.Drawing.Point(300, 365);
+            this.btnOK.Location = new System.Drawing.Point(300, 350);
             this.btnOK.Margin = new System.Windows.Forms.Padding(2);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(80, 25);
@@ -107,7 +106,7 @@ namespace RozpisZapasu
             // btnStorno
             // 
             this.btnStorno.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnStorno.Location = new System.Drawing.Point(384, 365);
+            this.btnStorno.Location = new System.Drawing.Point(384, 350);
             this.btnStorno.Margin = new System.Windows.Forms.Padding(2);
             this.btnStorno.Name = "btnStorno";
             this.btnStorno.Size = new System.Drawing.Size(80, 25);
@@ -122,7 +121,7 @@ namespace RozpisZapasu
             this.clbHriste.Location = new System.Drawing.Point(11, 172);
             this.clbHriste.Margin = new System.Windows.Forms.Padding(2);
             this.clbHriste.Name = "clbHriste";
-            this.clbHriste.Size = new System.Drawing.Size(223, 139);
+            this.clbHriste.Size = new System.Drawing.Size(223, 199);
             this.clbHriste.TabIndex = 8;
             // 
             // clbSkupiny
@@ -131,13 +130,13 @@ namespace RozpisZapasu
             this.clbSkupiny.Location = new System.Drawing.Point(250, 23);
             this.clbSkupiny.Margin = new System.Windows.Forms.Padding(2);
             this.clbSkupiny.Name = "clbSkupiny";
-            this.clbSkupiny.Size = new System.Drawing.Size(214, 199);
+            this.clbSkupiny.Size = new System.Drawing.Size(214, 124);
             this.clbSkupiny.TabIndex = 9;
             // 
             // lblBarvaPozadi
             // 
             this.lblBarvaPozadi.AutoSize = true;
-            this.lblBarvaPozadi.Location = new System.Drawing.Point(276, 297);
+            this.lblBarvaPozadi.Location = new System.Drawing.Point(269, 222);
             this.lblBarvaPozadi.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblBarvaPozadi.Name = "lblBarvaPozadi";
             this.lblBarvaPozadi.Size = new System.Drawing.Size(166, 13);
@@ -146,7 +145,7 @@ namespace RozpisZapasu
             // 
             // btnBarvaZapasu
             // 
-            this.btnBarvaZapasu.Location = new System.Drawing.Point(350, 313);
+            this.btnBarvaZapasu.Location = new System.Drawing.Point(343, 238);
             this.btnBarvaZapasu.Margin = new System.Windows.Forms.Padding(2);
             this.btnBarvaZapasu.Name = "btnBarvaZapasu";
             this.btnBarvaZapasu.Size = new System.Drawing.Size(74, 24);
@@ -157,7 +156,7 @@ namespace RozpisZapasu
             // 
             // picBarvaZapasu
             // 
-            this.picBarvaZapasu.Location = new System.Drawing.Point(278, 313);
+            this.picBarvaZapasu.Location = new System.Drawing.Point(271, 238);
             this.picBarvaZapasu.Margin = new System.Windows.Forms.Padding(2);
             this.picBarvaZapasu.Name = "picBarvaZapasu";
             this.picBarvaZapasu.Size = new System.Drawing.Size(68, 24);
@@ -167,7 +166,7 @@ namespace RozpisZapasu
             // lblUkazka
             // 
             this.lblUkazka.AutoSize = true;
-            this.lblUkazka.Location = new System.Drawing.Point(286, 319);
+            this.lblUkazka.Location = new System.Drawing.Point(279, 244);
             this.lblUkazka.Name = "lblUkazka";
             this.lblUkazka.Size = new System.Drawing.Size(44, 13);
             this.lblUkazka.TabIndex = 13;
@@ -176,7 +175,7 @@ namespace RozpisZapasu
             // lblVitezneSety
             // 
             this.lblVitezneSety.AutoSize = true;
-            this.lblVitezneSety.Location = new System.Drawing.Point(276, 247);
+            this.lblVitezneSety.Location = new System.Drawing.Point(269, 172);
             this.lblVitezneSety.Name = "lblVitezneSety";
             this.lblVitezneSety.Size = new System.Drawing.Size(111, 13);
             this.lblVitezneSety.TabIndex = 14;
@@ -184,7 +183,7 @@ namespace RozpisZapasu
             // 
             // numVitezneSety
             // 
-            this.numVitezneSety.Location = new System.Drawing.Point(278, 263);
+            this.numVitezneSety.Location = new System.Drawing.Point(271, 188);
             this.numVitezneSety.Maximum = new decimal(new int[] {
             4,
             0,
@@ -206,32 +205,20 @@ namespace RozpisZapasu
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.btnNaplnitSkupiny);
             this.groupBox1.Controls.Add(this.rbAutomaticky);
             this.groupBox1.Controls.Add(this.rbRucne);
-            this.groupBox1.Location = new System.Drawing.Point(12, 319);
+            this.groupBox1.Location = new System.Drawing.Point(260, 276);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(222, 70);
+            this.groupBox1.Size = new System.Drawing.Size(184, 45);
             this.groupBox1.TabIndex = 16;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Způsob naplnění skupin";
-            // 
-            // btnNaplnitSkupiny
-            // 
-            this.btnNaplnitSkupiny.Enabled = false;
-            this.btnNaplnitSkupiny.Location = new System.Drawing.Point(109, 30);
-            this.btnNaplnitSkupiny.Name = "btnNaplnitSkupiny";
-            this.btnNaplnitSkupiny.Size = new System.Drawing.Size(92, 29);
-            this.btnNaplnitSkupiny.TabIndex = 2;
-            this.btnNaplnitSkupiny.Text = "Naplnit skupiny";
-            this.btnNaplnitSkupiny.UseVisualStyleBackColor = true;
-            this.btnNaplnitSkupiny.Click += new System.EventHandler(this.btnNaplnitSkupiny_Click);
             // 
             // rbAutomaticky
             // 
             this.rbAutomaticky.AutoSize = true;
             this.rbAutomaticky.Checked = true;
-            this.rbAutomaticky.Location = new System.Drawing.Point(10, 42);
+            this.rbAutomaticky.Location = new System.Drawing.Point(92, 19);
             this.rbAutomaticky.Name = "rbAutomaticky";
             this.rbAutomaticky.Size = new System.Drawing.Size(83, 17);
             this.rbAutomaticky.TabIndex = 1;
@@ -248,13 +235,12 @@ namespace RozpisZapasu
             this.rbRucne.TabIndex = 0;
             this.rbRucne.Text = "Ručně";
             this.rbRucne.UseVisualStyleBackColor = true;
-            this.rbRucne.CheckedChanged += new System.EventHandler(this.rbRucne_CheckedChanged);
             // 
             // frmTurnaj
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(475, 401);
+            this.ClientSize = new System.Drawing.Size(475, 386);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.numVitezneSety);
             this.Controls.Add(this.lblVitezneSety);
@@ -307,7 +293,6 @@ namespace RozpisZapasu
         private System.Windows.Forms.Label lblVitezneSety;
         private System.Windows.Forms.NumericUpDown numVitezneSety;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button btnNaplnitSkupiny;
         private System.Windows.Forms.RadioButton rbAutomaticky;
         private System.Windows.Forms.RadioButton rbRucne;
     }

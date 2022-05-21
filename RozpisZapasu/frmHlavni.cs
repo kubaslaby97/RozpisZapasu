@@ -129,7 +129,10 @@ namespace RozpisZapasu
                             ZpracovaniPrehledu.ZobrazitZapasy(hristeZapasy, lsvZapasyHriste);
                             ZpracovaniPrehledu.ZobrazitZapasy(skupinyZapasy, lsvZapasySkupina);
 
-                            ZpracovaniPrehledu.SkupinyTymy = ZpracovaniTurnaje.TymyVeSkupine(ZpracovaniPrehledu.VybraneTymy, ZpracovaniPrehledu.VybraneSkupiny);
+                            //pokud bylo vybráno automatické přiřazování týmů do skupin
+                            if(ZpracovaniPrehledu.ZpusobNaplneni=="Automaticky")
+                                ZpracovaniPrehledu.SkupinyTymy = ZpracovaniTurnaje.TymyVeSkupine(ZpracovaniPrehledu.VybraneTymy, ZpracovaniPrehledu.VybraneSkupiny);
+
                             ZpracovaniPrehledu.ZobrazitSkupiny(lsvSkupinyTymy);
                         }
                     }

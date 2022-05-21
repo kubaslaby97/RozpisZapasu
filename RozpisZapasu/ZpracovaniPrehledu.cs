@@ -18,6 +18,7 @@ namespace RozpisZapasu
         public static List<string> SeznamSkupin { get; set; }
         public static List<string> VybraneSkupiny { get; set; }
         public static List<(string,string)> SkupinyTymy { get; set; }
+        public static string ZpusobNaplneni { get; set; }
 
         /// <summary>
         /// Rozřazené zápasy vloží do ListView pro případnou kontrolu před exportem do Excelu

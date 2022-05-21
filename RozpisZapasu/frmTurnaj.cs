@@ -80,17 +80,18 @@ namespace RozpisZapasu
 
             if (rbAutomaticky.Checked == true)
             {
+                ZpracovaniPrehledu.ZpusobNaplneni = "Automaticky";
+
                 //zavření okna
                 this.Close();
             }
             else
             {
+                ZpracovaniPrehledu.ZpusobNaplneni = "Ručně";
+
                 using (frmNaplneniSkupin form = new frmNaplneniSkupin())
                 {
-                    if (form.ShowDialog() == DialogResult.OK)
-                    {
-                        //TODO: uložení seznamu skupin a týmů v nich obsažených
-                    }
+                    form.ShowDialog();
                 }
 
                 //zavření okna

@@ -91,7 +91,11 @@ namespace RozpisZapasu
 
                 using (frmNaplneniSkupin form = new frmNaplneniSkupin())
                 {
-                    form.ShowDialog();
+                    if (form.ShowDialog() == DialogResult.Cancel)
+                    {
+                        MessageBox.Show("Bude použit automatický způsob naplnění skupin", "Informace", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        ZpracovaniPrehledu.ZpusobNaplneni = "Automaticky";
+                    }
                 }
 
                 //zavření okna

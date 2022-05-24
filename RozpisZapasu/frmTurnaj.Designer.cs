@@ -156,6 +156,7 @@ namespace RozpisZapasu
             // 
             // picBarvaZapasu
             // 
+            this.picBarvaZapasu.BackColor = System.Drawing.Color.White;
             this.picBarvaZapasu.Location = new System.Drawing.Point(271, 238);
             this.picBarvaZapasu.Margin = new System.Windows.Forms.Padding(2);
             this.picBarvaZapasu.Name = "picBarvaZapasu";
@@ -166,6 +167,7 @@ namespace RozpisZapasu
             // lblUkazka
             // 
             this.lblUkazka.AutoSize = true;
+            this.lblUkazka.BackColor = System.Drawing.Color.White;
             this.lblUkazka.Location = new System.Drawing.Point(279, 244);
             this.lblUkazka.Name = "lblUkazka";
             this.lblUkazka.Size = new System.Drawing.Size(44, 13);

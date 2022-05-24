@@ -40,6 +40,7 @@ namespace RozpisZapasu
             // 
             // cmbSkupina
             // 
+            this.cmbSkupina.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbSkupina.FormattingEnabled = true;
             this.cmbSkupina.Location = new System.Drawing.Point(12, 25);
             this.cmbSkupina.Name = "cmbSkupina";
@@ -81,6 +82,7 @@ namespace RozpisZapasu
             this.btnOK.TabIndex = 4;
             this.btnOK.Text = "OK";
             this.btnOK.UseVisualStyleBackColor = true;
+            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
             // btnStorno
             // 
@@ -107,6 +109,7 @@ namespace RozpisZapasu
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(316, 381);
+            this.ControlBox = false;
             this.Controls.Add(this.btnUlozitSkupinu);
             this.Controls.Add(this.btnStorno);
             this.Controls.Add(this.btnOK);

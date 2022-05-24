@@ -23,7 +23,6 @@ namespace RozpisZapasu
         //deklarace seznamů
         List<(string, string)> hristeZapasy = new List<(string, string)>();
         List<(string, string)> skupinyZapasy = new List<(string, string)>();
-        List<(string, string)> skupinyTymy = new List<(string, string)>();
 
         public frmHlavni()
         {
@@ -130,8 +129,10 @@ namespace RozpisZapasu
                             ZpracovaniPrehledu.ZobrazitZapasy(skupinyZapasy, lsvZapasySkupina);
 
                             //pokud bylo vybráno automatické přiřazování týmů do skupin
-                            if(ZpracovaniPrehledu.ZpusobNaplneni=="Automaticky")
+                            if (ZpracovaniPrehledu.ZpusobNaplneni == "Automaticky")
+                            {
                                 ZpracovaniPrehledu.SkupinyTymy = ZpracovaniTurnaje.TymyVeSkupine(ZpracovaniPrehledu.VybraneTymy, ZpracovaniPrehledu.VybraneSkupiny);
+                            }
 
                             ZpracovaniPrehledu.ZobrazitSkupiny(lsvSkupinyTymy);
                         }

@@ -44,7 +44,7 @@ namespace RozpisZapasu
 
         private void btnUlozitSkupinu_Click(object sender, EventArgs e)
         {
-            if (cmbSkupina.Text == "")
+            if (cmbSkupina.Text == "" || cmbSkupina.Text == null)
             {
                 MessageBox.Show("Nebyla vybrána skupina k uložení", "Upozornění", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }

@@ -47,9 +47,11 @@ namespace RozpisZapasu
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.rbAutomaticky = new System.Windows.Forms.RadioButton();
             this.rbRucne = new System.Windows.Forms.RadioButton();
+            this.picInfo = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.picBarvaZapasu)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numVitezneSety)).BeginInit();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picInfo)).BeginInit();
             this.SuspendLayout();
             // 
             // clbTymy
@@ -238,11 +240,23 @@ namespace RozpisZapasu
             this.rbRucne.Text = "Ručně";
             this.rbRucne.UseVisualStyleBackColor = true;
             // 
+            // picInfo
+            // 
+            this.picInfo.Image = ((System.Drawing.Image)(resources.GetObject("picInfo.Image")));
+            this.picInfo.Location = new System.Drawing.Point(260, 350);
+            this.picInfo.Name = "picInfo";
+            this.picInfo.Size = new System.Drawing.Size(25, 25);
+            this.picInfo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picInfo.TabIndex = 17;
+            this.picInfo.TabStop = false;
+            this.picInfo.Click += new System.EventHandler(this.picInfo_Click);
+            // 
             // frmTurnaj
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(475, 386);
+            this.Controls.Add(this.picInfo);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.numVitezneSety);
             this.Controls.Add(this.lblVitezneSety);
@@ -273,6 +287,7 @@ namespace RozpisZapasu
             ((System.ComponentModel.ISupportInitialize)(this.numVitezneSety)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picInfo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -297,5 +312,6 @@ namespace RozpisZapasu
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RadioButton rbAutomaticky;
         private System.Windows.Forms.RadioButton rbRucne;
+        private System.Windows.Forms.PictureBox picInfo;
     }
 }

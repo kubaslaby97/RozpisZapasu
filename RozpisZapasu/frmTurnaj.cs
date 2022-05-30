@@ -121,5 +121,10 @@ namespace RozpisZapasu
                 lblUkazka.BackColor = ZpracovaniPrehledu.Barva;
             }
         }
+
+        private void picInfo_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Optimální rozdělení turnaje je:", "Nápověda k tvorbě turnaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
     }
 }

@@ -38,14 +38,12 @@ namespace RozpisZapasu
             this.colDomaci = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colHoste = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colHriste = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colKolo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnVytvoritTurnaj = new System.Windows.Forms.Button();
             this.btnUlozit = new System.Windows.Forms.Button();
             this.lsvZapasySkupina = new System.Windows.Forms.ListView();
             this.cmnDomaci = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.cmnHoste = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.cmnSkupina = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.cmnKolo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.lblKazdy = new System.Windows.Forms.Label();
             this.lblZapasySkupiny = new System.Windows.Forms.Label();
             this.lblSkupinyTymy = new System.Windows.Forms.Label();
@@ -125,8 +123,7 @@ namespace RozpisZapasu
             this.lsvZapasyHriste.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.colDomaci,
             this.colHoste,
-            this.colHriste,
-            this.colKolo});
+            this.colHriste});
             this.lsvZapasyHriste.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lsvZapasyHriste.HideSelection = false;
             this.lsvZapasyHriste.Location = new System.Drawing.Point(3, 19);
@@ -141,27 +138,18 @@ namespace RozpisZapasu
             // 
             // colDomaci
             // 
-            this.colDomaci.DisplayIndex = 1;
             this.colDomaci.Text = "Domácí";
             this.colDomaci.Width = 100;
             // 
             // colHoste
             // 
-            this.colHoste.DisplayIndex = 2;
             this.colHoste.Text = "Hosté";
             this.colHoste.Width = 90;
             // 
             // colHriste
             // 
-            this.colHriste.DisplayIndex = 3;
             this.colHriste.Text = "Hřiště";
             this.colHriste.Width = 100;
-            // 
-            // colKolo
-            // 
-            this.colKolo.DisplayIndex = 0;
-            this.colKolo.Text = "Kolo";
-            this.colKolo.Width = 40;
             // 
             // btnVytvoritTurnaj
             // 
@@ -191,8 +179,7 @@ namespace RozpisZapasu
             this.lsvZapasySkupina.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.cmnDomaci,
             this.cmnHoste,
-            this.cmnSkupina,
-            this.cmnKolo});
+            this.cmnSkupina});
             this.lsvZapasySkupina.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lsvZapasySkupina.HideSelection = false;
             this.lsvZapasySkupina.Location = new System.Drawing.Point(3, 19);
@@ -207,27 +194,18 @@ namespace RozpisZapasu
             // 
             // cmnDomaci
             // 
-            this.cmnDomaci.DisplayIndex = 1;
             this.cmnDomaci.Text = "Domácí";
             this.cmnDomaci.Width = 100;
             // 
             // cmnHoste
             // 
-            this.cmnHoste.DisplayIndex = 2;
             this.cmnHoste.Text = "Hosté";
             this.cmnHoste.Width = 90;
             // 
             // cmnSkupina
             // 
-            this.cmnSkupina.DisplayIndex = 3;
             this.cmnSkupina.Text = "Skupina";
             this.cmnSkupina.Width = 100;
-            // 
-            // cmnKolo
-            // 
-            this.cmnKolo.DisplayIndex = 0;
-            this.cmnKolo.Text = "Kolo";
-            this.cmnKolo.Width = 40;
             // 
             // lblKazdy
             // 
@@ -474,12 +452,10 @@ namespace RozpisZapasu
         private System.Windows.Forms.ColumnHeader colHriste;
         private System.Windows.Forms.Button btnVytvoritTurnaj;
         private System.Windows.Forms.Button btnUlozit;
-        private System.Windows.Forms.ColumnHeader colKolo;
         private System.Windows.Forms.ListView lsvZapasySkupina;
         private System.Windows.Forms.ColumnHeader cmnDomaci;
         private System.Windows.Forms.ColumnHeader cmnHoste;
         private System.Windows.Forms.ColumnHeader cmnSkupina;
-        private System.Windows.Forms.ColumnHeader cmnKolo;
         private System.Windows.Forms.Label lblKazdy;
         private System.Windows.Forms.Label lblZapasySkupiny;
         private System.Windows.Forms.Label lblSkupinyTymy;

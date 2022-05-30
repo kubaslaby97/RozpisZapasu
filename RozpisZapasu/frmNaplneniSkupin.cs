@@ -27,16 +27,10 @@ namespace RozpisZapasu
             ZpracovaniPrehledu.SkupinyTymy = new List<(string, string)>();
 
             //naplnění týmů
-            for (int i = 0; i < tymy.Count; i++)
-            {
-                clbTymy.Items.Add(tymy[i].Item1);
-            }
+            NaplneniTymu();
 
             //naplnění skupin
-            for (int i = 0; i < skupiny.Count; i++)
-            {
-                cmbSkupina.Items.Add(skupiny[i]);
-            }
+            NaplneniSkupin();
 
             //nastavení textu
             cmbSkupina.Text = skupiny[0];
@@ -56,11 +50,20 @@ namespace RozpisZapasu
                     {
                         //přidání skupiny včetně týmů
                         ZpracovaniPrehledu.SkupinyTymy.Add((clbTymy.Items[i].ToString(), cmbSkupina.Text));
+                        tymy.RemoveAt(i);
                     }
                 }
+                //naplnění týmů po odebrání použitých týmů
+                clbTymy.Items.Clear();
+                NaplneniTymu();
 
+                //informace o odebrání skupiny
                 MessageBox.Show("Skupina '" + cmbSkupina.Text + "' byla uložena", "Informace", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                cmbSkupina.Items.Remove(cmbSkupina.Text);
+                skupiny.RemoveAt(cmbSkupina.SelectedIndex);
+
+                //naplnění skupin po odebrání použité skupiny
+                cmbSkupina.Items.Clear();
+                NaplneniSkupin();
             }
         }
 
@@ -70,6 +73,22 @@ namespace RozpisZapasu
             if (clbTymy.Items.Count != 0 & cmbSkupina.Items.Count != 0)
             {
                 MessageBox.Show("Nebyly zařazeny všechny týmy do skupin", "Upozornění", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+
+        private void NaplneniTymu()
+        {
+            for (int i = 0; i < tymy.Count; i++)
+            {
+                clbTymy.Items.Add(tymy[i].Item1);
+            }
+        }
+
+        private void NaplneniSkupin()
+        {
+            for (int i = 0; i < skupiny.Count; i++)
+            {
+                cmbSkupina.Items.Add(skupiny[i]);
             }
         }
     }

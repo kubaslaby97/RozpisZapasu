@@ -23,6 +23,8 @@ namespace RozpisZapasu
             ZpracovaniPrehledu.VybranaHriste = new List<string>();
             ZpracovaniPrehledu.VybraneTymy = new List<(string, int, bool)>();
             ZpracovaniPrehledu.VybraneSkupiny = new List<string>();
+            //výchozí barva
+            ZpracovaniPrehledu.Barva = Color.White;
 
             for (int i = 0; i < ZpracovaniPrehledu.SeznamTymu.Count; i++)
             {

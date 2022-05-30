@@ -97,31 +97,78 @@ namespace RozpisZapasu
         /// <returns>Vrací Listy tymů v jednotlivých skupinách</returns>
         private static List<List<Tuple<string, bool>>> VytvoreniSkupin(List<(string, int, bool)> tymy, int pocetSkupin)
         {
+            if (ZpracovaniPrehledu.ZpusobNaplneni == "Automaticky")
+                tymy = tymy.OrderByDescending(t => t.Item2).ToList();
+
             List<List<Tuple<string, bool>>> list = new List<List<Tuple<string, bool>>>();
             for (int i = 0; i < pocetSkupin; i++)
             {
                 List<Tuple<string, bool>> skupina = new List<Tuple<string, bool>>();
                 list.Add(skupina);
             }
-            List<(string, string)> tymySkupiny = ZpracovaniPrehledu.SkupinyTymy;
-            List<string> skupiny = ZpracovaniPrehledu.VybraneSkupiny;
-            for (int i = 0; i < skupiny.Count(); i++)
+
+            if (ZpracovaniPrehledu.ZpusobNaplneni == "Ručně")
             {
-                for (int y = 0; y < tymySkupiny.Count(); y++)
+                List<(string, string)> tymySkupiny = ZpracovaniPrehledu.SkupinyTymy;
+                List<string> skupiny = ZpracovaniPrehledu.VybraneSkupiny;
+                for (int i = 0; i < skupiny.Count(); i++)
                 {
-                    if (tymySkupiny[y].Item2 == skupiny[i])
+                    for (int y = 0; y < tymySkupiny.Count(); y++)
                     {
-                        for (int a = 0; a < tymy.Count(); a++)
+                        if (tymySkupiny[y].Item2 == skupiny[i])
                         {
-                            if (tymySkupiny[y].Item1 == tymy[a].Item1)
-                                list[i].Add(Tuple.Create(tymySkupiny[y].Item1, tymy[a].Item3));
+                            for (int a = 0; a < tymy.Count(); a++)
+                            {
+                                if (tymySkupiny[y].Item1 == tymy[a].Item1)
+                                    list[i].Add(Tuple.Create(tymySkupiny[y].Item1, tymy[a].Item3));
+                            }
                         }
                     }
+                }
+            }
+            else if (ZpracovaniPrehledu.ZpusobNaplneni == "Automaticky")
+            {
+                int x = 0;
+                for (int i = 0; i < tymy.Count(); i++)
+                {
+                    list[x].Add(Tuple.Create(tymy[i].Item1, tymy[i].Item3));
+                    x++;
+                    if (x == pocetSkupin)
+                        x = 0;
                 }
             }
 
             return list;
         }
+
+        /// <summary>
+        /// Metoda vytvoří Listy pro jednotlivé skupiny.
+        /// </summary>
+        /// <param name="tymy">vstupní seznam týmů</param>
+        /// <param name="pocetSkupin">počet skupin, který se ziská z gui</param>
+        /// <returns>Vrací Listy tymů v jednotlivých skupinách</returns>
+        /*private static List<List<Tuple<string, bool>>> VytvoreniSkupin(List<(string, int, bool)> tymy, int pocetSkupin)
+        {
+            tymy = tymy.OrderByDescending(t => t.Item2).ToList();
+
+            List<List<Tuple<string, bool>>> list = new List<List<Tuple<string, bool>>>();
+            for (int i = 0; i < pocetSkupin; i++)
+            {
+                List<Tuple<string, bool>> skupina = new List<Tuple<string, bool>>();
+                list.Add(skupina);
+            }
+
+            int x = 0;
+            for (int i = 0; i < tymy.Count(); i++)
+            {
+                list[x].Add(Tuple.Create(tymy[i].Item1, tymy[i].Item3));
+                x++;
+                if (x == pocetSkupin)
+                    x = 0;
+            }
+
+            return list;
+        }*/
 
         /// <summary>
         /// Výsledná metoda pro vytvoření časového rozpisu

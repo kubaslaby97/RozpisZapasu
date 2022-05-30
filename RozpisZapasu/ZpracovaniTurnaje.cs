@@ -97,22 +97,27 @@ namespace RozpisZapasu
         /// <returns>Vrací Listy tymů v jednotlivých skupinách</returns>
         private static List<List<Tuple<string, bool>>> VytvoreniSkupin(List<(string, int, bool)> tymy, int pocetSkupin)
         {
-            tymy = tymy.OrderByDescending(t => t.Item2).ToList();
-
             List<List<Tuple<string, bool>>> list = new List<List<Tuple<string, bool>>>();
             for (int i = 0; i < pocetSkupin; i++)
             {
                 List<Tuple<string, bool>> skupina = new List<Tuple<string, bool>>();
                 list.Add(skupina);
             }
-
-            int x = 0;
-            for (int i = 0; i < tymy.Count(); i++)
+            List<(string, string)> tymySkupiny = ZpracovaniPrehledu.SkupinyTymy;
+            List<string> skupiny = ZpracovaniPrehledu.VybraneSkupiny;
+            for (int i = 0; i < skupiny.Count(); i++)
             {
-                list[x].Add(Tuple.Create(tymy[i].Item1, tymy[i].Item3));
-                x++;
-                if (x == pocetSkupin)
-                    x = 0;
+                for (int y = 0; y < tymySkupiny.Count(); y++)
+                {
+                    if (tymySkupiny[y].Item2 == skupiny[i])
+                    {
+                        for (int a = 0; a < tymy.Count(); a++)
+                        {
+                            if (tymySkupiny[y].Item1 == tymy[a].Item1)
+                                list[i].Add(Tuple.Create(tymySkupiny[y].Item1, tymy[a].Item3));
+                        }
+                    }
+                }
             }
 
             return list;

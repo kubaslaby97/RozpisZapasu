@@ -124,7 +124,12 @@ namespace RozpisZapasu
 
         private void picInfo_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Optimální rozdělení turnaje je:", "Nápověda k tvorbě turnaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Optimální rozdělení turnaje je:\n"
+                + "Počet hřišť musí být vždy menší než polovina počtu týmů.\n"
+                + "Pro co nejlepší řešení je vhodné mít hřišť vždy jen čtvrtina (nebo méně) počtu týmů.\n"
+                + "Čím větší počet hřišť, tím méně budou mít týmy odpočinku mezi zápasy (a obráceně).\n"
+                + "Čím menší počet hřišť uživatel zvolí, tím lepší výsledky získá v časovém rozpisu.\n",
+            "Nápověda k tvorbě turnaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

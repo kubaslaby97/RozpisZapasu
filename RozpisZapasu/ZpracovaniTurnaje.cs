@@ -142,35 +142,6 @@ namespace RozpisZapasu
         }
 
         /// <summary>
-        /// Metoda vytvoří Listy pro jednotlivé skupiny.
-        /// </summary>
-        /// <param name="tymy">vstupní seznam týmů</param>
-        /// <param name="pocetSkupin">počet skupin, který se ziská z gui</param>
-        /// <returns>Vrací Listy tymů v jednotlivých skupinách</returns>
-        /*private static List<List<Tuple<string, bool>>> VytvoreniSkupin(List<(string, int, bool)> tymy, int pocetSkupin)
-        {
-            tymy = tymy.OrderByDescending(t => t.Item2).ToList();
-
-            List<List<Tuple<string, bool>>> list = new List<List<Tuple<string, bool>>>();
-            for (int i = 0; i < pocetSkupin; i++)
-            {
-                List<Tuple<string, bool>> skupina = new List<Tuple<string, bool>>();
-                list.Add(skupina);
-            }
-
-            int x = 0;
-            for (int i = 0; i < tymy.Count(); i++)
-            {
-                list[x].Add(Tuple.Create(tymy[i].Item1, tymy[i].Item3));
-                x++;
-                if (x == pocetSkupin)
-                    x = 0;
-            }
-
-            return list;
-        }*/
-
-        /// <summary>
         /// Výsledná metoda pro vytvoření časového rozpisu
         /// </summary>
         /// <param name="list">Vstupuje do ní List skupin a počet hřišť</param>

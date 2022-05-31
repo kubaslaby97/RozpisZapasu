@@ -27,10 +27,16 @@ namespace RozpisZapasu
             ZpracovaniPrehledu.SkupinyTymy = new List<(string, string)>();
 
             //naplnění týmů
-            NaplneniTymu();
+            for (int i = 0; i < tymy.Count; i++)
+            {
+                clbTymy.Items.Add(tymy[i].Item1);
+            }
 
             //naplnění skupin
-            NaplneniSkupin();
+            for (int i = 0; i < skupiny.Count; i++)
+            {
+                cmbSkupina.Items.Add(skupiny[i]);
+            }
 
             //nastavení textu
             cmbSkupina.Text = skupiny[0];
@@ -44,26 +50,19 @@ namespace RozpisZapasu
             }
             else
             {
-                for (int i = 0; i < clbTymy.Items.Count; i++)
+                for (int i = clbTymy.Items.Count - 1; i >= 0; i--)
                 {
                     if (clbTymy.GetItemChecked(i) == true)
                     {
                         //přidání skupiny včetně týmů
                         ZpracovaniPrehledu.SkupinyTymy.Add((clbTymy.Items[i].ToString(), cmbSkupina.Text));
-                        tymy.RemoveAt(i);
+                        clbTymy.Items.RemoveAt(i);
                     }
                 }
-                //naplnění týmů po odebrání použitých týmů
-                clbTymy.Items.Clear();
-                NaplneniTymu();
 
                 //informace o odebrání skupiny
                 MessageBox.Show("Skupina '" + cmbSkupina.Text + "' byla uložena", "Informace", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                skupiny.RemoveAt(cmbSkupina.SelectedIndex);
-
-                //naplnění skupin po odebrání použité skupiny
-                cmbSkupina.Items.Clear();
-                NaplneniSkupin();
+                cmbSkupina.Items.RemoveAt(cmbSkupina.SelectedIndex);
             }
         }
 
@@ -73,22 +72,6 @@ namespace RozpisZapasu
             if (clbTymy.Items.Count != 0 & cmbSkupina.Items.Count != 0)
             {
                 MessageBox.Show("Nebyly zařazeny všechny týmy do skupin", "Upozornění", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
-        }
-
-        private void NaplneniTymu()
-        {
-            for (int i = 0; i < tymy.Count; i++)
-            {
-                clbTymy.Items.Add(tymy[i].Item1);
-            }
-        }
-
-        private void NaplneniSkupin()
-        {
-            for (int i = 0; i < skupiny.Count; i++)
-            {
-                cmbSkupina.Items.Add(skupiny[i]);
             }
         }
     }

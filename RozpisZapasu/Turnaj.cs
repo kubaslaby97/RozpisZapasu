@@ -91,9 +91,7 @@ namespace RozpisZapasu
                 }
                 if (helper == false)
                 {
-                    Turnaj t = new Turnaj(pocetHrist, skupiny);
-                    casRozpis.Clear();
-                    t.RozpisTurnaje();
+                    casRozpis.Add("NEPLATNÝ ZÁPAS - NEPLATNÝ ZÁPAS");
                 }
             }
             else

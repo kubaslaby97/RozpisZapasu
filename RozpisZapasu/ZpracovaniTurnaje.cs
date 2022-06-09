@@ -79,12 +79,20 @@ namespace RozpisZapasu
             int j = 0;
             for (int i = 0; i < rozpis.Count; i++)
             {
-                if (j == hriste.Count())
+                if(rozpis[i] != "NEPLATNÝ ZÁPAS - NEPLATNÝ ZÁPAS")
+                {
+                    if (j == hriste.Count())
+                    {
+                        j = 0;
+                    }
+                    list.Add((rozpis[i], hriste[j]));
+                    j++;
+                }
+                else
                 {
                     j = 0;
                 }
-                list.Add((rozpis[i], hriste[j]));
-                j++;  
+                 
             }
             return list;
         }

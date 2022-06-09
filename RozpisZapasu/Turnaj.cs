@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace RozpisZapasu
 {
@@ -105,11 +106,6 @@ namespace RozpisZapasu
         /// <returns>vrátí List stringů, který vypadá "týmA-týmB"</returns>
         public List<string> KonecTurnaje()
         {
-            /*foreach(string a in casRozpis)
-            {
-                Console.WriteLine(a);
-            }*/
-            //moznosti.Add(casRozpis);
             return casRozpis;
         }
 
@@ -191,6 +187,7 @@ namespace RozpisZapasu
             {
                 RozpisTurnaje();
             }
+            
             return moznosti;
         }
     }

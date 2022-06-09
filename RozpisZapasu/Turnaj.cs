@@ -116,12 +116,22 @@ namespace RozpisZapasu
         /// <param name="hriste">Počet volných hřišť</param>
         public void JednoKolo(int hriste)
         {
+            int hryNavic = 0;
             for (int i = 0; i < hriste; i++)
             {
                 Rozhodovac();
             }
             KonecKola();
-            if (casRozpis.Count == PocetHer())
+
+            for (int i = 0; i < casRozpis.Count(); i++)
+            {
+                if (casRozpis[i] == "NEPLATNÝ ZÁPAS - NEPLATNÝ ZÁPAS")
+                {
+                    hryNavic = hryNavic + 1;
+                }
+            }
+
+            if (casRozpis.Count >= PocetHer() + hryNavic)
             {
                 List<string> test = new List<string>(casRozpis);
                 moznosti.Add(test);
@@ -164,19 +174,13 @@ namespace RozpisZapasu
             {
                 max = max + s.PocetHer();
             }
-            double x = max / pocetHrist;
-            int fullHriste = Convert.ToInt32(Math.Floor(x));
-            int zbytekHrist = max - (fullHriste * pocetHrist);
-            for (int i = 0; i < fullHriste; i++)
+
+            for (int i = 0; i < max; i++)
             {
                 for (int y = 0; y < pocetHrist; y = y + pocetHrist)
                 {
                     JednoKolo(pocetHrist);
                 }
-            }
-            for (int t = 0; t < zbytekHrist; t++)
-            {
-                JednoKolo(zbytekHrist);
             }
             VypisTymu();
             KonecTurnaje();
@@ -187,7 +191,6 @@ namespace RozpisZapasu
             {
                 RozpisTurnaje();
             }
-            
             return moznosti;
         }
     }

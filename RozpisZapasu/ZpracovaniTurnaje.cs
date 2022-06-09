@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using System.Windows.Forms;
 
 namespace RozpisZapasu
 {
@@ -73,13 +74,13 @@ namespace RozpisZapasu
         private static List<(string, string)> HristeZapasy(List<(string, int, bool)> tymy, List<string> hriste, List<string> skupiny)
         {
             List<(string, string)> list = new List<(string, string)>();
-            List<string> rozpis = VytvoreniRozpisu(VytvoreniSkupin(tymy,skupiny.Count()), hriste.Count());
+            List<string> rozpis = VytvoreniRozpisu(VytvoreniSkupin(tymy, skupiny.Count()), hriste.Count());
 
             //rozdělení rozpisu do hřišť
             int j = 0;
             for (int i = 0; i < rozpis.Count; i++)
             {
-                if(rozpis[i] != "NEPLATNÝ ZÁPAS - NEPLATNÝ ZÁPAS")
+                if (rozpis[i] != "NEPLATNÝ ZÁPAS - NEPLATNÝ ZÁPAS")
                 {
                     if (j == hriste.Count())
                     {
@@ -90,9 +91,11 @@ namespace RozpisZapasu
                 }
                 else
                 {
+                    rozpis.RemoveAt(i);
                     j = 0;
+                    i = i - 1;
                 }
-                 
+
             }
             return list;
         }
@@ -187,7 +190,7 @@ namespace RozpisZapasu
                     {
                         for (int y = i + 1; y < skupina.Count(); y++)
                         {
-                            vystup.Add((skupina[i].Item1 +"-"+ skupina[y].Item1, nazvySkupin[index]));
+                            vystup.Add((skupina[i].Item1 + "-" + skupina[y].Item1, nazvySkupin[index]));
                         }
 
                     }
@@ -210,9 +213,9 @@ namespace RozpisZapasu
             List<List<Tuple<string, bool>>> tymy = VytvoreniSkupin(seznamTymu, nazvySkupin.Count());
 
             int y = 0;
-            foreach(List<Tuple<string, bool>> skupina in tymy)
+            foreach (List<Tuple<string, bool>> skupina in tymy)
             {
-                for(int i = 0; i < skupina.Count(); i++)
+                for (int i = 0; i < skupina.Count(); i++)
                 {
                     vystup.Add((skupina[i].Item1, nazvySkupin[y]));
                 }
